@@ -1,4 +1,4 @@
-<!doctype html>
+<!docty<!doctype html>
 <html lang="ru">
 <head>
   <meta charset="utf-8">
@@ -952,19 +952,21 @@
                 <span id="profile-name-info">Веник Веников</span>
               </div>
               <div class="profile-row">
-  <span class="profile-label">Имя</span>
-  <span id="profile-name-info">Веник Веников</span>
-</div>
-<div class="profile-row">
-  <span class="profile-label">Почта</span>
-  <span id="profile-email-info">—</span>
-</div>
-<div class="profile-row">
-  <span class="profile-label">Город</span>
-  <span id="profile-city-info">Подольск</span>
-</div>
-const profileEmailInfo = document.getElementById('profile-email-info');
-
+                <span class="profile-label">Почта</span>
+                <span id="profile-email-info">—</span>
+              </div>
+              <div class="profile-row">
+                <span class="profile-label">Город</span>
+                <span id="profile-city-info">Подольск</span>
+              </div>
+              <div class="profile-row">
+                <span class="profile-label">Класс</span>
+                <span id="profile-class-info">8Б</span>
+              </div>
+              <div class="profile-row">
+                <span class="profile-label">Любимые предметы</span>
+                <span id="profile-fav-info">Информатика, математика</span>
+              </div>
 
               <div class="profile-form">
                 <h3 style="font-size:13px;margin-bottom:6px;">Редактировать</h3>
@@ -1066,13 +1068,16 @@ const profileEmailInfo = document.getElementById('profile-email-info');
       createUserWithEmailAndPassword,
       signInWithEmailAndPassword,
       signOut
-    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"; // [web:311][web:305]
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"; /* [web:305][web:311] */
 
     const firebaseConfig = {
       apiKey: "AIzaSyAFcX2I6lfzmxwEGEpOej-SqiG6-DFWSDc",
       authDomain: "venik-fa40b.firebaseapp.com",
       projectId: "venik-fa40b",
-      appId: "1:1049573809722:web:492952ba95624b8ac01f03"
+      storageBucket: "venik-fa40b.firebasestorage.app",
+      messagingSenderId: "1049573809722",
+      appId: "1:1049573809722:web:492952ba95624b8ac01f03",
+      measurementId: "G-GMM29TBZ2K"
     };
 
     const app = initializeApp(firebaseConfig);
@@ -1115,29 +1120,6 @@ const profileEmailInfo = document.getElementById('profile-email-info');
       await signOut(auth);
       addNotification('Выход из аккаунта', 'auth-logout');
     });
-
-    onAuthStateChanged(auth, (user) => {
-  if (user) {
-    authPanel.classList.add('hidden');
-    appRoot.classList.remove('hidden');
-
-    // показываем почту в профиле
-    if (profileEmailInfo) {
-      profileEmailInfo.textContent = user.email || 'без почты';
-    }
-
-    // здесь можно в будущем грузить данные по user.uid
-  } else {
-    appRoot.classList.add('hidden');
-    authPanel.classList.remove('hidden');
-
-    if (profileEmailInfo) {
-      profileEmailInfo.textContent = '—';
-    }
-  }
-});
-
-
 
     /* ===== Тема ===== */
     const THEME_KEY = 'venik-theme';
@@ -1208,7 +1190,7 @@ const profileEmailInfo = document.getElementById('profile-email-info');
       saveNotifications();
       updateNotifUI();
     }
-    window.addNotification = addNotification; // чтобы использовать в других функциях
+    window.addNotification = addNotification;
 
     function updateNotifUI() {
       if (unreadCount > 0) {
@@ -1302,6 +1284,7 @@ const profileEmailInfo = document.getElementById('profile-email-info');
     const profileNameDisplay = document.getElementById('profile-name-display');
     const profileClassDisplay = document.getElementById('profile-class-display');
     const profileNameInfo = document.getElementById('profile-name-info');
+    const profileEmailInfo = document.getElementById('profile-email-info');
     const profileCityInfo = document.getElementById('profile-city-info');
     const profileClassInfo = document.getElementById('profile-class-info');
     const profileFavInfo = document.getElementById('profile-fav-info');
@@ -1954,6 +1937,25 @@ const profileEmailInfo = document.getElementById('profile-email-info');
       ratingHistoryDiv.appendChild(list);
     }
 
+    /* ===== Auth state → показать/скрыть сайт + почта в профиле ===== */
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        authPanel.classList.add('hidden');
+        appRoot.classList.remove('hidden');
+
+        if (profileEmailInfo) {
+          profileEmailInfo.textContent = user.email || 'без почты';
+        }
+      } else {
+        appRoot.classList.add('hidden');
+        authPanel.classList.remove('hidden');
+
+        if (profileEmailInfo) {
+          profileEmailInfo.textContent = '—';
+        }
+      }
+    });
+
     /* ===== Инициализация ===== */
     loadTheme();
     loadNotifications();
@@ -1964,3 +1966,4 @@ const profileEmailInfo = document.getElementById('profile-email-info');
   </script>
 </body>
 </html>
+
