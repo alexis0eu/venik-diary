@@ -61,5 +61,105 @@
     </button>
 
   </div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import {
+    getAuth,
+    onAuthStateChanged,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+  const firebaseConfig = {
+  apiKey: "AIzaSyAFcX2I6lfzmxwEGEpOej-SqiG6-DFWSDc",
+  authDomain: "venik-fa40b.firebaseapp.com",
+  projectId: "venik-fa40b",
+  storageBucket: "venik-fa40b.firebasestorage.app",
+  messagingSenderId: "1049573809722",
+  appId: "1:1049573809722:web:492952ba95624b8ac01f03",
+  measurementId: "G-GMM29TBZ2K"
+};
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // элементы формы
+  const authPanel = document.getElementById('auth-panel');
+  const mainApp = document.getElementById('app-root'); // оберни весь дневник в div id="app-root"
+  const emailInput = document.getElementById('auth-email');
+  const passInput = document.getElementById('auth-password');
+  const loginBtn = document.getElementById('auth-login-btn');
+  const signupBtn = document.getElementById('auth-signup-btn');
+  const logoutBtn = document.getElementById('auth-logout-btn');
+  const authError = document.getElementById('auth-error');
+
+  function showError(msg) {
+    authError.textContent = msg;
+  }
+
+  signupBtn.addEventListener('click', async () => {
+    showError('');
+    try {
+      await createUserWithEmailAndPassword(auth, emailInput.value, passInput.value);
+      addNotification('Создан новый аккаунт', 'auth-signup');
+    } catch (e) {
+      showError(e.code || 'Ошибка регистрации');
+    }
+  });
+
+  loginBtn.addEventListener('click', async () => {
+    showError('');
+    try {
+      await signInWithEmailAndPassword(auth, emailInput.value, passInput.value);
+      addNotification('Успешный вход в аккаунт', 'auth-login');
+    } catch (e) {
+      showError(e.code || 'Ошибка входа');
+    }
+  });
+
+  logoutBtn.addEventListener('click', async () => {
+    await signOut(auth);
+    addNotification('Выход из аккаунта', 'auth-logout');
+  });
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      authPanel.classList.add('hidden');
+      mainApp.classList.remove('hidden');
+      // сюда можно подставлять имя и грузить данные пользователя по user.uid
+      console.log('Logged in as', user.email);
+    } else {
+      mainApp.classList.add('hidden');
+      authPanel.classList.remove('hidden');
+    }
+  });
+</script>
+
 </body>
+<!-- Панель авторизации -->
+<div id="auth-panel" class="panel" style="max-width:360px;margin:40px auto;">
+  <h2 style="margin-bottom:8px;">Вход / Регистрация</h2>
+  <p class="panel-subtitle" style="margin-bottom:10px;">
+    Введи email и пароль. Кнопка «Регистрация» создаёт аккаунт, «Вход» логинит, «Выйти» — выход.
+  </p>
+  <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;">
+    <input id="auth-email" type="email" placeholder="Email"
+           style="padding:6px 8px;border-radius:8px;border:1px solid rgba(55,65,81,0.9);">
+    <input id="auth-password" type="password" placeholder="Пароль"
+           style="padding:6px 8px;border-radius:8px;border:1px solid rgba(55,65,81,0.9);">
+    <div style="display:flex;gap:6px;margin-top:4px;">
+      <button class="btn" id="auth-login-btn">Вход</button>
+      <button class="btn secondary" id="auth-signup-btn">Регистрация</button>
+      <button class="btn secondary" id="auth-logout-btn">Выйти</button>
+    </div>
+    <div id="auth-error" style="color:#f97373;font-size:12px;margin-top:4px;"></div>
+  </div>
+</div>
+
+<!-- Весь дневник оберни в это -->
+<div id="app-root">
+  <!-- тут твой topbar + layout + всё остальное -->
+</div>
+
 </html>
