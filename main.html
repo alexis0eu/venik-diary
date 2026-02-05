@@ -1,0 +1,1853 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>Дневник Веника</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 16px 35px rgba(15, 23, 42, 0.6);
+      --blur-strong: blur(18px);
+
+      --bg-gradient: radial-gradient(circle at top left, #0f172a 0, #020617 45%, #000000 100%);
+      --card-bg: rgba(15, 23, 42, 0.94);
+      --card-border: rgba(148, 163, 184, 0.4);
+      --accent: #6366f1;
+      --accent-soft: rgba(99, 102, 241, 0.12);
+      --accent-2: #22c55e;
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --chip-bg: rgba(15, 23, 42, 0.9);
+    }
+
+    :root[data-theme="light"] {
+      --bg-gradient: radial-gradient(circle at top left, #e5f0ff 0, #f9fafb 40%, #e5e7eb 100%);
+      --card-bg: #ffffff;
+      --card-border: #d1d5db;
+      --accent: #4f46e5;
+      --accent-soft: rgba(79, 70, 229, 0.06);
+      --accent-2: #16a34a;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --chip-bg: #f3f4f6;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    .hidden { display: none; }
+
+    /* ===== topbar ===== */
+    .topbar {
+      height: 56px;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to right, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.8));
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+    .topbar-logo {
+      background: radial-gradient(circle at top left, #22c55e, #16a34a);
+      border-radius: 10px;
+      padding: 5px 9px;
+      font-weight: 700;
+      margin-right: 14px;
+      font-size: 12px;
+      cursor: pointer;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      box-shadow: 0 10px 24px rgba(22, 163, 74, 0.45);
+    }
+    .topbar-title {
+      font-weight: 600;
+      margin-right: 24px;
+      font-size: 15px;
+    }
+    .topbar-nav {
+      display: flex;
+      gap: 10px;
+      font-size: 13px;
+    }
+    .topbar-nav-item {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--text-muted);
+      padding: 4px 9px;
+      border-radius: 999px;
+      transition: 0.16s ease;
+    }
+    .topbar-nav-item:hover,
+    .topbar-nav-item.active {
+      background: rgba(15, 23, 42, 0.96);
+      color: #e5e7eb;
+    }
+    .topbar-nav-item span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .topbar-spacer {
+      flex: 1;
+    }
+
+    .topbar-notifications {
+      position: relative;
+      margin-right: 8px;
+    }
+    .bell-btn {
+      position: relative;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      background: rgba(15,23,42,0.95);
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .bell-badge {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      min-width: 16px;
+      padding: 0 4px;
+      height: 16px;
+      border-radius: 999px;
+      background: #ef4444;
+      color: #f9fafb;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+    }
+
+    .notifications-panel {
+      position: absolute;
+      top: 40px;
+      right: 0;
+      width: 280px;
+      max-height: 320px;
+      background: var(--card-bg);
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 18px 40px rgba(15,23,42,0.7);
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      font-size: 12px;
+      z-index: 30;
+    }
+    .notifications-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .notifications-header span {
+      font-weight: 600;
+      font-size: 12px;
+    }
+    .notifications-actions {
+      display: flex;
+      gap: 4px;
+      font-size: 11px;
+    }
+    .notif-chip-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.5);
+      background: rgba(15,23,42,0.96);
+      color: var(--text-muted);
+      padding: 2px 6px;
+      cursor: pointer;
+    }
+    .notifications-list {
+      margin-top: 4px;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+    .notif-item {
+      padding: 6px 6px;
+      border-radius: 10px;
+      border: 1px solid rgba(51,65,85,0.8);
+      background: rgba(15,23,42,0.96);
+      margin-bottom: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .notif-item.new {
+      border-color: #22c55e;
+      box-shadow: 0 0 0 1px rgba(34,197,94,0.3);
+    }
+    .notif-main {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .notif-text {
+      font-size: 12px;
+    }
+    .notif-time {
+      font-size: 10px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    :root[data-theme="light"] .topbar {
+      background: linear-gradient(to right, #ffffff, #e5edff);
+      border-bottom-color: #d1d5db;
+      color: #111827;
+    }
+    :root[data-theme="light"] #theme-toggle {
+      background: #f3f4f6;
+      color: #111827;
+      border-color: #d1d5db;
+    }
+    :root[data-theme="light"] .topbar-right {
+      background: #f9fafb;
+      border-color: #d1d5db;
+    }
+    :root[data-theme="light"] .bell-btn {
+      background: #f9fafb;
+      border-color: #d1d5db;
+      color: #111827;
+    }
+    :root[data-theme="light"] .notifications-panel {
+      background: #ffffff;
+      border-color: #d1d5db;
+      box-shadow: 0 18px 40px rgba(148,163,184,0.5);
+    }
+    :root[data-theme="light"] .notif-item {
+      background: #f9fafb;
+      border-color: #e5e7eb;
+    }
+
+    .topbar-right {
+      margin-left: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 12px;
+    }
+    .avatar-small {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: #1f2937;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+    }
+    .avatar-small img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    #theme-toggle {
+      margin-left: 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.5);
+      background: rgba(15,23,42,0.9);
+      color: #e5e7eb;
+      padding: 4px 9px;
+      font-size: 11px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* ===== layout ===== */
+    .layout {
+      display: flex;
+      min-height: calc(100vh - 56px);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 14px 12px 24px;
+      gap: 14px;
+    }
+
+    .sidebar {
+      width: 210px;
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--card-border);
+      padding: 14px 10px 12px;
+      font-size: 14px;
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: var(--blur-strong);
+    }
+    .sidebar-user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: var(--radius-md);
+      transition: 0.16s ease;
+    }
+    .sidebar-user:hover { background: rgba(15, 23, 42, 0.96); }
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #020617;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .sidebar-user-name { font-weight: 600; font-size: 14px; }
+    .sidebar-section-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin: 8px 6px 4px;
+      letter-spacing: 0.08em;
+    }
+    .sidebar-item {
+      padding: 7px 8px;
+      border-radius: 9px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--text-muted);
+      transition: 0.16s ease;
+      font-size: 13px;
+    }
+    .sidebar-item:hover { background: rgba(15, 23, 42, 0.96); color: #e5e7eb; }
+    .sidebar-item.active {
+      background: var(--accent-soft);
+      border: 1px solid rgba(129, 140, 248, 0.7);
+      color: #e5e7eb;
+    }
+
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .panel {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--card-border);
+      padding: 14px 14px 16px;
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: var(--blur-strong);
+      font-size: 14px;
+    }
+
+    :root[data-theme="light"] .sidebar {
+      background: #ffffff;
+      box-shadow: 0 10px 25px rgba(148, 163, 184, 0.3);
+    }
+    :root[data-theme="light"] .panel {
+      background: #ffffff;
+      box-shadow: 0 10px 25px rgba(148, 163, 184, 0.3);
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .panel-title { font-weight: 600; font-size: 15px; }
+    .panel-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.7);
+      margin-bottom: 10px;
+      gap: 10px;
+      font-size: 13px;
+    }
+    .tab {
+      padding: 0 0 6px;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: 0.16s ease;
+    }
+    .tab.active {
+      color: var(--text-main);
+      border-color: var(--accent);
+      font-weight: 500;
+    }
+
+    .quarter-switcher, .week-switcher {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+    .quarter-btn, .week-btn {
+      font-size: 12px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: rgba(15, 23, 42, 0.98);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+    .quarter-btn.active, .week-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #e5e7eb;
+    }
+
+    .day-block {
+      margin-top: 10px;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.9);
+      padding: 8px 8px 6px;
+      border: 1px dashed rgba(75, 85, 99, 0.85);
+    }
+    .day-title {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .day-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 6px;
+      background: rgba(148, 163, 184, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
+
+    :root[data-theme="light"] .day-block {
+      background: #f9fafb;
+      border-color: #e5e7eb;
+    }
+
+    .lesson-card {
+      background: rgba(15, 23, 42, 0.98);
+      border-radius: 11px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      padding: 7px 9px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .lesson-teacher {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-right: 8px;
+      flex-shrink: 0;
+      background: #020617;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+    }
+    .lesson-teacher img { width: 100%; height: 100%; object-fit: cover; }
+    .lesson-main { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+    .lesson-subject { font-size: 13px; font-weight: 500; display:flex; align-items:center; gap:6px; }
+    .lesson-type { font-size: 11px; color: var(--text-muted); }
+    .lesson-more {
+      font-size: 14px;
+      color: rgba(148, 163, 184, 0.9);
+      cursor: pointer;
+      margin-left: 6px;
+      padding: 3px;
+      border-radius: 999px;
+    }
+
+    :root[data-theme="light"] .lesson-card {
+      background: #ffffff;
+      border-color: #e5e7eb;
+    }
+
+    .badge {
+      display:inline-block;
+      padding:2px 6px;
+      border-radius:999px;
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:0.06em;
+      color:#0b1120;
+    }
+    .badge-math { background:#fbbf24; }
+    .badge-ru   { background:#f97316; }
+    .badge-eng  { background:#38bdf8; }
+    .badge-it   { background:#22c55e; }
+    .badge-sci  { background:#a855f7; }
+    .badge-geo  { background:#2dd4bf; }
+    .badge-hist { background:#f97373; }
+    .badge-pe   { background:#4ade80; }
+    .badge-other{ background:#e5e7eb; }
+
+    .grade-form {
+      margin-top: 12px;
+      padding: 9px;
+      border-radius: 12px;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.08), rgba(15, 23, 42, 0.96));
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      font-size: 12px;
+      border: 1px solid rgba(37, 99, 235, 0.5);
+    }
+    :root[data-theme="light"] .grade-form {
+      background: #eef2ff;
+      border-color: #c7d2fe;
+    }
+    .grade-form input,
+    .grade-form select {
+      padding: 5px 7px;
+      border-radius: 8px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      font-size: 12px;
+      background: rgba(15, 23, 42, 0.96);
+      color: #e5e7eb;
+      outline: none;
+      min-width: 120px;
+    }
+
+    .btn {
+      padding: 5px 11px;
+      border-radius: var(--radius-pill);
+      border: none;
+      background: radial-gradient(circle at top left, #4f46e5, #1d4ed8);
+      color: #e5e7eb;
+      font-size: 12px;
+      cursor: pointer;
+      font-weight: 500;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.55);
+      white-space: nowrap;
+    }
+    .btn.secondary {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      box-shadow: none;
+    }
+
+    .profile-grid { display: grid; grid-template-columns: 210px 1fr; gap: 16px; }
+    .profile-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--card-border);
+      padding: 14px;
+      text-align: center;
+      box-shadow: var(--shadow-soft);
+    }
+    .profile-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 0 auto 10px;
+      background: #020617;
+      border: 2px solid rgba(129, 140, 248, 0.9);
+      box-shadow: 0 10px 26px rgba(79, 70, 229, 0.7);
+    }
+    .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-main {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--card-border);
+      padding: 14px;
+      font-size: 13px;
+      box-shadow: var(--shadow-soft);
+    }
+    .profile-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(30, 41, 59, 0.9);
+      font-size: 13px;
+    }
+    .profile-label { color: var(--text-muted); }
+    .profile-form { margin-top: 12px; padding-top: 8px; border-top: 1px solid rgba(30, 41, 59, 0.9); }
+    .profile-form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+      align-items: center;
+      font-size: 12px;
+    }
+    .profile-form input {
+      padding: 5px 7px;
+      border-radius: 8px;
+      border: 1px solid rgba(55, 65, 81, 0.95);
+      font-size: 12px;
+      min-width: 180px;
+      background: rgba(15, 23, 42, 0.96);
+      color: #e5e7eb;
+      outline: none;
+    }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 13px; }
+    th, td { border-bottom: 1px solid rgba(30, 41, 59, 0.95); padding: 6px 5px; text-align: left; }
+    th {
+      background: rgba(15, 23, 42, 0.98);
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+
+    .day-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .day-tab {
+      font-size: 12px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(55,65,81,0.9);
+      background: rgba(15,23,42,0.96);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+    .day-tab.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #e5e7eb;
+    }
+
+    :root[data-theme="light"] .day-tab {
+      background: #f3f4f6;
+      border-color: #d1d5db;
+      color: #4b5563;
+    }
+    :root[data-theme="light"] .day-tab.active {
+      background: #4f46e5;
+      border-color: #4f46e5;
+      color: #f9fafb;
+    }
+
+    .task-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 6px;
+      padding: 6px 8px;
+      border-radius: 10px;
+      background: rgba(15,23,42,0.95);
+      border: 1px solid rgba(55,65,81,0.9);
+      font-size: 13px;
+    }
+    .task-row.done {
+      opacity: 0.7;
+      text-decoration: line-through;
+      border-color: rgba(22, 163, 74, 0.9);
+    }
+    .task-row input[type="checkbox"] {
+      margin-top: 2px;
+      cursor: pointer;
+    }
+    .task-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+    :root[data-theme="light"] .task-row {
+      background: #ffffff;
+      border-color: #e5e7eb;
+    }
+
+    .tasks-filter {
+      display:flex;
+      align-items:center;
+      gap:6px;
+      font-size:12px;
+      margin-bottom:8px;
+    }
+    .tasks-filter select {
+      padding:4px 7px;
+      border-radius:999px;
+      border:1px solid rgba(55,65,81,0.9);
+      background:rgba(15,23,42,0.96);
+      color:#e5e7eb;
+      font-size:12px;
+      outline:none;
+    }
+    :root[data-theme="light"] .tasks-filter select {
+      background:#ffffff;
+      border-color:#d1d5db;
+      color:#111827;
+    }
+
+    #rating-history { margin-top: 12px; font-size: 12px; }
+
+    @media (max-width: 900px) {
+      .layout { flex-direction: column; }
+      .sidebar { width: 100%; display: flex; flex-wrap: wrap; gap: 6px; }
+      .sidebar-section-title { width: 100%; }
+      .topbar-spacer { display:none; }
+    }
+    @media (max-width: 640px) {
+      .topbar-title { display: none; }
+      .profile-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-logo" data-page="grades">школа</div>
+    <div class="topbar-title" id="topbar-title">Дневник Веника</div>
+
+    <div class="topbar-nav">
+      <div class="topbar-nav-item" data-page="schedule">Расписание</div>
+      <div class="topbar-nav-item" data-page="tasks">Задания</div>
+      <div class="topbar-nav-item active" data-page="grades">
+        Оценки <span class="dot"></span>
+      </div>
+      <div class="topbar-nav-item" data-page="rating">Рейтинг</div>
+    </div>
+
+    <div class="topbar-spacer"></div>
+
+    <!-- Колокольчик -->
+    <div class="topbar-notifications">
+      <button id="bell-btn" class="bell-btn" aria-label="Уведомления">
+        🔔
+        <span id="bell-badge" class="bell-badge hidden">0</span>
+      </button>
+      <div id="notifications-panel" class="notifications-panel hidden">
+        <div class="notifications-header">
+          <span>Уведомления</span>
+          <div class="notifications-actions">
+            <button id="notif-mark-read" class="notif-chip-btn">Прочитать всё</button>
+            <button id="notif-clear" class="notif-chip-btn">Очистить</button>
+          </div>
+        </div>
+        <div id="notifications-list" class="notifications-list"></div>
+      </div>
+    </div>
+
+    <button id="theme-toggle">
+      <span id="theme-toggle-icon">🌙</span>
+      <span id="theme-toggle-text">Тёмная</span>
+    </button>
+
+    <div class="topbar-right" data-page="profile">
+      <div class="avatar-small">
+        <img id="avatar-small-img" src="teacher.jpg" alt="profile">
+      </div>
+      <div id="topbar-name">Алексей ▾</div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-user" data-page="profile">
+        <div class="avatar">
+          <img id="sidebar-avatar-img" src="teacher.jpg" alt="profile">
+        </div>
+        <div>
+          <div class="sidebar-user-name" id="sidebar-name">Дневник Веника</div>
+          <div style="font-size:12px;color:var(--text-muted);" id="sidebar-class">8Б класс</div>
+        </div>
+      </div>
+
+      <div class="sidebar-section-title">Навигация</div>
+      <div class="sidebar-item active" data-page="grades"><span>Текущие оценки</span></div>
+      <div class="sidebar-item" data-page="schedule"><span>Расписание</span></div>
+      <div class="sidebar-item" data-page="tasks"><span>Домашка</span></div>
+      <div class="sidebar-item" data-page="rating"><span>Рейтинг</span></div>
+      <div class="sidebar-item" data-page="profile"><span>Профиль</span></div>
+    </aside>
+
+    <main class="content">
+      <!-- Оценки -->
+      <section id="page-grades" class="panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Текущие оценки</div>
+            <div class="panel-subtitle">
+              Четверть: <span id="current-quarter-label"></span>,
+              неделя: <span id="current-week-label"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <div class="tab active" data-tab="by-date">По дням</div>
+          <div class="tab" data-tab="by-subject">По предметам</div>
+        </div>
+
+        <div id="tab-by-date">
+          <div class="quarter-switcher">
+            <button class="quarter-btn active" data-quarter="1">1 четверть</button>
+            <button class="quarter-btn" data-quarter="2">2 четверть</button>
+            <button class="quarter-btn" data-quarter="3">3 четверть</button>
+            <button class="quarter-btn" data-quarter="4">4 четверть</button>
+          </div>
+
+          <div class="week-switcher">
+            <button class="week-btn active" data-week="1">1 неделя</button>
+            <button class="week-btn" data-week="2">2 неделя</button>
+            <button class="week-btn" data-week="3">3 неделя</button>
+            <button class="week-btn" data-week="4">4 неделя</button>
+          </div>
+
+          <section class="day-block" id="mon-block">
+            <div class="day-title"><span class="day-icon">Пн</span>Понедельник</div>
+          </section>
+          <section class="day-block" id="tue-block">
+            <div class="day-title"><span class="day-icon">Вт</span>Вторник</div>
+          </section>
+          <section class="day-block" id="wed-block">
+            <div class="day-title"><span class="day-icon">Ср</span>Среда</div>
+          </section>
+          <section class="day-block" id="thu-block">
+            <div class="day-title"><span class="day-icon">Чт</span>Четверг</div>
+          </section>
+          <section class="day-block" id="fri-block">
+            <div class="day-title"><span class="day-icon">Пт</span>Пятница</div>
+          </section>
+          <section class="day-block" id="sat-block">
+            <div class="day-title"><span class="day-icon">Сб</span>Суббота</div>
+          </section>
+          <section class="day-block" id="sun-block">
+            <div class="day-title"><span class="day-icon">Вс</span>Воскресенье</div>
+          </section>
+
+          <div class="grade-form">
+            <span>Добавить оценку:</span>
+            <select id="subject-input">
+              <option value="Алгебра">Алгебра</option>
+              <option value="Биология">Биология</option>
+              <option value="География">География</option>
+              <option value="Геометрия">Геометрия</option>
+              <option value="Иностранный (английский) язык">Английский</option>
+              <option value="Информатика">Информатика</option>
+              <option value="История">История</option>
+              <option value="Физика">Физика</option>
+              <option value="Химия">Химия</option>
+              <option value="Русский язык">Русский</option>
+            </select>
+
+            <select id="day-select">
+              <option value="mon">Пн</option>
+              <option value="tue">Вт</option>
+              <option value="wed">Ср</option>
+              <option value="thu">Чт</option>
+              <option value="fri">Пт</option>
+              <option value="sat">Сб</option>
+              <option value="sun">Вс</option>
+            </select>
+
+            <input id="type-input" type="text" placeholder="Тип работы">
+            <input id="mark-input" type="number" min="1" max="5" style="width:50px" placeholder="Оценка">
+            <button class="btn" id="add-grade-btn">Добавить</button>
+          </div>
+        </div>
+
+        <div id="tab-by-subject" class="hidden">
+          <p class="panel-subtitle">
+            Список оценок по предметам (для выбранной четверти и недели).
+          </p>
+          <div id="subject-list"></div>
+        </div>
+      </section>
+
+      <!-- Таблица средних -->
+      <section id="page-subjects" class="panel hidden">
+        <div class="panel-header">
+          <div class="panel-title">Средний балл по предметам</div>
+        </div>
+        <table>
+          <thead>
+          <tr>
+            <th>Предмет</th>
+            <th>Оценки</th>
+            <th>Средний</th>
+          </tr>
+          </thead>
+          <tbody id="subjects-table-body"></tbody>
+        </table>
+      </section>
+
+      <!-- Профиль -->
+      <section id="page-profile" class="panel hidden">
+        <div class="profile-grid">
+          <div class="profile-card">
+            <div class="profile-avatar">
+              <img id="profile-avatar-img" src="teacher.jpg" alt="profile">
+            </div>
+            <div style="font-weight:600;margin-bottom:4px;" id="profile-name-display">Алексей Веник</div>
+            <div style="font-size:12px;color:var(--text-muted);" id="profile-class-display">Ученик 8Б класса</div>
+          </div>
+
+          <div class="profile-main">
+            <h2 style="font-size:14px;margin-bottom:8px;">Информация</h2>
+            <div class="profile-row">
+              <span class="profile-label">Имя</span>
+              <span id="profile-name-info">Алексей Веник</span>
+            </div>
+            <div class="profile-row">
+              <span class="profile-label">Город</span>
+              <span id="profile-city-info">Подольск</span>
+            </div>
+            <div class="profile-row">
+              <span class="profile-label">Класс</span>
+              <span id="profile-class-info">8Б</span>
+            </div>
+            <div class="profile-row">
+              <span class="profile-label">Любимые предметы</span>
+              <span id="profile-fav-info">Информатика, математика</span>
+            </div>
+
+            <div class="profile-form">
+              <h3 style="font-size:13px;margin-bottom:6px;">Редактировать</h3>
+              <div class="profile-form-row">
+                <span style="width:110px;">URL аватарки:</span>
+                <input id="profile-avatar-input" type="text" placeholder="Ссылка на картинку">
+              </div>
+              <div class="profile-form-row">
+                <span style="width:110px;">Имя:</span>
+                <input id="profile-name-input" type="text" placeholder="Имя и фамилия">
+              </div>
+              <div class="profile-form-row">
+                <span style="width:110px;">Город:</span>
+                <input id="profile-city-input" type="text" placeholder="Город">
+              </div>
+              <div class="profile-form-row">
+                <span style="width:110px;">Класс:</span>
+                <input id="profile-class-input" type="text" placeholder="8Б">
+              </div>
+              <div class="profile-form-row">
+                <span style="width:110px;">Любимые предметы:</span>
+                <input id="profile-fav-input" type="text" placeholder="Через запятую">
+              </div>
+              <button class="btn" id="profile-save-btn">Сохранить</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Расписание -->
+      <section id="page-schedule" class="panel hidden">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Расписание</div>
+            <div class="panel-subtitle">Выбери день сверху, чтобы не листать огромный список.</div>
+          </div>
+        </div>
+
+        <div class="day-tabs" id="schedule-day-tabs"></div>
+        <div id="schedule-container"></div>
+      </section>
+
+      <!-- Домашка -->
+      <section id="page-tasks" class="panel hidden">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Домашние задания</div>
+            <div class="panel-subtitle">
+              Сделал ДЗ — поставь галочку, можно фильтровать по статусу.
+            </div>
+          </div>
+        </div>
+
+        <div class="tasks-filter">
+          <span>Показать:</span>
+          <select id="tasks-filter-select">
+            <option value="all">Все</option>
+            <option value="done">Только выполненные</option>
+            <option value="todo">Только невыполненные</option>
+          </select>
+        </div>
+
+        <div class="day-tabs" id="tasks-day-tabs"></div>
+        <div id="tasks-container"></div>
+      </section>
+
+      <!-- Рейтинг -->
+      <section id="page-rating" class="panel hidden">
+        <div class="panel-header">
+          <div class="panel-title">Рейтинг класса</div>
+          <button class="btn secondary" id="rating-refresh-btn">Обновить</button>
+        </div>
+        <p class="panel-subtitle">
+          Считается по оценкам выбранной четверти и недели.
+        </p>
+        <table>
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Ученик</th>
+            <th>Средний балл</th>
+          </tr>
+          </thead>
+          <tbody id="rating-table-body"></tbody>
+        </table>
+        <div id="rating-history"></div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    /* ===== Тема ===== */
+    const THEME_KEY = 'venik-theme';
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeToggleIcon = document.getElementById('theme-toggle-icon');
+    const themeToggleText = document.getElementById('theme-toggle-text');
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      if (theme === 'light') {
+        themeToggleIcon.textContent = '☀️';
+        themeToggleText.textContent = 'Светлая';
+      } else {
+        themeToggleIcon.textContent = '🌙';
+        themeToggleText.textContent = 'Тёмная';
+      }
+    }
+    function loadTheme() {
+      const saved = localStorage.getItem(THEME_KEY);
+      const theme = saved === 'light' || saved === 'dark' ? saved : 'dark';
+      applyTheme(theme);
+    }
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      localStorage.setItem(THEME_KEY, next);
+    }
+    themeToggleBtn.addEventListener('click', toggleTheme);
+
+    /* ===== Уведомления ===== */
+    const NOTIF_KEY = 'venik-notifications';
+    let notifications = [];
+    let unreadCount = 0;
+
+    const bellBtn = document.getElementById('bell-btn');
+    const bellBadge = document.getElementById('bell-badge');
+    const notifPanel = document.getElementById('notifications-panel');
+    const notifList = document.getElementById('notifications-list');
+    const notifMarkReadBtn = document.getElementById('notif-mark-read');
+    const notifClearBtn = document.getElementById('notif-clear');
+
+    function loadNotifications() {
+      const raw = localStorage.getItem(NOTIF_KEY);
+      notifications = raw ? JSON.parse(raw) : [];
+      unreadCount = notifications.filter(n => !n.read).length;
+      updateNotifUI();
+    }
+    function saveNotifications() {
+      localStorage.setItem(NOTIF_KEY, JSON.stringify(notifications));
+    }
+    function formatTime(date) {
+      const d = new Date(date);
+      const hh = String(d.getHours()).padStart(2,'0');
+      const mm = String(d.getMinutes()).padStart(2,'0');
+      return hh + ':' + mm;
+    }
+    function addNotification(text, type) {
+      const newNotif = {
+        id: Date.now().toString() + Math.random().toString(16).slice(2),
+        text,
+        type,
+        createdAt: new Date().toISOString(),
+        read: false
+      };
+      notifications.unshift(newNotif);
+      unreadCount++;
+      saveNotifications();
+      updateNotifUI();
+    }
+    function updateNotifUI() {
+      // бейдж
+      if (unreadCount > 0) {
+        bellBadge.classList.remove('hidden');
+        bellBadge.textContent = unreadCount > 9 ? '9+' : unreadCount;
+      } else {
+        bellBadge.classList.add('hidden');
+      }
+
+      // список
+      notifList.innerHTML = '';
+      if (!notifications.length) {
+        const p = document.createElement('p');
+        p.style.fontSize = '12px';
+        p.style.color = 'var(--text-muted)';
+        p.textContent = 'Пока изменений нет.';
+        notifList.appendChild(p);
+        return;
+      }
+      notifications.forEach(n => {
+        const item = document.createElement('div');
+        item.className = 'notif-item' + (n.read ? '' : ' new');
+        const main = document.createElement('div');
+        main.className = 'notif-main';
+        const txt = document.createElement('div');
+        txt.className = 'notif-text';
+        txt.textContent = n.text;
+        const time = document.createElement('div');
+        time.className = 'notif-time';
+        time.textContent = formatTime(n.createdAt);
+        main.appendChild(txt);
+        main.appendChild(time);
+        item.appendChild(main);
+        notifList.appendChild(item);
+      });
+    }
+
+    bellBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      notifPanel.classList.toggle('hidden'); // нормальный toggle [web:268]
+    });
+
+    notifMarkReadBtn.addEventListener('click', () => {
+      notifications.forEach(n => n.read = true);
+      unreadCount = 0;
+      saveNotifications();
+      updateNotifUI();
+    });
+
+    notifClearBtn.addEventListener('click', () => {
+      notifications = [];
+      unreadCount = 0;
+      saveNotifications();
+      updateNotifUI();
+    });
+
+    // клик вне панели – закрыть
+    document.addEventListener('click', (e) => {
+      if (!notifPanel.contains(e.target) && !bellBtn.contains(e.target)) {
+        notifPanel.classList.add('hidden');
+      }
+    });
+
+    /* ===== Профиль ===== */
+    const PROFILE_KEY = 'venik-profile';
+    let profile = {
+      avatarUrl: '',
+      name: 'Алексей Веник',
+      city: 'Подольск',
+      className: '8Б',
+      favSubjects: 'Информатика, математика'
+    };
+    function loadProfile() {
+      const raw = localStorage.getItem(PROFILE_KEY);
+      if (raw) {
+        try { profile = Object.assign(profile, JSON.parse(raw)); } catch(e){}
+      }
+    }
+    function saveProfile() {
+      localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+    }
+    loadProfile();
+
+    const avatarSmallImg = document.getElementById('avatar-small-img');
+    const sidebarAvatarImg = document.getElementById('sidebar-avatar-img');
+    const profileAvatarImg = document.getElementById('profile-avatar-img');
+
+    const topbarTitle = document.getElementById('topbar-title');
+    const topbarName = document.getElementById('topbar-name');
+    const sidebarName = document.getElementById('sidebar-name');
+    const sidebarClass = document.getElementById('sidebar-class');
+
+    const profileNameDisplay = document.getElementById('profile-name-display');
+    const profileClassDisplay = document.getElementById('profile-class-display');
+    const profileNameInfo = document.getElementById('profile-name-info');
+    const profileCityInfo = document.getElementById('profile-city-info');
+    const profileClassInfo = document.getElementById('profile-class-info');
+    const profileFavInfo = document.getElementById('profile-fav-info');
+
+    const avatarInput = document.getElementById('profile-avatar-input');
+    const nameInput = document.getElementById('profile-name-input');
+    const cityInput = document.getElementById('profile-city-input');
+    const classInput = document.getElementById('profile-class-input');
+    const favInput = document.getElementById('profile-fav-input');
+    const profileSaveBtn = document.getElementById('profile-save-btn');
+
+    function applyProfileToUI() {
+      const avatar = profile.avatarUrl || 'teacher.jpg';
+      avatarSmallImg.src = avatar;
+      sidebarAvatarImg.src = avatar;
+      profileAvatarImg.src = avatar;
+
+      topbarTitle.textContent = 'Дневник Веника';
+      sidebarName.textContent = 'Дневник Веника';
+
+      topbarName.textContent = (profile.name || 'Профиль') + ' ▾';
+      sidebarClass.textContent = profile.className + ' класс';
+
+      profileNameDisplay.textContent = profile.name;
+      profileClassDisplay.textContent = `Ученик ${profile.className} класса`;
+      profileNameInfo.textContent = profile.name;
+      profileCityInfo.textContent = profile.city;
+      profileClassInfo.textContent = profile.className;
+      profileFavInfo.textContent = profile.favSubjects;
+
+      avatarInput.value = profile.avatarUrl;
+      nameInput.value = profile.name;
+      cityInput.value = profile.city;
+      classInput.value = profile.className;
+      favInput.value = profile.favSubjects;
+    }
+    applyProfileToUI();
+
+    profileSaveBtn.addEventListener('click', () => {
+      profile.avatarUrl = avatarInput.value.trim();
+      profile.name = nameInput.value.trim() || 'Без имени';
+      profile.city = cityInput.value.trim() || 'Город';
+      profile.className = classInput.value.trim() || 'Класс';
+      profile.favSubjects = favInput.value.trim() || 'Нет';
+      saveProfile();
+      applyProfileToUI();
+      renderAllByDate();
+      addNotification('Профиль обновлён', 'profile');
+      alert('Профиль сохранён');
+    });
+
+    /* ===== Страницы ===== */
+    const pageSections = document.querySelectorAll('[id^="page-"]');
+    const sidebarItems = document.querySelectorAll('.sidebar-item');
+    const topbarNavItems = document.querySelectorAll('.topbar-nav-item');
+
+    function showPage(pageName) {
+      pageSections.forEach(sec => {
+        sec.classList.toggle('hidden', sec.id !== 'page-' + pageName);
+      });
+      sidebarItems.forEach(i => i.classList.toggle('active', i.dataset.page === pageName));
+      topbarNavItems.forEach(i => i.classList.toggle('active', i.dataset.page === pageName));
+
+      if (pageName === 'schedule') renderSchedule();
+      if (pageName === 'tasks') renderTasksForDay(currentTasksDay);
+      if (pageName === 'rating') { renderRating(); renderRatingHistory(); }
+      if (pageName === 'subjects') renderSubjectsTable();
+    }
+    document.querySelectorAll('[data-page]').forEach(el => {
+      el.addEventListener('click', () => {
+        const page = el.dataset.page;
+        if (page) showPage(page);
+      });
+    });
+
+    /* ===== Вкладки оценок ===== */
+    const tabs = document.querySelectorAll('.tab');
+    const tabByDate = document.getElementById('tab-by-date');
+    const tabBySubject = document.getElementById('tab-by-subject');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        if (tab.dataset.tab === 'by-date') {
+          tabByDate.classList.remove('hidden');
+          tabBySubject.classList.add('hidden');
+        } else {
+          tabByDate.classList.add('hidden');
+          tabBySubject.classList.remove('hidden');
+          renderSubjectList();
+        }
+      });
+    });
+
+    /* ===== Четверти и недели ===== */
+    const GRADES_PREFIX = 'venik-grades-q';
+    let currentQuarter = 1;
+    let currentWeek = 1;
+    let grades = [];
+
+    const quarterBtns = document.querySelectorAll('.quarter-btn');
+    const weekBtns = document.querySelectorAll('.week-btn');
+    const currentQuarterLabel = document.getElementById('current-quarter-label');
+    const currentWeekLabel = document.getElementById('current-week-label');
+
+    function storageKeyFor(quarter, week) {
+      return `${GRADES_PREFIX}${quarter}-w${week}`;
+    }
+    function loadGrades() {
+      const raw = localStorage.getItem(storageKeyFor(currentQuarter, currentWeek));
+      grades = raw ? JSON.parse(raw) : [];
+    }
+    function saveGrades() {
+      localStorage.setItem(storageKeyFor(currentQuarter, currentWeek), JSON.stringify(grades));
+    }
+
+    function switchQuarter(q) {
+      currentQuarter = q;
+      quarterBtns.forEach(b => b.classList.toggle('active', Number(b.dataset.quarter) === q));
+      currentQuarterLabel.textContent = q + ' четверть';
+      switchWeek(1);
+    }
+    function switchWeek(w) {
+      currentWeek = w;
+      weekBtns.forEach(b => b.classList.toggle('active', Number(b.dataset.week) === w));
+      currentWeekLabel.textContent = w + ' неделя';
+      loadGrades();
+      renderAllByDate();
+      renderSubjectsTable();
+      renderSubjectList();
+      renderRating();
+      renderRatingHistory();
+    }
+    quarterBtns.forEach(btn => btn.addEventListener('click', () => switchQuarter(Number(btn.dataset.quarter))));
+    weekBtns.forEach(btn => btn.addEventListener('click', () => switchWeek(Number(btn.dataset.week))));
+
+    /* ===== Дни недели для оценок ===== */
+    const dayBlocksMap = {
+      mon: document.getElementById('mon-block'),
+      tue: document.getElementById('tue-block'),
+      wed: document.getElementById('wed-block'),
+      thu: document.getElementById('thu-block'),
+      fri: document.getElementById('fri-block'),
+      sat: document.getElementById('sat-block'),
+      sun: document.getElementById('sun-block'),
+    };
+    function blockByDay(day) {
+      return dayBlocksMap[day] || dayBlocksMap.mon;
+    }
+    function clearDayBlocks() {
+      Object.values(dayBlocksMap).forEach(block => {
+        block.querySelectorAll('.lesson-card').forEach(c => c.remove());
+      });
+    }
+
+    function subjectBadgeClass(subject) {
+      if (/алгебра|геометрия|статистик/i.test(subject)) return 'badge-math';
+      if (/русский/i.test(subject)) return 'badge-ru';
+      if (/англий/i.test(subject)) return 'badge-eng';
+      if (/информат|интеллект/i.test(subject)) return 'badge-it';
+      if (/физика|химия|биолог/i.test(subject)) return 'badge-sci';
+      if (/географ/i.test(subject)) return 'badge-geo';
+      if (/истор|обще/i.test(subject)) return 'badge-hist';
+      if (/физическ/i.test(subject)) return 'badge-pe';
+      return 'badge-other';
+    }
+
+    /* ===== Оценки: карточки ===== */
+    function createLessonCard(grade) {
+      const card = document.createElement('article');
+      card.className = 'lesson-card';
+      card.dataset.id = grade.id;
+      const badgeClass = subjectBadgeClass(grade.subject);
+      card.innerHTML = `
+        <div class="lesson-teacher">
+          <img src="${profile.avatarUrl || 'teacher.jpg'}" alt="teacher">
+        </div>
+        <div class="lesson-main">
+          <div class="lesson-subject">
+            <span>${grade.subject} — ${grade.mark}</span>
+            <span class="badge ${badgeClass}">оценка</span>
+          </div>
+          <div class="lesson-type">${grade.type}</div>
+        </div>
+        <div class="lesson-more" title="Удалить">✕</div>
+      `;
+      card.querySelector('.lesson-more').addEventListener('click', () => {
+        grades = grades.filter(g => g.id !== grade.id);
+        saveGrades();
+        card.remove();
+        renderSubjectsTable();
+        renderSubjectList();
+        renderRating();
+        saveRatingHistoryEntry();
+        addNotification(`Удалена оценка ${grade.mark} по предмету ${grade.subject}`, 'grade-delete');
+      });
+      return card;
+    }
+    function renderAllByDate() {
+      clearDayBlocks();
+      grades.forEach(g => {
+        const block = blockByDay(g.day);
+        block.appendChild(createLessonCard(g));
+      });
+    }
+
+    /* ===== Добавление оценки ===== */
+    const subjectSelect = document.getElementById('subject-input');
+    const typeInput = document.getElementById('type-input');
+    const daySelect = document.getElementById('day-select');
+    const markInput = document.getElementById('mark-input');
+    const addBtn = document.getElementById('add-grade-btn');
+
+    addBtn.addEventListener('click', () => {
+      const subject = subjectSelect.value;
+      const type = typeInput.value.trim();
+      const mark = Number(markInput.value) || 0;
+      const day = daySelect.value;
+      if (!mark || mark < 1 || mark > 5) {
+        alert('Введи оценку от 1 до 5');
+        return;
+      }
+      const newGrade = {
+        id: Date.now().toString() + '-' + Math.random().toString(16).slice(2),
+        subject,
+        type: type || 'Работа',
+        mark,
+        day,
+        quarter: currentQuarter,
+        week: currentWeek
+      };
+      grades.push(newGrade);
+      saveGrades();
+      blockByDay(day).appendChild(createLessonCard(newGrade));
+      markInput.value = '';
+      typeInput.value = '';
+      renderSubjectsTable();
+      renderSubjectList();
+      renderRating();
+      saveRatingHistoryEntry();
+      addNotification(`Добавлена оценка ${newGrade.mark} по предмету ${newGrade.subject}`, 'grade-add');
+    });
+
+    /* ===== Средние и списки предметов ===== */
+    const subjectsTableBody = document.getElementById('subjects-table-body');
+    const subjectListDiv = document.getElementById('subject-list');
+
+    function calcAverage(arr) {
+      if (!arr.length) return 0;
+      const sum = arr.reduce((a, b) => a + b, 0);
+      return sum / arr.length;
+    }
+    function groupBySubject() {
+      const map = {};
+      grades.forEach(g => {
+        if (!map[g.subject]) map[g.subject] = [];
+        map[g.subject].push(g.mark);
+      });
+      return map;
+    }
+    function renderSubjectsTable() {
+      const groups = groupBySubject();
+      subjectsTableBody.innerHTML = '';
+      Object.keys(groups).forEach(subj => {
+        const marks = groups[subj];
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${subj}</td>
+          <td>${marks.join(', ')}</td>
+          <td>${calcAverage(marks).toFixed(2)}</td>
+        `;
+        subjectsTableBody.appendChild(tr);
+      });
+    }
+    function renderSubjectList() {
+      const groups = groupBySubject();
+      subjectListDiv.innerHTML = '';
+      const keys = Object.keys(groups);
+      if (!keys.length) {
+        subjectListDiv.textContent = 'Пока нет оценок для этой четверти и недели.';
+        return;
+      }
+      keys.forEach(subj => {
+        const marks = groups[subj];
+        const p = document.createElement('p');
+        p.textContent = `${subj}: ${marks.join(', ')} (ср. ${calcAverage(marks).toFixed(2)})`;
+        subjectListDiv.appendChild(p);
+      });
+    }
+    function getMyAverage() {
+      const marks = grades.map(g => g.mark).filter(m => m > 0);
+      return calcAverage(marks) || 0;
+    }
+
+    /* ===== Расписание и ДЗ ===== */
+    const SCHEDULE = {
+      'Пн': [
+        { id: 'mon-1', num: 1, time: '08:30 - 09:00', subject: 'Разговоры о важном', room: 'ДБ / корпус 1' },
+        { id: 'mon-2', num: 2, time: '09:10 - 09:55', subject: 'Русский язык', room: 'каб. 28' },
+        { id: 'mon-3', num: 3, time: '10:05 - 10:50', subject: 'Русский язык', room: 'каб. 28' },
+        { id: 'mon-4', num: 4, time: '11:05 - 11:50', subject: 'Геометрия', room: 'каб. 38' },
+        { id: 'mon-5', num: 5, time: '—', subject: 'Геометрия', room: 'каб. 59' },
+        { id: 'mon-6', num: 6, time: '13:00 - 13:45', subject: 'Иностранный (английский) язык', room: 'каб. 27' },
+        { id: 'mon-7', num: 7, time: '14:00 - 14:40', subject: 'Искусственный интеллект', room: 'каб. 48' }
+      ],
+      'Вт': [
+        { id: 'tue-1', num: 1, time: '08:30 - 09:15', subject: 'География', room: 'каб. 38' },
+        { id: 'tue-2', num: 2, time: '09:25 - 10:10', subject: 'Алгебра', room: 'каб. 38' },
+        { id: 'tue-3', num: 3, time: '10:20 - 11:05', subject: 'Вероятность и статистика', room: 'каб. 53' },
+        { id: 'tue-4', num: 4, time: '11:20 - 12:05', subject: 'Химия', room: 'каб. 49' },
+        { id: 'tue-5', num: 5, time: '12:15 - 13:00', subject: 'История', room: 'каб. 32' },
+        { id: 'tue-6', num: 6, time: '13:15 - 13:55', subject: 'Физика', room: 'каб. 49' }
+      ],
+      'Ср': [
+        { id: 'wed-1', num: 1, time: '08:30 - 09:15', subject: 'Биология', room: 'каб. 55' },
+        { id: 'wed-2', num: 2, time: '09:25 - 10:10', subject: 'Биология', room: 'каб. 28' },
+        { id: 'wed-3', num: 3, time: '10:20 - 11:05', subject: 'Русский язык', room: 'каб. 59' },
+        { id: 'wed-4', num: 4, time: '11:20 - 12:05', subject: 'Иностранный (английский) язык', room: 'каб. 38' },
+        { id: 'wed-5', num: 5, time: '12:15 - 13:00', subject: 'Алгебра', room: 'каб. 38' }
+      ],
+      'Чт': [
+        { id: 'thu-1', num: 1, time: '08:30 - 09:00', subject: 'РОССИЯ — МОИ ГОРИЗОНТЫ', room: 'ДБ / внеурочная' },
+        { id: 'thu-2', num: 2, time: '09:10 - 09:55', subject: 'Химия', room: 'каб. 53' },
+        { id: 'thu-3', num: 3, time: '10:05 - 10:50', subject: 'Химия', room: 'каб. 49' },
+        { id: 'thu-4', num: 4, time: '11:05 - 11:50', subject: 'Обществознание', room: 'каб. 59' },
+        { id: 'thu-5', num: 5, time: '12:00 - 12:45', subject: 'Иностранный (английский) язык', room: 'каб. 12' }
+      ],
+      'Пт': [
+        { id: 'fri-1', num: 1, time: '08:30 - 09:15', subject: 'Физическая культура', room: 'спортзал' },
+        { id: 'fri-2', num: 2, time: '09:25 - 10:10', subject: 'Физика', room: 'каб. 12' },
+        { id: 'fri-3', num: 3, time: '10:20 - 11:05', subject: 'Музыка', room: 'каб. 32' },
+        { id: 'fri-4', num: 4, time: '11:20 - 12:05', subject: 'Труд (технология)', room: 'каб. 55' }
+      ]
+    };
+
+    const HOMEWORK_TEMPLATES = {
+      'Русский язык': [
+        'выучить правило и сделать упражнения 1–3',
+        'написать мини-сочинение (80–100 слов)'
+      ],
+      'Алгебра': [
+        'решить номера 101–105',
+        'подготовиться к контрольной, решить 5 задач'
+      ],
+      'Геометрия': [
+        'прочитать параграф и решить 3 задачи',
+        'доказать теорему из конспекта'
+      ],
+      'Физика': [
+        'сделать конспект параграфа, решить 4 задачи',
+        'решить задачи повышенной сложности'
+      ],
+      'Химия': [
+        'составить уравнения реакций, выучить формулы',
+        'решить задачи на массовую долю'
+      ],
+      'Биология': [
+        'выучить термины и заполнить таблицу',
+        'подготовить сообщение по теме'
+      ],
+      'История': [
+        'выучить даты и события параграфа',
+        'сделать план параграфа'
+      ],
+      'География': [
+        'заполнить контурную карту',
+        'ответить на вопросы в тетради'
+      ],
+      'Иностранный (английский) язык': [
+        'выучить 15 новых слов и сделать упражнения',
+        'написать письмо (80–100 слов)'
+      ],
+      'Информатика': [
+        'написать программу по образцу',
+        'решить задачи на алгоритмы'
+      ],
+      'Искусственный интеллект': [
+        'посмотреть видео по теме и записать 5 фактов',
+        'придумать идею проекта с ИИ'
+      ],
+      'Обществознание': [
+        'ответить письменно на вопросы параграфа',
+        'подготовить примеры к понятиям'
+      ],
+      'Физическая культура': [
+        'выполнить дома комплекс упражнений',
+        'подготовить сообщение о виде спорта'
+      ],
+      'Труд (технология)': [
+        'закончить практическую работу',
+        'подготовить материалы для следующего занятия'
+      ],
+      'Музыка': [
+        'послушать произведение и написать отзыв',
+        'выучить текст песни'
+      ]
+    };
+
+    function getRandomHomework(subject) {
+      const list = HOMEWORK_TEMPLATES[subject];
+      if (!list || !list.length) return 'Повторить материал урока.';
+      const i = Math.floor(Math.random() * list.length);
+      return list[i];
+    }
+
+    /* ===== Расписание: переключение по дням ===== */
+    const scheduleDayTabs = document.getElementById('schedule-day-tabs');
+    const scheduleContainer = document.getElementById('schedule-container');
+    const dayKeys = Object.keys(SCHEDULE);
+    let currentScheduleDay = dayKeys[0];
+
+    function renderScheduleTabs() {
+      scheduleDayTabs.innerHTML = '';
+      dayKeys.forEach(dayName => {
+        const btn = document.createElement('button');
+        btn.className = 'day-tab' + (dayName === currentScheduleDay ? ' active' : '');
+        btn.textContent = dayName;
+        btn.addEventListener('click', () => {
+          currentScheduleDay = dayName;
+          renderSchedule();
+        });
+        scheduleDayTabs.appendChild(btn);
+      });
+    }
+
+    function renderSchedule() {
+      renderScheduleTabs();
+      scheduleContainer.innerHTML = '';
+      const block = document.createElement('div');
+      block.className = 'day-block';
+      const title = document.createElement('div');
+      title.className = 'day-title';
+      title.innerHTML = `<span class="day-icon">${currentScheduleDay}</span>${currentScheduleDay} расписание`;
+      block.appendChild(title);
+
+      SCHEDULE[currentScheduleDay].forEach(lesson => {
+        const card = document.createElement('div');
+        card.className = 'lesson-card';
+
+        const avatar = document.createElement('div');
+        avatar.className = 'lesson-teacher';
+        avatar.innerHTML = `<img src="${profile.avatarUrl || 'teacher.jpg'}" alt="teacher">`;
+
+        const main = document.createElement('div');
+        main.className = 'lesson-main';
+        const badgeClass = subjectBadgeClass(lesson.subject);
+        const line1 = document.createElement('div');
+        line1.className = 'lesson-subject';
+        line1.innerHTML = `<span>${lesson.num} урок · ${lesson.subject}</span><span class="badge ${badgeClass}">урок</span>`;
+        const line2 = document.createElement('div');
+        line2.className = 'lesson-type';
+        line2.textContent = `${lesson.time}${lesson.room ? ' · ' + lesson.room : ''}`;
+        main.appendChild(line1);
+        main.appendChild(line2);
+
+        card.appendChild(avatar);
+        card.appendChild(main);
+        block.appendChild(card);
+      });
+
+      scheduleContainer.appendChild(block);
+    }
+
+    /* ===== Домашка: чекбоксы + фильтр + localStorage ===== */
+    const TASKS_DONE_KEY = 'venik-tasks-done';
+    let tasksDone = {};
+    function loadTasksDone() {
+      const raw = localStorage.getItem(TASKS_DONE_KEY);
+      tasksDone = raw ? JSON.parse(raw) : {};
+    }
+    function saveTasksDone() {
+      localStorage.setItem(TASKS_DONE_KEY, JSON.stringify(tasksDone));
+    }
+    loadTasksDone();
+
+    const tasksDayTabs = document.getElementById('tasks-day-tabs');
+    const tasksContainer = document.getElementById('tasks-container');
+    const tasksFilterSelect = document.getElementById('tasks-filter-select');
+    let currentTasksDay = dayKeys[0];
+    let currentTasksFilter = 'all';
+
+    tasksFilterSelect.addEventListener('change', () => {
+      currentTasksFilter = tasksFilterSelect.value;
+      renderTasksForDay(currentTasksDay);
+    });
+
+    function renderTasksTabs() {
+      tasksDayTabs.innerHTML = '';
+      dayKeys.forEach(dayName => {
+        const btn = document.createElement('button');
+        btn.className = 'day-tab' + (dayName === currentTasksDay ? ' active' : '');
+        btn.textContent = dayName;
+        btn.addEventListener('click', () => {
+          currentTasksDay = dayName;
+          renderTasksForDay(currentTasksDay);
+        });
+        tasksDayTabs.appendChild(btn);
+      });
+    }
+
+    function shouldShowTask(lessonId) {
+      const done = !!tasksDone[lessonId];
+      if (currentTasksFilter === 'done') return done;
+      if (currentTasksFilter === 'todo') return !done;
+      return true;
+    }
+
+    function renderTasksForDay(dayName) {
+      renderTasksTabs();
+      tasksContainer.innerHTML = '';
+      const block = document.createElement('div');
+      block.className = 'day-block';
+      const title = document.createElement('div');
+      title.className = 'day-title';
+      title.innerHTML = `<span class="day-icon">${dayName}</span>${dayName} домашка`;
+      block.appendChild(title);
+
+      SCHEDULE[dayName].forEach(lesson => {
+        if (!shouldShowTask(lesson.id)) return;
+
+        const row = document.createElement('div');
+        row.className = 'task-row';
+        row.dataset.id = lesson.id;
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = !!tasksDone[lesson.id];
+
+        const content = document.createElement('div');
+        const line1 = document.createElement('div');
+        line1.textContent = `${lesson.subject} — ДЗ: ${getRandomHomework(lesson.subject)}`;
+        const line2 = document.createElement('div');
+        line2.className = 'task-meta';
+        line2.textContent = `${lesson.num} урок · ${lesson.time}${lesson.room ? ' · ' + lesson.room : ''}`;
+
+        content.appendChild(line1);
+        content.appendChild(line2);
+
+        if (checkbox.checked) row.classList.add('done');
+
+        checkbox.addEventListener('change', () => {
+          tasksDone[lesson.id] = checkbox.checked;
+          saveTasksDone();
+          if (checkbox.checked) {
+            row.classList.add('done');
+            addNotification(`Отмечено выполненное ДЗ по предмету ${lesson.subject}`, 'hw-done');
+          } else {
+            row.classList.remove('done');
+            addNotification(`Снят статус выполнения ДЗ по предмету ${lesson.subject}`, 'hw-undo');
+          }
+        });
+
+        row.appendChild(checkbox);
+        row.appendChild(content);
+        block.appendChild(row);
+      });
+
+      tasksContainer.appendChild(block);
+    }
+
+    /* ===== Рейтинг ===== */
+    const ratingTableBody = document.getElementById('rating-table-body');
+    const ratingRefreshBtn = document.getElementById('rating-refresh-btn');
+    const CLASSMATES = [
+      'Матвей Иванов','Денис Чернобай','Матвей Козлов',
+      'Камилла Зайнудинова','Леонид Синанни','Екатерина Новикова(Посмертно)',
+      'Тимофей Морозов','Полина Кекки','Артём Сухов','Алексей Бибиков',
+      'Тихонов Тихон','Кирилл Ефанов','Ксения Тонконогова','Артём Кухарев',
+      'Артём Васильев','Герыч','Ларин Максим','Слугин Гордей','Муханов Глеб',
+      'Арсений Борисов','Рита Баронкина','Анастасия Трохона','Ярослав Сулимов',
+      'Любовь Мхчян','Анастасия Понасуткина','Любовь Данилова','Савелий Ходыкин','Климентий'
+    ];
+    function generateRandomMark() { return (3 + Math.random() * 2).toFixed(2); }
+    function buildRatingData() {
+      const myAvg = getMyAverage();
+      const myName = profile.name || 'Ты';
+      const list = CLASSMATES.map(name => ({ name, avg: Number(generateRandomMark()) }));
+      list.push({ name: myName + ' (ты)', avg: Number(myAvg.toFixed(2)) });
+      list.sort((a, b) => b.avg - a.avg);
+      return list;
+    }
+    function renderRating() {
+      const data = buildRatingData();
+      ratingTableBody.innerHTML = '';
+      data.forEach((item, index) => {
+        const tr = document.createElement('tr');
+        const isMe = item.name.includes('(ты)');
+        tr.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${item.name}</td>
+          <td>${item.avg.toFixed(2)}</td>
+        `;
+        if (isMe) {
+          tr.style.fontWeight = '600';
+          tr.style.background = 'rgba(30, 64, 175, 0.4)';
+        }
+        ratingTableBody.appendChild(tr);
+      });
+      saveRatingHistoryEntry(data);
+    }
+    ratingRefreshBtn.addEventListener('click', () => {
+      renderRating();
+      addNotification('Рейтинг класса обновлён', 'rating');
+    });
+
+    /* ===== История рейтинга ===== */
+    const RATING_HISTORY_KEY = 'venik-rating-history';
+    const ratingHistoryDiv = document.getElementById('rating-history');
+    function loadRatingHistory() {
+      const raw = localStorage.getItem(RATING_HISTORY_KEY);
+      return raw ? JSON.parse(raw) : [];
+    }
+    function saveRatingHistory(history) {
+      localStorage.setItem(RATING_HISTORY_KEY, JSON.stringify(history));
+    }
+    function getTodayKey() {
+      const d = new Date();
+      return d.toISOString().slice(0, 10);
+    }
+    function saveRatingHistoryEntry(latestData) {
+      const data = latestData || buildRatingData();
+      const myName = (profile.name || 'Ты') + ' (ты)';
+      const myPos = data.findIndex(x => x.name === myName) + 1;
+      const myAvg = getMyAverage().toFixed(2);
+      const history = loadRatingHistory();
+      const today = getTodayKey();
+      const key = `${today}-q${currentQuarter}-w${currentWeek}`;
+      const existing = history.find(h => h.key === key);
+      if (existing) {
+        existing.position = myPos;
+        existing.avg = myAvg;
+      } else {
+        history.push({ key, date: today, quarter: currentQuarter, week: currentWeek, position: myPos, avg: myAvg });
+      }
+      saveRatingHistory(history);
+    }
+    function renderRatingHistory() {
+      const history = loadRatingHistory().filter(h => h.quarter === currentQuarter && h.week === currentWeek);
+      ratingHistoryDiv.innerHTML = '<h4 style="margin-bottom:4px;">История рейтинга (эта четверть и неделя)</h4>';
+      if (!history.length) {
+        ratingHistoryDiv.innerHTML += '<p>История пока пустая.</p>';
+        return;
+      }
+      const list = document.createElement('ul');
+      history.sort((a, b) => a.date.localeCompare(b.date)).forEach(h => {
+        const li = document.createElement('li');
+        li.textContent = `${h.date}: место ${h.position}, ср. балл ${h.avg}`;
+        list.appendChild(li);
+      });
+      ratingHistoryDiv.appendChild(list);
+    }
+
+    /* ===== Инициализация ===== */
+    loadTheme();
+    loadNotifications();
+    switchQuarter(1);
+    renderSchedule();
+    renderTasksForDay(currentTasksDay);
+    showPage('grades');
+  </script>
+</body>
+</html>
