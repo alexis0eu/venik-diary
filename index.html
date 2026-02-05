@@ -952,17 +952,19 @@
                 <span id="profile-name-info">Веник Веников</span>
               </div>
               <div class="profile-row">
-                <span class="profile-label">Город</span>
-                <span id="profile-city-info">Подольск</span>
-              </div>
-              <div class="profile-row">
-                <span class="profile-label">Класс</span>
-                <span id="profile-class-info">8Б</span>
-              </div>
-              <div class="profile-row">
-                <span class="profile-label">Любимые предметы</span>
-                <span id="profile-fav-info">Информатика, математика</span>
-              </div>
+  <span class="profile-label">Имя</span>
+  <span id="profile-name-info">Веник Веников</span>
+</div>
+<div class="profile-row">
+  <span class="profile-label">Почта</span>
+  <span id="profile-email-info">—</span>
+</div>
+<div class="profile-row">
+  <span class="profile-label">Город</span>
+  <span id="profile-city-info">Подольск</span>
+</div>
+const profileEmailInfo = document.getElementById('profile-email-info');
+
 
               <div class="profile-form">
                 <h3 style="font-size:13px;margin-bottom:6px;">Редактировать</h3>
@@ -1115,15 +1117,27 @@
     });
 
     onAuthStateChanged(auth, (user) => {
-      if (user) {
-        authPanel.classList.add('hidden');
-        appRoot.classList.remove('hidden');
-        // здесь можно в будущем грузить данные по user.uid
-      } else {
-        appRoot.classList.add('hidden');
-        authPanel.classList.remove('hidden');
-      }
-    });
+  if (user) {
+    authPanel.classList.add('hidden');
+    appRoot.classList.remove('hidden');
+
+    // показываем почту в профиле
+    if (profileEmailInfo) {
+      profileEmailInfo.textContent = user.email || 'без почты';
+    }
+
+    // здесь можно в будущем грузить данные по user.uid
+  } else {
+    appRoot.classList.add('hidden');
+    authPanel.classList.remove('hidden');
+
+    if (profileEmailInfo) {
+      profileEmailInfo.textContent = '—';
+    }
+  }
+});
+
+
 
     /* ===== Тема ===== */
     const THEME_KEY = 'venik-theme';
