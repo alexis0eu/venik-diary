@@ -1087,7 +1087,7 @@
       limit,
       deleteDoc,
       collectionGroup
-    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; /* [web:444][web:446] */
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; /* [web:444] */
 
     const firebaseConfig = {
       apiKey: "AIzaSyAFcX2I6lfzmxwEGEpOej-SqiG6-DFWSDc",
@@ -1303,11 +1303,17 @@
     const favInput = document.getElementById('profile-fav-input');
     const profileSaveBtn = document.getElementById('profile-save-btn');
 
+    let viewedProfileUid = null; // null = свой профиль
+
     function applyProfileToUI() {
+      const isOwn = !viewedProfileUid || !currentUser || viewedProfileUid === currentUser.uid;
+
       const avatar = profile.avatarUrl || 'teacher.jpg';
       avatarSmallImg.src = avatar;
       sidebarAvatarImg.src = avatar;
-      profileAvatarImg.src = avatar;
+      if (isOwn) {
+        profileAvatarImg.src = avatar;
+      }
 
       topbarTitle.textContent = 'Дневник Веника';
       sidebarName.textContent = 'Дневник Веника';
@@ -1315,18 +1321,26 @@
       topbarName.textContent = (profile.name || 'Профиль') + ' ▾';
       sidebarClass.textContent = profile.className + ' класс';
 
-      profileNameDisplay.textContent = profile.name;
-      profileClassDisplay.textContent = `Ученик ${profile.className} класса`;
-      profileNameInfo.textContent = profile.name;
-      profileCityInfo.textContent = profile.city;
-      profileClassInfo.textContent = profile.className;
-      profileFavInfo.textContent = profile.favSubjects;
+      if (isOwn) {
+        profileNameDisplay.textContent = profile.name;
+        profileClassDisplay.textContent = `Ученик ${profile.className} класса`;
+        profileNameInfo.textContent = profile.name;
+        profileCityInfo.textContent = profile.city;
+        profileClassInfo.textContent = profile.className;
+        profileFavInfo.textContent = profile.favSubjects;
+        profileEmailInfo.textContent = currentUser ? (currentUser.email || 'без почты') : '—';
+      }
 
       avatarInput.value = profile.avatarUrl;
       nameInput.value = profile.name;
       cityInput.value = profile.city;
       classInput.value = profile.className;
       favInput.value = profile.favSubjects;
+
+      const profileForm = document.querySelector('.profile-form');
+      if (profileForm) {
+        profileForm.style.display = isOwn ? 'block' : 'none';
+      }
     }
 
     async function loadUserQuarterDoc(uid, quarter) {
@@ -1354,6 +1368,23 @@
         tasksDone: data.tasksDone || tasksDone,
         ratingHistory: data.ratingHistory || [],
         avgByWeek: data.avgByWeek || {}
+      };
+    }
+
+    async function loadProfileOfUser(uid, quarter) {
+      const ref = doc(db, 'users', uid, 'quarters', 'q' + quarter);
+      const snap = await getDoc(ref);
+      if (!snap.exists()) return null;
+      const data = snap.data() || {};
+      const prof = data.profile || {};
+      return {
+        profile: {
+          avatarUrl: prof.avatarUrl || 'teacher.jpg',
+          name: prof.name || 'Ученик',
+          city: prof.city || 'Город',
+          className: prof.className || 'Класс',
+          favSubjects: prof.favSubjects || 'Информатика, математика'
+        }
       };
     }
 
@@ -1407,6 +1438,42 @@
       alert('Профиль сохранён');
     });
 
+    async function openProfileForUser(uid) {
+      if (!uid || !currentUser) return;
+
+      viewedProfileUid = uid;
+
+      const foreign = await loadProfileOfUser(uid, currentQuarter);
+      if (!foreign) {
+        alert('Профиль этого ученика ещё не заполнен.');
+        return;
+      }
+
+      const p = foreign.profile;
+
+      const avatar = p.avatarUrl || 'teacher.jpg';
+      profileAvatarImg.src = avatar;
+      profileNameDisplay.textContent = p.name;
+      profileClassDisplay.textContent = `Ученик ${p.className} класса`;
+      profileNameInfo.textContent = p.name;
+      profileCityInfo.textContent = p.city;
+      profileClassInfo.textContent = p.className;
+      profileFavInfo.textContent = p.favSubjects;
+
+      if (currentUser && uid === currentUser.uid) {
+        profileEmailInfo.textContent = currentUser.email || 'без почты';
+      } else {
+        profileEmailInfo.textContent = 'Скрыто';
+      }
+
+      const profileForm = document.querySelector('.profile-form');
+      if (profileForm) {
+        profileForm.style.display = (currentUser && uid === currentUser.uid) ? 'block' : 'none';
+      }
+
+      showPage('profile');
+    }
+
     const pageSections = document.querySelectorAll('[id^="page-"]');
     const sidebarItems = document.querySelectorAll('.sidebar-item');
     const topbarNavItems = document.querySelectorAll('.topbar-nav-item');
@@ -1424,10 +1491,18 @@
       if (pageName === 'subjects') renderSubjectsTable();
       if (pageName === 'admin') loadAdminVisits();
     }
+
     document.querySelectorAll('[data-page]').forEach(el => {
       el.addEventListener('click', () => {
         const page = el.dataset.page;
-        if (page) showPage(page);
+        if (!page) return;
+
+        if (page === 'profile') {
+          viewedProfileUid = null;
+          applyProfileToUI();
+        }
+
+        showPage(page);
       });
     });
 
@@ -1939,7 +2014,7 @@
       const result = [];
       try {
         const cg = collectionGroup(db, 'quarters');
-        const qSnap = await getDocs(cg); /* упрощённый запрос ко всем четвертям [web:444][web:446] */
+        const qSnap = await getDocs(cg); /* сбор всех четвертей [web:444] */
 
         qSnap.forEach(docSnap => {
           const data = docSnap.data();
@@ -1949,8 +2024,12 @@
 
           const prof = data.profile || {};
           const name = prof.name || 'Ученик';
+          const avatarUrl = prof.avatarUrl || 'teacher.jpg';
 
-          result.push({ name, avg });
+          const refPath = docSnap.ref.path; // users/{uid}/quarters/qN
+          const uid = refPath.split('/')[1] || null;
+
+          result.push({ uid, name, avatarUrl, avg });
         });
       } catch (e) {
         console.error('getAllUsersAverages error', e);
@@ -1963,19 +2042,31 @@
       const myName = profile.name || 'Ты';
 
       const fromCloud = await getAllUsersAverages();
+
       const classmatesMock = CLASSMATES.map(name => ({
+        uid: null,
         name,
+        avatarUrl: 'teacher.jpg',
         avg: Number(generateRandomMark())
       }));
 
       const all = [...fromCloud, ...classmatesMock];
 
-      const meIndex = all.findIndex(x => x.name === myName);
+      const meIndex = all.findIndex(x =>
+        (currentUser && x.uid === currentUser.uid) || x.name === myName
+      );
       if (meIndex >= 0) {
         all[meIndex].name = myName + ' (ты)';
+        all[meIndex].avatarUrl = profile.avatarUrl || all[meIndex].avatarUrl || 'teacher.jpg';
+        all[meIndex].uid = currentUser ? currentUser.uid : all[meIndex].uid;
         all[meIndex].avg = Number(myAvg.toFixed(2));
       } else {
-        all.push({ name: myName + ' (ты)', avg: Number(myAvg.toFixed(2)) });
+        all.push({
+          uid: currentUser ? currentUser.uid : null,
+          name: myName + ' (ты)',
+          avatarUrl: profile.avatarUrl || 'teacher.jpg',
+          avg: Number(myAvg.toFixed(2))
+        });
       }
 
       all.sort((a, b) => b.avg - a.avg);
@@ -1987,16 +2078,35 @@
       ratingTableBody.innerHTML = '';
       data.forEach((item, index) => {
         const tr = document.createElement('tr');
-        const isMe = item.name.includes('(ты)');
+        const isMe =
+          (currentUser && item.uid && item.uid === currentUser.uid) ||
+          item.name.includes('(ты)');
+
         tr.innerHTML = `
           <td>${index + 1}</td>
-          <td>${item.name}</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:6px;">
+              <div style="width:24px;height:24px;border-radius:999px;overflow:hidden;border:1px solid rgba(148,163,184,0.7);">
+                <img src="${item.avatarUrl || 'teacher.jpg'}" alt="avatar" style="width:100%;height:100%;object-fit:cover;">
+              </div>
+              <span>${item.name}</span>
+            </div>
+          </td>
           <td>${item.avg.toFixed(2)}</td>
         `;
+
         if (isMe) {
           tr.style.fontWeight = '600';
           tr.style.background = 'rgba(30, 64, 175, 0.4)';
         }
+
+        if (item.uid) {
+          tr.style.cursor = 'pointer';
+          tr.addEventListener('click', () => {
+            openProfileForUser(item.uid);
+          });
+        }
+
         ratingTableBody.appendChild(tr);
       });
       saveRatingHistoryEntry(data);
