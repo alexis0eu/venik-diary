@@ -1055,6 +1055,7 @@
                 <th>User-Agent</th>
                 <th>Язык</th>
                 <th>Экран</th>
+                <th>Действия</th>
               </tr>
             </thead>
             <tbody id="admin-visits-body"></tbody>
@@ -1083,8 +1084,9 @@
       getDocs,
       query,
       orderBy,
-      limit
-    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; /* [file:365] */
+      limit,
+      deleteDoc
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; /* [web:428][web:432] */
 
     const firebaseConfig = {
       apiKey: "AIzaSyAFcX2I6lfzmxwEGEpOej-SqiG6-DFWSDc",
@@ -2006,6 +2008,12 @@
 
     async function logVisit(user) {
       try {
+        const today = new Date();
+        const dayKey = today.toISOString().slice(0, 10); // YYYY-MM-DD
+        const uid = user ? user.uid : 'anon';
+        const docId = `${uid}-${dayKey}`;
+        const ref = doc(collection(db, 'visits'), docId);
+
         const info = {
           uid: user ? user.uid : null,
           email: user ? user.email : null,
@@ -2017,7 +2025,8 @@
           tzOffset: new Date().getTimezoneOffset(),
           visitedAt: new Date().toISOString()
         };
-        await addDoc(collection(db, 'visits'), info);
+
+        await setDoc(ref, info, { merge: true });
       } catch (e) {
         console.error('logVisit error', e);
       }
@@ -2040,16 +2049,17 @@
       }
       adminWarning.textContent = '';
 
-      const q = query(
-        collection(db, 'visits'),
-        orderBy('visitedAt', 'desc'),
-        limit(200)
+      const qSnap = await getDocs(
+        query(
+          collection(db, 'visits'),
+          orderBy('visitedAt', 'desc'),
+          limit(200)
+        )
       );
-      const snap = await getDocs(q);
 
       adminVisitsBody.innerHTML = '';
       let i = 1;
-      snap.forEach(docSnap => {
+      qSnap.forEach(docSnap => {
         const v = docSnap.data();
         const tr = document.createElement('tr');
 
@@ -2061,8 +2071,10 @@
 
         const tdUser = document.createElement('td');
         tdUser.innerHTML =
-          (v.uid || '-') + '<br><span style="font-size:11px;color:var(--text-muted);">' +
-          (v.email || 'нет почты') + '</span>';
+          (v.uid || '-') +
+          '<br><span style="font-size:11px;color:var(--text-muted);">' +
+          (v.email || 'нет почты') +
+          '</span>';
 
         const tdUA = document.createElement('td');
         tdUA.textContent = v.userAgent || '-';
@@ -2073,12 +2085,34 @@
         const tdScreen = document.createElement('td');
         tdScreen.textContent = v.screen || '-';
 
+        const tdActions = document.createElement('td');
+        const delBtn = document.createElement('button');
+        delBtn.textContent = 'Удалить';
+        delBtn.className = 'btn secondary';
+        delBtn.style.padding = '2px 8px';
+        delBtn.style.fontSize = '11px';
+
+        delBtn.addEventListener('click', async () => {
+          if (!confirm('Удалить эту запись статистики?')) return;
+          try {
+            await deleteDoc(doc(db, 'visits', docSnap.id));
+            tr.remove();
+            addNotification('Запись статистики удалена', 'visit-delete');
+          } catch (e) {
+            console.error(e);
+            alert('Ошибка при удалении записи');
+          }
+        });
+
+        tdActions.appendChild(delBtn);
+
         tr.appendChild(tdIdx);
         tr.appendChild(tdTime);
         tr.appendChild(tdUser);
         tr.appendChild(tdUA);
         tr.appendChild(tdLang);
         tr.appendChild(tdScreen);
+        tr.appendChild(tdActions);
 
         adminVisitsBody.appendChild(tr);
       });
