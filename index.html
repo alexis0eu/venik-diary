@@ -1256,23 +1256,20 @@
   getDoc
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
     /* ===== TGK баннер (одна реклама) ===== */
-    const TGK_KEY = 'tgk-banner-closed';
-    const tgkBanner = document.getElementById('tgk-banner');
+    // const TGK_KEY = 'tgk-banner-closed';
+        const tgkBanner = document.getElementById('tgk-banner');
     const tgkBannerClose = document.getElementById('tgk-banner-close');
 
     function initTgkBanner() {
-      const closed = localStorage.getItem(TGK_KEY);
-      if (closed === '1') {
-        tgkBanner.classList.add('hidden');
-      } else {
-        tgkBanner.classList.remove('hidden');
-      }
+      // всегда показываем при загрузке
+      tgkBanner.classList.remove('hidden');
     }
 
     tgkBannerClose.addEventListener('click', () => {
       tgkBanner.classList.add('hidden');
-      localStorage.setItem(TGK_KEY, '1');
+      // тут больше ничего не сохраняем
     });
+
 
 
     const firebaseConfig = {
