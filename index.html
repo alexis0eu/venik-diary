@@ -725,7 +725,64 @@
       margin: 40px auto;
     }
 
-    /* TGK баннер */
+    /* Верхний рекламный баннер */
+    .top-ad-banner {
+      width: 100%;
+      background: linear-gradient(90deg, #f97316, #ec4899);
+      color: #f9fafb;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 13px;
+      position: sticky;
+      top: 0;
+      z-index: 25;
+      box-shadow: 0 8px 20px rgba(15,23,42,0.8);
+    }
+    .top-ad-text {
+      max-width: 900px;
+      text-align: center;
+    }
+    .top-ad-strong {
+      font-weight: 600;
+    }
+    .top-ad-btn {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(15,23,42,0.9);
+      color: #f9fafb;
+      cursor: pointer;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .top-ad-close {
+      margin-left: 8px;
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(15,23,42,0.25);
+      color: #f9fafb;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    :root[data-theme="light"] .top-ad-banner {
+      background: linear-gradient(90deg, #fed7aa, #f9a8d4);
+      color: #111827;
+    }
+    :root[data-theme="light"] .top-ad-btn {
+      background: #111827;
+      color: #f9fafb;
+    }
+    :root[data-theme="light"] .top-ad-close {
+      background: rgba(15,23,42,0.08);
+      color: #111827;
+    }
+
+    /* TGK баннер снизу */
     .tgk-banner {
       position: fixed;
       bottom: 16px;
@@ -800,7 +857,6 @@
       font-size: 14px;
       flex-shrink: 0;
     }
-
     :root[data-theme="light"] .tgk-banner {
       background: radial-gradient(circle at top left, #e0f2fe, #eef2ff);
       border-color: #bfdbfe;
@@ -831,6 +887,16 @@
   </style>
 </head>
 <body>
+
+  <!-- Большой верхний рекламный баннер -->
+  <div id="top-ad-banner" class="top-ad-banner">
+    <div class="top-ad-text">
+      <span class="top-ad-strong">Реклама:</span>
+      Устал от контрольных и ДЗ? Попробуй «TGK Premium» — дневник без ограничений, с красивой статистикой и бонусами.
+    </div>
+    <button id="top-ad-go-btn" class="top-ad-btn">Узнать подробнее</button>
+    <button id="top-ad-close-btn" class="top-ad-close" title="Скрыть баннер">✕</button>
+  </div>
 
   <!-- Панель авторизации -->
   <section id="auth-panel" class="panel">
@@ -1154,7 +1220,7 @@
     </div>
   </div>
 
-  <!-- TGK баннер -->
+  <!-- TGK баннер снизу -->
   <div id="tgk-banner" class="tgk-banner">
     <div class="tgk-banner-avatar">
       <img src="teacher.jpg" alt="tgk">
@@ -1371,7 +1437,39 @@
       }
     });
 
-    /* ===== TGK баннер логика ===== */
+    /* ===== Верхний рекламный баннер ===== */
+    const TOP_AD_KEY = 'venik-top-ad-closed';
+    const topAdBanner = document.getElementById('top-ad-banner');
+    const topAdGoBtn = document.getElementById('top-ad-go-btn');
+    const topAdCloseBtn = document.getElementById('top-ad-close-btn');
+
+    function loadTopAdState() {
+      const closed = localStorage.getItem(TOP_AD_KEY) === '1';
+      if (closed && topAdBanner) {
+        topAdBanner.classList.add('hidden');
+      }
+    }
+
+    function closeTopAd(permanent) {
+      if (!topAdBanner) return;
+      topAdBanner.classList.add('hidden');
+      if (permanent) {
+        localStorage.setItem(TOP_AD_KEY, '1');
+      }
+    }
+
+    if (topAdGoBtn) {
+      topAdGoBtn.addEventListener('click', () => {
+        addNotification('TGK Premium: скоро здесь будет страница с описанием подписки.', 'top-ad');
+      });
+    }
+    if (topAdCloseBtn) {
+      topAdCloseBtn.addEventListener('click', () => {
+        closeTopAd(true);
+      });
+    }
+
+    /* ===== TGK баннер логика (снизу) ===== */
     const TGK_KEY = 'venik-tgk-closed';
     const tgkBanner = document.getElementById('tgk-banner');
     const tgkGoBtn = document.getElementById('tgk-go-btn');
@@ -2182,6 +2280,7 @@
     loadTheme();
     loadNotifications();
     loadTgkBannerState();
+    loadTopAdState();
     switchQuarter(1);
     renderSchedule();
     renderTasksForDay(currentTasksDay);
