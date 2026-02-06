@@ -788,41 +788,41 @@
       color: #0b1120;
       font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 10px 24px rgba(22,163,74,0.7);
     }
     .tgk-banner-close {
-      border: none;
-      background: transparent;
-      color: #cbd5f5;
-      cursor: pointer;
-      font-size: 13px;
-      padding: 2px;
+      width: 22px;
+      height: 22px;
       border-radius: 999px;
+      border: none;
+      background: rgba(15,23,42,0.95);
+      color: #e5e7eb;
+      cursor: pointer;
+      font-size: 14px;
+      flex-shrink: 0;
     }
-    .tgk-banner-close:hover {
-      background: rgba(15,23,42,0.9);
-    }
+
     :root[data-theme="light"] .tgk-banner {
-      background: #ffffff;
-      border-color: #93c5fd;
+      background: radial-gradient(circle at top left, #e0f2fe, #eef2ff);
+      border-color: #bfdbfe;
       color: #0f172a;
     }
     :root[data-theme="light"] .tgk-banner-pill {
-      background: #eff6ff;
-      border-color: #bfdbfe;
-      color: #1d4ed8;
+      background:#ffffff;
+      border-color:#cbd5f5;
+      color:#0f172a;
+    }
+    :root[data-theme="light"] .tgk-banner-close {
+      background:#ffffff;
+      border-color:#e5e7eb;
+      color:#111827;
     }
 
+    /* responsive */
     @media (max-width: 900px) {
       .layout { flex-direction: column; }
       .sidebar { width: 100%; display: flex; flex-wrap: wrap; gap: 6px; }
       .sidebar-section-title { width: 100%; }
       .topbar-spacer { display:none; }
-      .tgk-banner {
-        left: 12px;
-        right: 12px;
-        max-width: none;
-      }
     }
     @media (max-width: 640px) {
       .topbar-title { display: none; }
@@ -989,7 +989,6 @@
                 <option value="Химия">Химия</option>
                 <option value="Русский язык">Русский</option>
               </select>
-
               <select id="day-select">
                 <option value="mon">Пн</option>
                 <option value="tue">Вт</option>
@@ -1153,22 +1152,22 @@
         </section>
       </main>
     </div>
+  </div>
 
-    <!-- TGK баннер -->
-    <div id="tgk-banner" class="tgk-banner hidden">
-      <div class="tgk-banner-avatar">
-        <img src="teacher.jpg" alt="tgk">
-      </div>
-      <div class="tgk-banner-body">
-        <div class="tgk-banner-title">TGK — сервер Веника</div>
-        <div>Залетай в дискорд, там строим планы по учебе и не только.</div>
-        <div class="tgk-banner-footer">
-          <span class="tgk-banner-pill">Discord · школьный сервер</span>
-          <button id="tgk-banner-go" class="tgk-banner-go">Залететь</button>
-        </div>
-      </div>
-      <button class="tgk-banner-close" id="tgk-banner-close" aria-label="Закрыть">✕</button>
+  <!-- TGK баннер -->
+  <div id="tgk-banner" class="tgk-banner">
+    <div class="tgk-banner-avatar">
+      <img src="teacher.jpg" alt="tgk">
     </div>
+    <div class="tgk-banner-body">
+      <div class="tgk-banner-title">TGK Premium</div>
+      <div>Убери рекламу и получи ещё больше фишек дневника.</div>
+      <div class="tgk-banner-footer">
+        <span class="tgk-banner-pill">Всего 99₽ в месяц</span>
+        <button class="tgk-banner-go" id="tgk-go-btn">Оформить</button>
+      </div>
+    </div>
+    <button class="tgk-banner-close" id="tgk-close-btn">✕</button>
   </div>
 
   <!-- Основной JS + Firebase Auth + Firestore -->
@@ -1186,7 +1185,7 @@
       doc,
       setDoc,
       getDoc
-    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; [web:354]
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyAFcX2I6lfzmxwEGEpOej-SqiG6-DFWSDc",
@@ -1366,14 +1365,34 @@
       updateNotifUI();
     });
 
-    // Надёжное закрытие панели уведомлений по клику вне
     document.addEventListener('click', (e) => {
-      const target = e.target;
-      const clickedInsidePanel = notifPanel === target || notifPanel.contains(target);
-      const clickedBell = bellBtn === target || bellBtn.contains(target);
-      if (!clickedInsidePanel && !clickedBell) {
+      if (!notifPanel.contains(e.target) && !bellBtn.contains(e.target)) {
         notifPanel.classList.add('hidden');
       }
+    });
+
+    /* ===== TGK баннер логика ===== */
+    const TGK_KEY = 'venik-tgk-closed';
+    const tgkBanner = document.getElementById('tgk-banner');
+    const tgkGoBtn = document.getElementById('tgk-go-btn');
+    const tgkCloseBtn = document.getElementById('tgk-close-btn');
+
+    function loadTgkBannerState() {
+      const closed = localStorage.getItem(TGK_KEY) === '1';
+      if (closed) tgkBanner.classList.add('hidden');
+    }
+    function closeTgkBanner(permanent) {
+      tgkBanner.classList.add('hidden');
+      if (permanent) {
+        localStorage.setItem(TGK_KEY, '1');
+      }
+    }
+    tgkGoBtn.addEventListener('click', () => {
+      addNotification('TGK Premium пока в разработке, но скоро будет!', 'tgk-go');
+      closeTgkBanner(true);
+    });
+    tgkCloseBtn.addEventListener('click', () => {
+      closeTgkBanner(true);
     });
 
     /* ===== Профиль ===== */
@@ -2125,42 +2144,6 @@
       ratingHistoryDiv.appendChild(list);
     }
 
-    /* ===== TGK баннер ===== */
-    const TGK_BANNER_KEY = 'venik-tgk-banner-hidden';
-    const tgkBanner = document.getElementById('tgk-banner');
-    const tgkBannerGo = document.getElementById('tgk-banner-go');
-    const tgkBannerClose = document.getElementById('tgk-banner-close');
-
-    function maybeShowTgkBanner() {
-      const hidden = localStorage.getItem(TGK_BANNER_KEY);
-      if (hidden === '1') return;
-      tgkBanner.classList.remove('hidden');
-    }
-
-    // Клик по кресту — закрыть и НЕ открывать ссылку
-    tgkBannerClose.addEventListener('click', (e) => {
-      e.stopPropagation();
-      tgkBanner.classList.add('hidden');
-      localStorage.setItem(TGK_BANNER_KEY, '1');
-    });
-
-    // Кнопка "Залететь"
-    tgkBannerGo.addEventListener('click', (e) => {
-      e.stopPropagation();
-      window.open('https://discord.gg/UQ8qFC6s', '_blank');
-      tgkBanner.classList.add('hidden');
-      localStorage.setItem(TGK_BANNER_KEY, '1');
-    });
-
-    // Клик по фоновой части баннера (но не по кнопке/кресту) — тоже открывает Discord
-    tgkBanner.addEventListener('click', (e) => {
-      const target = e.target;
-      if (tgkBannerClose.contains(target) || tgkBannerGo.contains(target)) return;
-      window.open('https://discord.gg/UQ8qFC6s', '_blank');
-      tgkBanner.classList.add('hidden');
-      localStorage.setItem(TGK_BANNER_KEY, '1');
-    });
-
     /* ===== Auth state → Firestore, почта в профиле ===== */
     onAuthStateChanged(auth, async (user) => {
       currentUser = user || null;
@@ -2184,7 +2167,6 @@
         renderTasksForDay(currentTasksDay);
         renderRating();
         renderRatingHistory();
-        maybeShowTgkBanner();
         addNotification('Данные подгружены из облака', 'cloud-load');
       } else {
         appRoot.classList.add('hidden');
@@ -2199,11 +2181,11 @@
     /* ===== Инициализация ===== */
     loadTheme();
     loadNotifications();
+    loadTgkBannerState();
     switchQuarter(1);
     renderSchedule();
     renderTasksForDay(currentTasksDay);
     showPage('grades');
-    maybeShowTgkBanner();
   </script>
 </body>
 </html>
