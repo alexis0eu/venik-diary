@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <title>Дневник Веника</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -47,7 +46,6 @@
     }
     .hidden { display: none; }
 
-    /* ===== topbar ===== */
     .topbar {
       height: 56px;
       backdrop-filter: blur(18px);
@@ -104,10 +102,7 @@
       border-radius: 50%;
       background: var(--accent);
     }
-
-    .topbar-spacer {
-      flex: 1;
-    }
+    .topbar-spacer { flex: 1; }
 
     .topbar-notifications {
       position: relative;
@@ -207,9 +202,7 @@
       justify-content: space-between;
       gap: 6px;
     }
-    .notif-text {
-      font-size: 12px;
-    }
+    .notif-text { font-size: 12px; }
     .notif-time {
       font-size: 10px;
       color: var(--text-muted);
@@ -284,7 +277,6 @@
       gap: 5px;
     }
 
-    /* ===== layout ===== */
     .layout {
       display: flex;
       min-height: calc(100vh - 56px);
@@ -493,10 +485,6 @@
       margin-left: 6px;
       padding: 3px;
       border-radius: 999px;
-    }
-    .lesson-more:hover {
-      background: rgba(15, 23, 42, 0.96);
-      color: #fecaca;
     }
 
     :root[data-theme="light"] .lesson-card {
@@ -720,154 +708,16 @@
 
     #rating-history { margin-top: 12px; font-size: 12px; }
 
-    /* auth panel */
     #auth-panel.panel {
       max-width: 360px;
       margin: 40px auto;
     }
-
-    /* ===== верхний баннер ===== */
-    #top-banner {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 50;
-      display: flex;
-      justify-content: center;
-      pointer-events: none;
-    }
-    #top-banner-inner {
-      margin-top: 8px;
-      pointer-events: auto;
-      max-width: 800px;
-      width: calc(100% - 24px);
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(15,23,42,0.96);
-      border: 1px solid rgba(250, 204, 21, 0.6);
-      box-shadow: 0 12px 30px rgba(15,23,42,0.9);
-      font-size: 13px;
-      color: #fefce8;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-    }
-    #top-banner-buttons {
-      display: flex;
-      gap: 6px;
-      flex-shrink: 0;
-    }
-    .top-banner-btn {
-      font-size: 11px;
-      padding: 4px 9px;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      white-space: nowrap;
-    }
-    .top-banner-btn.primary {
-      background: #facc15;
-      color: #1f2937;
-      font-weight: 600;
-    }
-    .top-banner-btn.secondary {
-      background: transparent;
-      color: #e5e7eb;
-      border: 1px solid rgba(148,163,184,0.7);
-    }
-
-    /* ===== нижний Discord баннер ===== */
-    #tgk-discord-banner {
-      position: fixed;
-      bottom: 16px;
-      left: 16px;
-      max-width: 260px;
-      background: rgba(15, 23, 42, 0.98);
-      border-radius: 14px;
-      border: 1px solid rgba(129, 140, 248, 0.8);
-      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.95);
-      padding: 10px;
-      font-size: 13px;
-      z-index: 40;
-    }
-    #tgk-discord-banner.hidden { display:none; }
-    #tgk-discord-banner-header {
-      display:flex;
-      justify-content: space-between;
-      align-items:center;
-      margin-bottom:4px;
-      font-weight:600;
-    }
-    #tgk-discord-title {
-      display:flex;
-      align-items:center;
-      gap:6px;
-    }
-    #tgk-discord-title::before {
-      content:'';
-      width:16px;
-      height:16px;
-      border-radius:4px;
-      background: radial-gradient(circle at top left, #6366f1, #4f46e5);
-    }
-    #tgk-discord-close-btn {
-      border:none;
-      background:transparent;
-      color:#9ca3af;
-      cursor:pointer;
-      font-size:14px;
-    }
-    #tgk-discord-text {
-      font-size:12px;
-      color:#e5e7eb;
-      margin-bottom:6px;
-    }
-    #tgk-discord-go-btn {
-      width:100%;
-      border:none;
-      border-radius:999px;
-      padding:6px 8px;
-      background:#6366f1;
-      color:#e5e7eb;
-      font-size:12px;
-      cursor:pointer;
-      font-weight:500;
-    }
-
-    :root[data-theme="light"] #top-banner-inner {
-      background:#fef9c3;
-      color:#1f2937;
-    }
-    :root[data-theme="light"] #tgk-discord-banner {
-      background:#ffffff;
-      border-color:#4f46e5;
-    }
-  .tgk-banner {
-    max-width: 1200px;
-    margin: 10px auto 0;
-    border-radius: 14px;
-    background: radial-gradient(circle at top left,
-      rgba(56, 189, 248, 0.08),
-      rgba(15, 23, 42, 0.96));
-    border: 1px solid rgba(56, 189, 248, 0.6);
-  }
-  :root[data-theme="light"] .tgk-banner {
-    background: #e0f2fe;
-    border-color: #38bdf8;
-  }
 
     @media (max-width: 900px) {
       .layout { flex-direction: column; }
       .sidebar { width: 100%; display: flex; flex-wrap: wrap; gap: 6px; }
       .sidebar-section-title { width: 100%; }
       .topbar-spacer { display:none; }
-      #tgk-discord-banner {
-        left: 8px;
-        right: 8px;
-        max-width: none;
-      }
     }
     @media (max-width: 640px) {
       .topbar-title { display: none; }
@@ -877,35 +727,6 @@
 </head>
 <body>
 
-  <!-- Один баннер TGK -->
-  <div id="tgk-banner" class="panel tgk-banner hidden">
-    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
-      <div style="display:flex;flex-direction:column;gap:4px;">
-        <div style="font-size:13px;font-weight:600;">TGK • Discord сервер</div>
-        <div style="font-size:12px;color:var(--text-muted);">
-          Залетай на сервер: мемы, общение и гейминг. Нормальное комьюнити, без шизы.
-        </div>
-      </div>
-
-      <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
-        <a href="https://discord.gg/UQ8qFC6s"
-           target="_blank"
-           rel="noopener noreferrer"
-           class="btn"
-           style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
-          <span>Войти в TGK</span>
-        </a>
-
-        <button id="tgk-banner-close"
-                class="btn secondary"
-                style="padding-inline:9px;">
-          ✕
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Панель авторизации -->
   <section id="auth-panel" class="panel">
     <h2 style="margin-bottom:8px;">Вход / Регистрация</h2>
     <p class="panel-subtitle" style="margin-bottom:10px;">
@@ -925,7 +746,6 @@
     </div>
   </section>
 
-  <!-- Вся основная часть сайта -->
   <div id="app-root" class="hidden">
     <div class="topbar">
       <div class="topbar-logo" data-page="grades">школа</div>
@@ -942,7 +762,6 @@
 
       <div class="topbar-spacer"></div>
 
-      <!-- Колокольчик -->
       <div class="topbar-notifications">
         <button id="bell-btn" class="bell-btn" aria-label="Уведомления">
           🔔
@@ -991,10 +810,10 @@
         <div class="sidebar-item" data-page="tasks"><span>Домашка</span></div>
         <div class="sidebar-item" data-page="rating"><span>Рейтинг</span></div>
         <div class="sidebar-item" data-page="profile"><span>Профиль</span></div>
+        <div class="sidebar-item" data-page="admin"><span>Админ</span></div>
       </aside>
 
       <main class="content">
-        <!-- Оценки -->
         <section id="page-grades" class="panel">
           <div class="panel-header">
             <div>
@@ -1086,7 +905,6 @@
           </div>
         </section>
 
-        <!-- Таблица средних -->
         <section id="page-subjects" class="panel hidden">
           <div class="panel-header">
             <div class="panel-title">Средний балл по предметам</div>
@@ -1103,7 +921,6 @@
           </table>
         </section>
 
-        <!-- Профиль -->
         <section id="page-profile" class="panel hidden">
           <div class="profile-grid">
             <div class="profile-card">
@@ -1165,7 +982,6 @@
           </div>
         </section>
 
-        <!-- Расписание -->
         <section id="page-schedule" class="panel hidden">
           <div class="panel-header">
             <div>
@@ -1178,7 +994,6 @@
           <div id="schedule-container"></div>
         </section>
 
-        <!-- Домашка -->
         <section id="page-tasks" class="panel hidden">
           <div class="panel-header">
             <div>
@@ -1202,7 +1017,6 @@
           <div id="tasks-container"></div>
         </section>
 
-        <!-- Рейтинг -->
         <section id="page-rating" class="panel hidden">
           <div class="panel-header">
             <div class="panel-title">Рейтинг класса</div>
@@ -1223,23 +1037,33 @@
           </table>
           <div id="rating-history"></div>
         </section>
+
+        <section id="page-admin" class="panel hidden">
+          <div class="panel-header">
+            <div class="panel-title">Админ-панель: визиты</div>
+          </div>
+          <p class="panel-subtitle">
+            Здесь видно, кто заходил на сайт (uid, email, браузер, язык, экран).
+          </p>
+          <div id="admin-warning" style="font-size:12px;color:#f97373;margin:6px 0;"></div>
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Время</th>
+                <th>UID / Email</th>
+                <th>User-Agent</th>
+                <th>Язык</th>
+                <th>Экран</th>
+              </tr>
+            </thead>
+            <tbody id="admin-visits-body"></tbody>
+          </table>
+        </section>
       </main>
     </div>
   </div>
 
-  <!-- нижний Discord баннер -->
-  <div id="tgk-discord-banner">
-    <div id="tgk-discord-banner-header">
-      <div id="tgk-discord-title">Discord TGK</div>
-      <button id="tgk-discord-close-btn" title="Закрыть">✕</button>
-    </div>
-    <div id="tgk-discord-text">
-      Ламповый сервер с одноклассниками, общение, помощь с уроками и мемы. Залетай, пока не забыл!
-    </div>
-    <button id="tgk-discord-go-btn">Зайти на сервер</button>
-  </div>
-
-  <!-- Основной JS + Firebase Auth + Firestore -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import {
@@ -1250,27 +1074,17 @@
       signOut
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
     import {
-  getFirestore,
-  doc,
-  setDoc,
-  getDoc
-} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-    /* ===== TGK баннер (одна реклама) ===== */
-    // const TGK_KEY = 'tgk-banner-closed';
-        const tgkBanner = document.getElementById('tgk-banner');
-    const tgkBannerClose = document.getElementById('tgk-banner-close');
-
-    function initTgkBanner() {
-      // всегда показываем при загрузке
-      tgkBanner.classList.remove('hidden');
-    }
-
-    tgkBannerClose.addEventListener('click', () => {
-      tgkBanner.classList.add('hidden');
-      // тут больше ничего не сохраняем
-    });
-
-
+      getFirestore,
+      doc,
+      setDoc,
+      getDoc,
+      collection,
+      addDoc,
+      getDocs,
+      query,
+      orderBy,
+      limit
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; /* [file:365] */
 
     const firebaseConfig = {
       apiKey: "AIzaSyAFcX2I6lfzmxwEGEpOej-SqiG6-DFWSDc",
@@ -1286,6 +1100,7 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
     let currentUser = null;
+    const ADMIN_EMAIL = 'alex.bibikov082011@yandex.ru';
 
     const authPanel = document.getElementById('auth-panel');
     const appRoot = document.getElementById('app-root');
@@ -1296,9 +1111,7 @@
     const logoutBtn = document.getElementById('auth-logout-btn');
     const authError = document.getElementById('auth-error');
 
-    function showError(msg) {
-      authError.textContent = msg;
-    }
+    function showError(msg) { authError.textContent = msg; }
 
     signupBtn.addEventListener('click', async () => {
       showError('');
@@ -1325,7 +1138,6 @@
       addNotification('Выход из аккаунта', 'auth-logout');
     });
 
-    /* ===== Тема ===== */
     const THEME_KEY = 'venik-theme';
     const themeToggleBtn = document.getElementById('theme-toggle');
     const themeToggleIcon = document.getElementById('theme-toggle-icon');
@@ -1354,7 +1166,6 @@
     }
     themeToggleBtn.addEventListener('click', toggleTheme);
 
-    /* ===== Уведомления ===== */
     const NOTIF_KEY = 'venik-notifications';
     let notifications = [];
     let unreadCount = 0;
@@ -1456,75 +1267,6 @@
       }
     });
 
-    /* ===== Верхний баннер ===== */
-    const TOP_BANNER_KEY = 'venik-top-banner-closed';
-    const topBanner = document.getElementById('top-banner');
-    const topBannerGoBtn = document.getElementById('top-banner-go-btn');
-    const topBannerSkipBtn = document.getElementById('top-banner-skip-btn');
-
-    function loadTopAdState() {
-      const closed = localStorage.getItem(TOP_BANNER_KEY) === '1';
-      if (!closed && topBanner) {
-        topBanner.classList.remove('hidden');
-      }
-    }
-    function closeTopAd(permanent) {
-      if (!topBanner) return;
-      topBanner.classList.add('hidden');
-      if (permanent) {
-        localStorage.setItem(TOP_BANNER_KEY, '1');
-      }
-    }
-
-    if (topBannerGoBtn) {
-      topBannerGoBtn.addEventListener('click', () => {
-        closeTopAd(true);
-        addNotification('Рекламный баннер закрыт, приятного пользования дневником!', 'top-banner');
-        // сюда можешь вставить window.open(...) если нужно
-      });
-    }
-    if (topBannerSkipBtn) {
-      topBannerSkipBtn.addEventListener('click', () => {
-        closeTopAd(true);
-      });
-    }
-
-    /* ===== Нижний Discord баннер ===== */
-    const TGK_DISCORD_KEY = 'venik-tgk-discord-closed';
-    const tgkDiscordBanner = document.getElementById('tgk-discord-banner');
-    const tgkDiscordGoBtn = document.getElementById('tgk-discord-go-btn');
-    const tgkDiscordCloseBtn = document.getElementById('tgk-discord-close-btn');
-
-    function loadTgkDiscordState() {
-      const closed = localStorage.getItem(TGK_DISCORD_KEY) === '1';
-      if (closed && tgkDiscordBanner) {
-        tgkDiscordBanner.classList.add('hidden');
-      }
-    }
-
-    function closeTgkDiscord(permanent) {
-      if (!tgkDiscordBanner) return;
-      tgkDiscordBanner.classList.add('hidden');
-      if (permanent) {
-        localStorage.setItem(TGK_DISCORD_KEY, '1');
-      }
-    }
-
-    if (tgkDiscordGoBtn) {
-      tgkDiscordGoBtn.addEventListener('click', () => {
-        window.open('https://discord.gg/UQ8qFC6s', '_blank');
-        addNotification('Открылся Discord TGK — лучший и ламповый сервер.', 'tgk-discord');
-      });
-    }
-
-    if (tgkDiscordCloseBtn) {
-      tgkDiscordCloseBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        closeTgkDiscord(true);
-      });
-    }
-
-    /* ===== Профиль ===== */
     const PROFILE_KEY = 'venik-profile';
     let profile = {
       avatarUrl: '',
@@ -1613,7 +1355,6 @@
       alert('Профиль сохранён');
     });
 
-    /* ===== Страницы ===== */
     const pageSections = document.querySelectorAll('[id^="page-"]');
     const sidebarItems = document.querySelectorAll('.sidebar-item');
     const topbarNavItems = document.querySelectorAll('.topbar-nav-item');
@@ -1629,6 +1370,7 @@
       if (pageName === 'tasks') renderTasksForDay(currentTasksDay);
       if (pageName === 'rating') { renderRating(); renderRatingHistory(); }
       if (pageName === 'subjects') renderSubjectsTable();
+      if (pageName === 'admin') loadAdminVisits();
     }
     document.querySelectorAll('[data-page]').forEach(el => {
       el.addEventListener('click', () => {
@@ -1637,7 +1379,6 @@
       });
     });
 
-    /* ===== Вкладки оценок ===== */
     const tabs = document.querySelectorAll('.tab');
     const tabByDate = document.getElementById('tab-by-date');
     const tabBySubject = document.getElementById('tab-by-subject');
@@ -1656,7 +1397,6 @@
       });
     });
 
-    /* ===== Четверти и недели ===== */
     const GRADES_PREFIX = 'venik-grades-q';
     let currentQuarter = 1;
     let currentWeek = 1;
@@ -1748,7 +1488,6 @@
     quarterBtns.forEach(btn => btn.addEventListener('click', () => switchQuarter(Number(btn.dataset.quarter))));
     weekBtns.forEach(btn => btn.addEventListener('click', () => switchWeek(Number(btn.dataset.week))));
 
-    /* ===== Дни недели для оценок ===== */
     const dayBlocksMap = {
       mon: document.getElementById('mon-block'),
       tue: document.getElementById('tue-block'),
@@ -1779,7 +1518,6 @@
       return 'badge-other';
     }
 
-    /* ===== Оценки: карточки ===== */
     function createLessonCard(grade) {
       const card = document.createElement('article');
       card.className = 'lesson-card';
@@ -1818,7 +1556,6 @@
       });
     }
 
-    /* ===== Добавление оценки ===== */
     const subjectSelect = document.getElementById('subject-input');
     const typeInput = document.getElementById('type-input');
     const daySelect = document.getElementById('day-select');
@@ -1855,7 +1592,6 @@
       addNotification(`Добавлена оценка ${newGrade.mark} по предмету ${newGrade.subject}`, 'grade-add');
     });
 
-    /* ===== Средние и списки предметов ===== */
     const subjectsTableBody = document.getElementById('subjects-table-body');
     const subjectListDiv = document.getElementById('subject-list');
 
@@ -1906,7 +1642,6 @@
       return calcAverage(marks) || 0;
     }
 
-    /* ===== Расписание и ДЗ ===== */
     const SCHEDULE = {
       'Пн': [
         { id: 'mon-1', num: 1, time: '08:30 - 09:00', subject: 'Разговоры о важном', room: 'ДБ / корпус 1' },
@@ -1936,7 +1671,7 @@
         { id: 'thu-1', num: 1, time: '08:30 - 09:00', subject: 'РОССИЯ — МОИ ГОРИЗОНТЫ', room: 'ДБ / внеурочная' },
         { id: 'thu-2', num: 2, time: '09:10 - 09:55', subject: 'Химия', room: 'каб. 53' },
         { id: 'thu-3', num: 3, time: '10:05 - 10:50', subject: 'Химия', room: 'каб. 49' },
-        { id: 'thu-4', num: 4, time: '11:05 - 11:50', subject: 'Обществознание', room: 'каб. 59' },
+        { id: 'thu-4', num: 4, time: '11:20 - 12:05', subject: 'Обществознание', room: 'каб. 59' },
         { id: 'thu-5', num: 5, time: '12:00 - 12:45', subject: 'Иностранный (английский) язык', room: 'каб. 12' }
       ],
       'Пт': [
@@ -2017,7 +1752,6 @@
       return list[i];
     }
 
-    /* ===== Расписание: переключение по дням ===== */
     const scheduleDayTabs = document.getElementById('schedule-day-tabs');
     const scheduleContainer = document.getElementById('schedule-container');
     const dayKeys = Object.keys(SCHEDULE);
@@ -2075,7 +1809,6 @@
       scheduleContainer.appendChild(block);
     }
 
-    /* ===== Домашка: чекбоксы + фильтр + Firestore ===== */
     const TASKS_DONE_KEY = 'venik-tasks-done';
     let tasksDone = {};
 
@@ -2178,7 +1911,6 @@
       tasksContainer.appendChild(block);
     }
 
-    /* ===== Рейтинг ===== */
     const ratingTableBody = document.getElementById('rating-table-body');
     const ratingRefreshBtn = document.getElementById('rating-refresh-btn');
     const CLASSMATES = [
@@ -2223,7 +1955,6 @@
       addNotification('Рейтинг класса обновлён', 'rating');
     });
 
-    /* ===== История рейтинга ===== */
     const RATING_HISTORY_KEY = 'venik-rating-history';
     const ratingHistoryDiv = document.getElementById('rating-history');
     function loadRatingHistory() {
@@ -2273,7 +2004,86 @@
       ratingHistoryDiv.appendChild(list);
     }
 
-    /* ===== Auth state → Firestore, почта в профиле ===== */
+    async function logVisit(user) {
+      try {
+        const info = {
+          uid: user ? user.uid : null,
+          email: user ? user.email : null,
+          userAgent: navigator.userAgent || null,
+          language: navigator.language || null,
+          screen: window.screen
+            ? `${window.screen.width}x${window.screen.height}`
+            : null,
+          tzOffset: new Date().getTimezoneOffset(),
+          visitedAt: new Date().toISOString()
+        };
+        await addDoc(collection(db, 'visits'), info);
+      } catch (e) {
+        console.error('logVisit error', e);
+      }
+    }
+
+    const adminVisitsBody = document.getElementById('admin-visits-body');
+    const adminWarning = document.getElementById('admin-warning');
+
+    function formatDateTime(iso) {
+      if (!iso) return '-';
+      const d = new Date(iso);
+      return d.toLocaleString('ru-RU');
+    }
+
+    async function loadAdminVisits() {
+      if (!currentUser || currentUser.email !== ADMIN_EMAIL) {
+        adminWarning.textContent = 'Доступ только для администратора.';
+        adminVisitsBody.innerHTML = '';
+        return;
+      }
+      adminWarning.textContent = '';
+
+      const q = query(
+        collection(db, 'visits'),
+        orderBy('visitedAt', 'desc'),
+        limit(200)
+      );
+      const snap = await getDocs(q);
+
+      adminVisitsBody.innerHTML = '';
+      let i = 1;
+      snap.forEach(docSnap => {
+        const v = docSnap.data();
+        const tr = document.createElement('tr');
+
+        const tdIdx = document.createElement('td');
+        tdIdx.textContent = i++;
+
+        const tdTime = document.createElement('td');
+        tdTime.textContent = formatDateTime(v.visitedAt);
+
+        const tdUser = document.createElement('td');
+        tdUser.innerHTML =
+          (v.uid || '-') + '<br><span style="font-size:11px;color:var(--text-muted);">' +
+          (v.email || 'нет почты') + '</span>';
+
+        const tdUA = document.createElement('td');
+        tdUA.textContent = v.userAgent || '-';
+
+        const tdLang = document.createElement('td');
+        tdLang.textContent = v.language || '-';
+
+        const tdScreen = document.createElement('td');
+        tdScreen.textContent = v.screen || '-';
+
+        tr.appendChild(tdIdx);
+        tr.appendChild(tdTime);
+        tr.appendChild(tdUser);
+        tr.appendChild(tdUA);
+        tr.appendChild(tdLang);
+        tr.appendChild(tdScreen);
+
+        adminVisitsBody.appendChild(tr);
+      });
+    }
+
     onAuthStateChanged(auth, async (user) => {
       currentUser = user || null;
 
@@ -2284,6 +2094,8 @@
         if (profileEmailInfo) {
           profileEmailInfo.textContent = user.email || 'без почты';
         }
+
+        await logVisit(user);
 
         await loadProfile();
         applyProfileToUI();
@@ -2297,6 +2109,10 @@
         renderRating();
         renderRatingHistory();
         addNotification('Данные подгружены из облака', 'cloud-load');
+
+        if (currentUser.email === ADMIN_EMAIL) {
+          loadAdminVisits();
+        }
       } else {
         appRoot.classList.add('hidden');
         authPanel.classList.remove('hidden');
@@ -2307,11 +2123,8 @@
       }
     });
 
-    /* ===== Инициализация ===== */
     loadTheme();
     loadNotifications();
-    loadTopAdState();
-    loadTgkDiscordState();
     switchQuarter(1);
     renderSchedule();
     renderTasksForDay(currentTasksDay);
