@@ -494,7 +494,6 @@
       padding: 3px;
       border-radius: 999px;
     }
-
     :root[data-theme="light"] .lesson-card {
       background: #ffffff;
       border-color: #e5e7eb;
@@ -893,7 +892,6 @@
                 <option value="Химия">Химия</option>
                 <option value="Русский язык">Русский</option>
               </select>
-
               <select id="day-select">
                 <option value="mon">Пн</option>
                 <option value="tue">Вт</option>
@@ -993,6 +991,15 @@
                 </div>
                 <button class="btn" id="profile-save-btn">Сохранить</button>
               </div>
+
+              <!-- Новый блок аккаунта -->
+              <div class="profile-form" style="margin-top:16px;border-top:1px solid rgba(30, 41, 59, 0.9);padding-top:8px;">
+                <h3 style="font-size:13px;margin-bottom:6px;">Аккаунт</h3>
+                <p style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">
+                  Выйди из аккаунта, если пользуешься общим компьютером.
+                </p>
+                <button class="btn secondary" id="profile-logout-btn">Выйти из аккаунта</button>
+              </div>
             </div>
           </div>
         </section>
@@ -1074,7 +1081,7 @@
       doc,
       setDoc,
       getDoc
-    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; /* [web:360][web:358][web:354] */
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; /* [web:354][web:358] */
 
     const firebaseConfig = {
       apiKey: "AIzaSyAFcX2I6lfzmxwEGEpOej-SqiG6-DFWSDc",
@@ -1125,9 +1132,26 @@
     });
 
     logoutBtn.addEventListener('click', async () => {
-      await signOut(auth);
-      addNotification('Выход из аккаунта', 'auth-logout');
+      try {
+        await signOut(auth);
+        addNotification('Выход из аккаунта', 'auth-logout');
+      } catch (e) {
+        addNotification('Ошибка выхода: ' + (e.code || e.message), 'auth-logout-error');
+      }
     });
+
+    // Новая кнопка выхода в профиле
+    const profileLogoutBtn = document.getElementById('profile-logout-btn');
+    if (profileLogoutBtn) {
+      profileLogoutBtn.addEventListener('click', async () => {
+        try {
+          await signOut(auth);
+          addNotification('Вы вышли из аккаунта через профиль', 'auth-logout-profile');
+        } catch (e) {
+          addNotification('Ошибка выхода: ' + (e.code || e.message), 'auth-logout-error');
+        }
+      });
+    }
 
     /* ===== Тема ===== */
     const THEME_KEY = 'venik-theme';
