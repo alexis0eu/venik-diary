@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>Дневник Веника</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -725,169 +726,173 @@
       margin: 40px auto;
     }
 
-    /* Верхний рекламный баннер */
-    .top-ad-banner {
-      width: 100%;
-      background: linear-gradient(90deg, #f97316, #ec4899);
-      color: #f9fafb;
-      padding: 8px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      font-size: 13px;
-      position: sticky;
-      top: 0;
-      z-index: 25;
-      box-shadow: 0 8px 20px rgba(15,23,42,0.8);
-    }
-    .top-ad-text {
-      max-width: 900px;
-      text-align: center;
-    }
-    .top-ad-strong {
-      font-weight: 600;
-    }
-    .top-ad-btn {
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: none;
-      background: rgba(15,23,42,0.9);
-      color: #f9fafb;
-      cursor: pointer;
-      font-size: 12px;
-      white-space: nowrap;
-    }
-    .top-ad-close {
-      margin-left: 8px;
-      width: 22px;
-      height: 22px;
-      border-radius: 999px;
-      border: none;
-      background: rgba(15,23,42,0.25);
-      color: #f9fafb;
-      cursor: pointer;
-      font-size: 14px;
-    }
-    :root[data-theme="light"] .top-ad-banner {
-      background: linear-gradient(90deg, #fed7aa, #f9a8d4);
-      color: #111827;
-    }
-    :root[data-theme="light"] .top-ad-btn {
-      background: #111827;
-      color: #f9fafb;
-    }
-    :root[data-theme="light"] .top-ad-close {
-      background: rgba(15,23,42,0.08);
-      color: #111827;
-    }
-
-    /* Реклама Discord TGK снизу слева */
-    .tgk-discord-banner {
+    /* ===== Верхний баннер рекламы (пример) ===== */
+    .top-banner {
       position: fixed;
-      bottom: 16px;
-      left: 16px;
-      max-width: 320px;
-      background: radial-gradient(circle at top left, rgba(59,130,246,0.25), rgba(15,23,42,0.98));
-      border-radius: 18px;
-      border: 1px solid rgba(129,140,248,0.9);
-      box-shadow: 0 18px 40px rgba(15,23,42,0.9);
-      padding: 10px 12px 10px 10px;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      z-index: 50;
-      color: #e5e7eb;
-      backdrop-filter: blur(18px);
-      cursor: pointer;
-    }
-
-    .tgk-discord-avatar {
-      width: 40px;
-      height: 40px;
+      top: 56px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 640px;
+      width: calc(100% - 20px);
+      background: linear-gradient(135deg, #0f172a, #1d283a);
       border-radius: 999px;
-      overflow: hidden;
-      border: 2px solid rgba(34,197,94,0.85);
-      flex-shrink: 0;
-    }
-
-    .tgk-discord-avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .tgk-discord-body {
-      flex: 1;
-      font-size: 12px;
-    }
-
-    .tgk-discord-title {
-      font-weight: 600;
-      margin-bottom: 2px;
-      font-size: 13px;
-    }
-
-    .tgk-discord-footer {
+      border: 1px solid rgba(148,163,184,0.6);
+      padding: 6px 10px;
       display: flex;
       align-items: center;
-      gap: 6px;
-      margin-top: 6px;
-    }
-
-    .tgk-discord-pill {
-      font-size: 11px;
-      padding: 2px 7px;
-      border-radius: 999px;
-      background: rgba(15,23,42,0.95);
-      border: 1px solid rgba(148,163,184,0.7);
+      gap: 8px;
       color: #e5e7eb;
-    }
-
-    .tgk-discord-go {
       font-size: 12px;
-      padding: 4px 9px;
+      box-shadow: 0 16px 35px rgba(15,23,42,0.8);
+      z-index: 25;
+    }
+    .top-banner-logo {
+      width: 26px;
+      height: 26px;
       border-radius: 999px;
-      border: none;
-      background: linear-gradient(to right, #22c55e, #16a34a);
-      color: #0b1120;
-      font-weight: 600;
-      cursor: pointer;
+      background: radial-gradient(circle at top left,#22c55e,#16a34a);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:14px;
     }
-
-    .tgk-discord-close {
-      width: 22px;
-      height: 22px;
-      border-radius: 999px;
-      border: none;
-      background: rgba(15,23,42,0.95);
-      color: #e5e7eb;
-      cursor: pointer;
-      font-size: 14px;
-      flex-shrink: 0;
+    .top-banner-main {
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      gap:2px;
     }
-
-    :root[data-theme="light"] .tgk-discord-banner {
-      background: radial-gradient(circle at top left, #e0f2fe, #eef2ff);
-      border-color: #bfdbfe;
-      color: #0f172a;
+    .top-banner-title {
+      font-weight:600;
+      font-size:12px;
     }
-    :root[data-theme="light"] .tgk-discord-pill {
+    .top-banner-sub {
+      font-size:11px;
+      color:#9ca3af;
+    }
+    .top-banner-actions {
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .top-banner-btn {
+      border-radius:999px;
+      border:none;
+      padding:4px 9px;
+      font-size:11px;
+      cursor:pointer;
+      background: radial-gradient(circle at top left,#4f46e5,#1d4ed8);
+      color:#e5e7eb;
+      box-shadow: 0 8px 20px rgba(37,99,235,0.6);
+      white-space:nowrap;
+    }
+    .top-banner-skip {
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.6);
+      padding:3px 7px;
+      font-size:11px;
+      cursor:pointer;
+      background:rgba(15,23,42,0.8);
+      color:#9ca3af;
+    }
+    :root[data-theme="light"] .top-banner {
       background:#ffffff;
-      border-color:#cbd5f5;
-      color:#0f172a;
-    }
-    :root[data-theme="light"] .tgk-discord-close {
-      background:#ffffff;
-      border-color:#e5e7eb;
+      border-color:#d1d5db;
       color:#111827;
     }
+    :root[data-theme="light"] .top-banner-skip {
+      background:#f3f4f6;
+      border-color:#d1d5db;
+      color:#6b7280;
+    }
 
-    /* responsive */
+    /* ===== Баннер Discord TGK снизу слева ===== */
+    .tgk-discord-banner {
+      position: fixed;
+      left: 12px;
+      bottom: 12px;
+      z-index: 40;
+      max-width: 260px;
+      background: linear-gradient(135deg, #111827, #020617);
+      border-radius: 18px;
+      border: 1px solid rgba(129, 140, 248, 0.7);
+      padding: 10px 10px 9px;
+      display: flex;
+      gap: 8px;
+      color: #e5e7eb;
+      font-size: 12px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.95);
+    }
+    .tgk-discord-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: radial-gradient(circle at top left,#5865f2,#3b82f6);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:18px;
+    }
+    .tgk-discord-main {
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+    }
+    .tgk-discord-title {
+      font-weight:600;
+      font-size:12px;
+    }
+    .tgk-discord-sub {
+      font-size:11px;
+      color:#9ca3af;
+    }
+    .tgk-discord-actions {
+      margin-top:4px;
+      display:flex;
+      gap:6px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .tgk-discord-go {
+      border-radius:999px;
+      border:none;
+      padding:4px 8px;
+      font-size:11px;
+      cursor:pointer;
+      background: radial-gradient(circle at top left,#5865f2,#4f46e5);
+      color:#e5e7eb;
+      box-shadow:0 10px 22px rgba(88,101,242,0.7);
+      white-space:nowrap;
+    }
+    .tgk-discord-close {
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.7);
+      padding:3px 6px;
+      font-size:11px;
+      cursor:pointer;
+      background:rgba(15,23,42,0.95);
+      color:#9ca3af;
+    }
+    :root[data-theme="light"] .tgk-discord-banner {
+      background:#ffffff;
+      border-color:#c7d2fe;
+      color:#111827;
+    }
+    :root[data-theme="light"] .tgk-discord-sub {
+      color:#6b7280;
+    }
+    :root[data-theme="light"] .tgk-discord-close {
+      background:#f3f4f6;
+      border-color:#d1d5db;
+      color:#4b5563;
+    }
+
     @media (max-width: 900px) {
       .layout { flex-direction: column; }
       .sidebar { width: 100%; display: flex; flex-wrap: wrap; gap: 6px; }
       .sidebar-section-title { width: 100%; }
+      .top-banner { display:none; }
       .topbar-spacer { display:none; }
     }
     @media (max-width: 640px) {
@@ -897,16 +902,6 @@
   </style>
 </head>
 <body>
-
-  <!-- Большой верхний рекламный баннер -->
-  <div id="top-ad-banner" class="top-ad-banner">
-    <div class="top-ad-text">
-      <span class="top-ad-strong">Реклама:</span>
-      Устал от контрольных и ДЗ? Попробуй «TGK Premium» — дневник без ограничений, с красивой статистикой и бонусами.
-    </div>
-    <button id="top-ad-go-btn" class="top-ad-btn">Узнать подробнее</button>
-    <button id="top-ad-close-btn" class="top-ad-close" title="Скрыть баннер">✕</button>
-  </div>
 
   <!-- Панель авторизации -->
   <section id="auth-panel" class="panel">
@@ -973,6 +968,19 @@
           <img id="avatar-small-img" src="teacher.jpg" alt="profile">
         </div>
         <div id="topbar-name">Веник ▾</div>
+      </div>
+    </div>
+
+    <!-- Верхний баннер рекламы -->
+    <div id="top-banner" class="top-banner hidden">
+      <div class="top-banner-logo">AI</div>
+      <div class="top-banner-main">
+        <div class="top-banner-title">Надоела МЭШ? Делай дневник сам.</div>
+        <div class="top-banner-sub">Оценивай себя, следи за средним баллом и сохранением в облаке.</div>
+      </div>
+      <div class="top-banner-actions">
+        <button id="top-banner-go-btn" class="top-banner-btn">Понял, спасибо</button>
+        <button id="top-banner-skip-btn" class="top-banner-skip">Скрыть</button>
       </div>
     </div>
 
@@ -1230,20 +1238,19 @@
     </div>
   </div>
 
-  <!-- Реклама Discord TGK снизу слева -->
+  <!-- Баннер Discord TGK снизу слева -->
   <div id="tgk-discord-banner" class="tgk-discord-banner">
-    <div class="tgk-discord-avatar">
-      <img src="teacher.jpg" alt="tgk">
+    <div class="tgk-discord-icon">
+      💬
     </div>
-    <div class="tgk-discord-body">
-      <div class="tgk-discord-title">TGK Discord</div>
-      <div>Лучший и ламповый сервер для общения, игр и учебы. Залетай, пока есть места!</div>
-      <div class="tgk-discord-footer">
-        <span class="tgk-discord-pill">24/7 актив</span>
-        <button class="tgk-discord-go" id="tgk-discord-go-btn">Зайти в Discord</button>
+    <div class="tgk-discord-main">
+      <div class="tgk-discord-title">Discord TGK — ламповый сервер</div>
+      <div class="tgk-discord-sub">Залетай в голос, обсуждай ДЗ и катай катки с 8Б.</div>
+      <div class="tgk-discord-actions">
+        <button id="tgk-discord-go-btn" class="tgk-discord-go">Зайти в Discord</button>
+        <button id="tgk-discord-close-btn" class="tgk-discord-close">Не показывать</button>
       </div>
     </div>
-    <button class="tgk-discord-close" id="tgk-discord-close-btn">✕</button>
   </div>
 
   <!-- Основной JS + Firebase Auth + Firestore -->
@@ -1446,73 +1453,6 @@
         notifPanel.classList.add('hidden');
       }
     });
-
-    /* ===== Верхний рекламный баннер ===== */
-    const TOP_AD_KEY = 'venik-top-ad-closed';
-    const topAdBanner = document.getElementById('top-ad-banner');
-    const topAdGoBtn = document.getElementById('top-ad-go-btn');
-    const topAdCloseBtn = document.getElementById('top-ad-close-btn');
-
-    function loadTopAdState() {
-      const closed = localStorage.getItem(TOP_AD_KEY) === '1';
-      if (closed && topAdBanner) {
-        topAdBanner.classList.add('hidden');
-      }
-    }
-
-    function closeTopAd(permanent) {
-      if (!topAdBanner) return;
-      topAdBanner.classList.add('hidden');
-      if (permanent) {
-        localStorage.setItem(TOP_AD_KEY, '1');
-      }
-    }
-
-    if (topAdGoBtn) {
-      topAdGoBtn.addEventListener('click', () => {
-        addNotification('TGK Premium: скоро здесь будет страница с описанием подписки.', 'top-ad');
-      });
-    }
-    if (topAdCloseBtn) {
-      topAdCloseBtn.addEventListener('click', () => {
-        closeTopAd(true);
-      });
-    }
-
-    /* ===== Реклама TGK Discord снизу слева ===== */
-    const TGK_DISCORD_KEY = 'venik-tgk-discord-closed';
-    const tgkDiscordBanner = document.getElementById('tgk-discord-banner');
-    const tgkDiscordGoBtn = document.getElementById('tgk-discord-go-btn');
-    const tgkDiscordCloseBtn = document.getElementById('tgk-discord-close-btn');
-
-    function loadTgkDiscordState() {
-      const closed = localStorage.getItem(TGK_DISCORD_KEY) === '1';
-      if (closed && tgkDiscordBanner) {
-        tgkDiscordBanner.classList.add('hidden');
-      }
-    }
-
-    function closeTgkDiscord(permanent) {
-      if (!tgkDiscordBanner) return;
-      tgkDiscordBanner.classList.add('hidden');
-      if (permanent) {
-        localStorage.setItem(TGK_DISCORD_KEY, '1');
-      }
-    }
-
-    if (tgkDiscordGoBtn) {
-      tgkDiscordGoBtn.addEventListener('click', () => {
-        window.open('https://discord.gg/UQ8qFC6s', '_blank');
-        addNotification('Открылся Discord TGK — лучший и ламповый сервер.', 'tgk-discord');
-      });
-    }
-
-    if (tgkDiscordCloseBtn) {
-      tgkDiscordCloseBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        closeTgkDiscord(true);
-      });
-    }
 
     /* ===== Профиль ===== */
     const PROFILE_KEY = 'venik-profile';
@@ -2054,4 +1994,325 @@
         const line2 = document.createElement('div');
         line2.className = 'lesson-type';
         line2.textContent = `${lesson.time}${lesson.room ? ' · ' + lesson.room : ''}`;
-        main
+        main.appendChild(line1);
+        main.appendChild(line2);
+
+        card.appendChild(avatar);
+        card.appendChild(main);
+        block.appendChild(card);
+      });
+
+      scheduleContainer.appendChild(block);
+    }
+
+    /* ===== Домашка: чекбоксы + фильтр + Firestore ===== */
+    const TASKS_DONE_KEY = 'venik-tasks-done';
+    let tasksDone = {};
+
+    async function loadTasksDone() {
+      const raw = localStorage.getItem(TASKS_DONE_KEY);
+      tasksDone = raw ? JSON.parse(raw) : {};
+      if (currentUser) {
+        const data = await loadUserQuarterDoc(currentUser.uid, currentQuarter);
+        tasksDone = data.tasksDone || tasksDone;
+      }
+    }
+    async function saveTasksDone() {
+      localStorage.setItem(TASKS_DONE_KEY, JSON.stringify(tasksDone));
+      if (!currentUser) return;
+      await saveUserQuarterDoc(currentUser.uid, currentQuarter);
+    }
+
+    const tasksDayTabs = document.getElementById('tasks-day-tabs');
+    const tasksContainer = document.getElementById('tasks-container');
+    const tasksFilterSelect = document.getElementById('tasks-filter-select');
+    let currentTasksDay = dayKeys[0];
+    let currentTasksFilter = 'all';
+
+    tasksFilterSelect.addEventListener('change', () => {
+      currentTasksFilter = tasksFilterSelect.value;
+      renderTasksForDay(currentTasksDay);
+    });
+
+    function renderTasksTabs() {
+      tasksDayTabs.innerHTML = '';
+      dayKeys.forEach(dayName => {
+        const btn = document.createElement('button');
+        btn.className = 'day-tab' + (dayName === currentTasksDay ? ' active' : '');
+        btn.textContent = dayName;
+        btn.addEventListener('click', () => {
+          currentTasksDay = dayName;
+          renderTasksForDay(currentTasksDay);
+        });
+        tasksDayTabs.appendChild(btn);
+      });
+    }
+
+    function shouldShowTask(lessonId) {
+      const done = !!tasksDone[lessonId];
+      if (currentTasksFilter === 'done') return done;
+      if (currentTasksFilter === 'todo') return !done;
+      return true;
+    }
+
+    function renderTasksForDay(dayName) {
+      renderTasksTabs();
+      tasksContainer.innerHTML = '';
+      const block = document.createElement('div');
+      block.className = 'day-block';
+      const title = document.createElement('div');
+      title.className = 'day-title';
+      title.innerHTML = `<span class="day-icon">${dayName}</span>${dayName} домашка`;
+      block.appendChild(title);
+
+      SCHEDULE[dayName].forEach(lesson => {
+        if (!shouldShowTask(lesson.id)) return;
+
+        const row = document.createElement('div');
+        row.className = 'task-row';
+        row.dataset.id = lesson.id;
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = !!tasksDone[lesson.id];
+
+        const content = document.createElement('div');
+        const line1 = document.createElement('div');
+        line1.textContent = `${lesson.subject} — ДЗ: ${getRandomHomework(lesson.subject)}`;
+        const line2 = document.createElement('div');
+        line2.className = 'task-meta';
+        line2.textContent = `${lesson.num} урок · ${lesson.time}${lesson.room ? ' · ' + lesson.room : ''}`;
+
+        content.appendChild(line1);
+        content.appendChild(line2);
+
+        if (checkbox.checked) row.classList.add('done');
+
+        checkbox.addEventListener('change', async () => {
+          tasksDone[lesson.id] = checkbox.checked;
+          await saveTasksDone();
+          if (checkbox.checked) {
+            row.classList.add('done');
+            addNotification(`Отмечено выполненное ДЗ по предмету ${lesson.subject}`, 'hw-done');
+          } else {
+            row.classList.remove('done');
+            addNotification(`Снят статус выполнения ДЗ по предмету ${lesson.subject}`, 'hw-undo');
+          }
+        });
+
+        row.appendChild(checkbox);
+        row.appendChild(content);
+        block.appendChild(row);
+      });
+
+      tasksContainer.appendChild(block);
+    }
+
+    /* ===== Рейтинг ===== */
+    const ratingTableBody = document.getElementById('rating-table-body');
+    const ratingRefreshBtn = document.getElementById('rating-refresh-btn');
+    const CLASSMATES = [
+      'Матвей Иванов','Денис Чернобай','Матвей Козлов',
+      'Камилла Зайнудинова','Леонид Синанни','Екатерина Новикова(Посмертно)',
+      'Тимофей Морозов','Полина Кекки','Артём Сухов','Алексей Бибиков',
+      'Тихонов Тихон','Кирилл Ефанов','Ксения Тонконогова','Артём Кухарев',
+      'Артём Васильев','Герыч','Ларин Максим','Слугин Гордей','Муханов Глеб',
+      'Арсений Борисов','Рита Баронкина','Анастасия Трохона','Ярослав Сулимов',
+      'Любовь Мхчян','Анастасия Понасуткина','Любовь Данилова','Савелий Ходыкин','Климентий'
+    ];
+    function generateRandomMark() { return (3 + Math.random() * 2).toFixed(2); }
+    function buildRatingData() {
+      const myAvg = getMyAverage();
+      const myName = profile.name || 'Ты';
+      const list = CLASSMATES.map(name => ({ name, avg: Number(generateRandomMark()) }));
+      list.push({ name: myName + ' (ты)', avg: Number(myAvg.toFixed(2)) });
+      list.sort((a, b) => b.avg - a.avg);
+      return list;
+    }
+    function renderRating() {
+      const data = buildRatingData();
+      ratingTableBody.innerHTML = '';
+      data.forEach((item, index) => {
+        const tr = document.createElement('tr');
+        const isMe = item.name.includes('(ты)');
+        tr.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${item.name}</td>
+          <td>${item.avg.toFixed(2)}</td>
+        `;
+        if (isMe) {
+          tr.style.fontWeight = '600';
+          tr.style.background = 'rgba(30, 64, 175, 0.4)';
+        }
+        ratingTableBody.appendChild(tr);
+      });
+      saveRatingHistoryEntry(data);
+    }
+    ratingRefreshBtn.addEventListener('click', () => {
+      renderRating();
+      addNotification('Рейтинг класса обновлён', 'rating');
+    });
+
+    /* ===== История рейтинга ===== */
+    const RATING_HISTORY_KEY = 'venik-rating-history';
+    const ratingHistoryDiv = document.getElementById('rating-history');
+    function loadRatingHistory() {
+      const raw = localStorage.getItem(RATING_HISTORY_KEY);
+      return raw ? JSON.parse(raw) : [];
+    }
+    function saveRatingHistory(history) {
+      localStorage.setItem(RATING_HISTORY_KEY, JSON.stringify(history));
+    }
+    function getTodayKey() {
+      const d = new Date();
+      return d.toISOString().slice(0, 10);
+    }
+    function saveRatingHistoryEntry(latestData) {
+      const data = latestData || buildRatingData();
+      const myName = (profile.name || 'Ты') + ' (ты)';
+      const myPos = data.findIndex(x => x.name === myName) + 1;
+      const myAvg = getMyAverage().toFixed(2);
+      const history = loadRatingHistory();
+      const today = getTodayKey();
+      const key = `${today}-q${currentQuarter}-w${currentWeek}`;
+      const existing = history.find(h => h.key === key);
+      if (existing) {
+        existing.position = myPos;
+        existing.avg = myAvg;
+      } else {
+        history.push({ key, date: today, quarter: currentQuarter, week: currentWeek, position: myPos, avg: myAvg });
+      }
+      saveRatingHistory(history);
+      if (currentUser) {
+        saveUserQuarterDoc(currentUser.uid, currentQuarter);
+      }
+    }
+    function renderRatingHistory() {
+      const history = loadRatingHistory().filter(h => h.quarter === currentQuarter && h.week === currentWeek);
+      ratingHistoryDiv.innerHTML = '<h4 style="margin-bottom:4px;">История рейтинга (эта четверть и неделя)</h4>';
+      if (!history.length) {
+        ratingHistoryDiv.innerHTML += '<p>История пока пустая.</p>';
+        return;
+      }
+      const list = document.createElement('ul');
+      history.sort((a, b) => a.date.localeCompare(b.date)).forEach(h => {
+        const li = document.createElement('li');
+        li.textContent = `${h.date}: место ${h.position}, ср. балл ${h.avg}`;
+        list.appendChild(li);
+      });
+      ratingHistoryDiv.appendChild(list);
+    }
+
+    /* ===== Верхний баннер: локальное состояние ===== */
+    const TOP_BANNER_KEY = 'venik-top-banner-closed';
+    const topBanner = document.getElementById('top-banner');
+    const topBannerGoBtn = document.getElementById('top-banner-go-btn');
+    const topBannerSkipBtn = document.getElementById('top-banner-skip-btn');
+
+    function loadTopAdState() {
+      const closed = localStorage.getItem(TOP_BANNER_KEY) === '1';
+      if (!closed && topBanner) {
+        topBanner.classList.remove('hidden');
+      }
+    }
+    function closeTopAd(permanent) {
+      if (!topBanner) return;
+      topBanner.classList.add('hidden');
+      if (permanent) {
+        localStorage.setItem(TOP_BANNER_KEY, '1');
+      }
+    }
+
+    if (topBannerGoBtn) {
+      topBannerGoBtn.addEventListener('click', () => {
+        closeTopAd(true);
+        addNotification('Рекламный баннер закрыт, приятного пользования дневником!', 'top-banner');
+      });
+    }
+    if (topBannerSkipBtn) {
+      topBannerSkipBtn.addEventListener('click', () => {
+        closeTopAd(true);
+      });
+    }
+
+    /* ===== Реклама TGK Discord снизу слева ===== */
+    const TGK_DISCORD_KEY = 'venik-tgk-discord-closed';
+    const tgkDiscordBanner = document.getElementById('tgk-discord-banner');
+    const tgkDiscordGoBtn = document.getElementById('tgk-discord-go-btn');
+    const tgkDiscordCloseBtn = document.getElementById('tgk-discord-close-btn');
+
+    function loadTgkDiscordState() {
+      const closed = localStorage.getItem(TGK_DISCORD_KEY) === '1';
+      if (closed && tgkDiscordBanner) {
+        tgkDiscordBanner.classList.add('hidden');
+      }
+    }
+
+    function closeTgkDiscord(permanent) {
+      if (!tgkDiscordBanner) return;
+      tgkDiscordBanner.classList.add('hidden');
+      if (permanent) {
+        localStorage.setItem(TGK_DISCORD_KEY, '1');
+      }
+    }
+
+    if (tgkDiscordGoBtn) {
+      tgkDiscordGoBtn.addEventListener('click', () => {
+        window.open('https://discord.gg/UQ8qFC6s', '_blank');
+        addNotification('Открылся Discord TGK — лучший и ламповый сервер.', 'tgk-discord');
+      });
+    }
+
+    if (tgkDiscordCloseBtn) {
+      tgkDiscordCloseBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeTgkDiscord(true);
+      });
+    }
+
+    /* ===== Auth state → Firestore, почта в профиле ===== */
+    onAuthStateChanged(auth, async (user) => {
+      currentUser = user || null;
+
+      if (user) {
+        authPanel.classList.add('hidden');
+        appRoot.classList.remove('hidden');
+
+        if (profileEmailInfo) {
+          profileEmailInfo.textContent = user.email || 'без почты';
+        }
+
+        await loadProfile();
+        applyProfileToUI();
+        await loadTasksDone();
+        await loadGrades();
+        renderAllByDate();
+        renderSubjectsTable();
+        renderSubjectList();
+        renderSchedule();
+        renderTasksForDay(currentTasksDay);
+        renderRating();
+        renderRatingHistory();
+        addNotification('Данные подгружены из облака', 'cloud-load');
+      } else {
+        appRoot.classList.add('hidden');
+        authPanel.classList.remove('hidden');
+
+        if (profileEmailInfo) {
+          profileEmailInfo.textContent = '—';
+        }
+      }
+    });
+
+    /* ===== Инициализация ===== */
+    loadTheme();
+    loadNotifications();
+    loadTopAdState();
+    loadTgkDiscordState();
+    switchQuarter(1);
+    renderSchedule();
+    renderTasksForDay(currentTasksDay);
+    showPage('grades');
+  </script>
+</body>
+</html>
