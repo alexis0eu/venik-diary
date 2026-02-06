@@ -817,387 +817,6 @@
     }
   </style>
 </head>
-<body>
-
-  <!-- Auth -->
-  <section id="auth-panel" class="panel">
-    <h2 style="margin-bottom:8px;">Вход / Регистрация</h2>
-    <p class="panel-subtitle" style="margin-bottom:10px;">
-      Введи email и пароль. «Регистрация» создаёт аккаунт, «Вход» логинит, «Выйти» — выход.
-    </p>
-    <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;">
-      <input id="auth-email" type="email" placeholder="Email"
-             style="padding:6px 8px;border-radius:8px;border:1px solid rgba(55,65,81,0.9);">
-      <input id="auth-password" type="password" placeholder="Пароль"
-             style="padding:6px 8px;border-radius:8px;border:1px solid rgba(55,65,81,0.9);">
-      <div style="display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;">
-        <button class="btn" id="auth-login-btn">Вход</button>
-        <button class="btn secondary" id="auth-signup-btn">Регистрация</button>
-        <button class="btn secondary" id="auth-logout-btn">Выйти</button>
-      </div>
-      <div id="auth-error" style="color:#f97373;font-size:12px;margin-top:4px;"></div>
-    </div>
-  </section>
-
-  <!-- App -->
-  <div id="app-root" class="hidden">
-    <div class="topbar">
-      <div class="topbar-logo" data-page="grades">школа</div>
-      <div class="topbar-title" id="topbar-title">Дневник Веника</div>
-
-      <div class="topbar-nav">
-        <div class="topbar-nav-item" data-page="schedule">Расписание</div>
-        <div class="topbar-nav-item" data-page="tasks">Задания</div>
-        <div class="topbar-nav-item active" data-page="grades">
-          Оценки <span class="dot"></span>
-        </div>
-        <div class="topbar-nav-item" data-page="rating">Рейтинг</div>
-        <div class="topbar-nav-item" data-page="chat">Сообщения</div>
-      </div>
-
-      <div class="topbar-spacer"></div>
-
-      <button id="theme-toggle">
-        <span id="theme-toggle-icon">🌙</span>
-        <span id="theme-toggle-text">Тёмная</span>
-      </button>
-
-      <div class="topbar-right" data-page="profile">
-        <div class="avatar-small">
-          <img id="avatar-small-img" src="teacher.jpg" alt="profile">
-        </div>
-        <div id="topbar-name">Веник ▾</div>
-      </div>
-    </div>
-
-    <div class="layout">
-      <aside class="sidebar">
-        <div class="sidebar-user" data-page="profile">
-          <div class="avatar">
-            <img id="sidebar-avatar-img" src="teacher.jpg" alt="profile">
-          </div>
-          <div>
-            <div class="sidebar-user-name" id="sidebar-name">Дневник Веника</div>
-            <div style="font-size:12px;color:var(--text-muted);" id="sidebar-class">8Б класс</div>
-          </div>
-        </div>
-
-        <div class="sidebar-section-title">Навигация</div>
-        <div class="sidebar-item active" data-page="grades"><span>Текущие оценки</span></div>
-        <div class="sidebar-item" data-page="schedule"><span>Расписание</span></div>
-        <div class="sidebar-item" data-page="tasks"><span>Домашка</span></div>
-        <div class="sidebar-item" data-page="rating"><span>Рейтинг</span></div>
-        <div class="sidebar-item" id="sidebar-notif-item">
-          <span>Уведомления</span>
-          <span id="bell-badge" class="bell-badge hidden">0</span>
-        </div>
-        <div class="sidebar-item" data-page="chat"><span>Сообщения</span></div>
-        <div class="sidebar-item" data-page="profile"><span>Профиль</span></div>
-        <div class="sidebar-item" data-page="admin"><span>Админ</span></div>
-      </aside>
-
-      <main class="content">
-        <!-- Оценки -->
-        <section id="page-grades" class="panel">
-          <div class="panel-header">
-            <div>
-              <div class="panel-title">Текущие оценки</div>
-              <div class="panel-subtitle">
-                Четверть: <span id="current-quarter-label"></span>,
-                неделя: <span id="current-week-label"></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="tabs">
-            <div class="tab active" data-tab="by-date">По дням</div>
-            <div class="tab" data-tab="by-subject">По предметам</div>
-          </div>
-
-          <div id="tab-by-date">
-            <div class="quarter-switcher">
-              <button class="quarter-btn active" data-quarter="1">1 четверть</button>
-              <button class="quarter-btn" data-quarter="2">2 четверть</button>
-              <button class="quarter-btn" data-quarter="3">3 четверть</button>
-              <button class="quarter-btn" data-quarter="4">4 четверть</button>
-            </div>
-
-            <div class="week-switcher">
-              <button class="week-btn active" data-week="1">1 неделя</button>
-              <button class="week-btn" data-week="2">2 неделя</button>
-              <button class="week-btn" data-week="3">3 неделя</button>
-              <button class="week-btn" data-week="4">4 неделя</button>
-            </div>
-
-            <section class="day-block" id="mon-block">
-              <div class="day-title"><span class="day-icon">Пн</span>Понедельник</div>
-            </section>
-            <section class="day-block" id="tue-block">
-              <div class="day-title"><span class="day-icon">Вт</span>Вторник</div>
-            </section>
-            <section class="day-block" id="wed-block">
-              <div class="day-title"><span class="day-icon">Ср</span>Среда</div>
-            </section>
-            <section class="day-block" id="thu-block">
-              <div class="day-title"><span class="day-icon">Чт</span>Четверг</div>
-            </section>
-            <section class="day-block" id="fri-block">
-              <div class="day-title"><span class="day-icon">Пт</span>Пятница</div>
-            </section>
-            <section class="day-block" id="sat-block">
-              <div class="day-title"><span class="day-icon">Сб</span>Суббота</div>
-            </section>
-            <section class="day-block" id="sun-block">
-              <div class="day-title"><span class="day-icon">Вс</span>Воскресенье</div>
-            </section>
-
-            <div class="grade-form">
-              <span>Добавить оценку:</span>
-              <select id="subject-input">
-                <option value="Алгебра">Алгебра</option>
-                <option value="Биология">Биология</option>
-                <option value="География">География</option>
-                <option value="Геометрия">Геометрия</option>
-                <option value="Иностранный (английский) язык">Английский</option>
-                <option value="Информатика">Информатика</option>
-                <option value="История">История</option>
-                <option value="Физика">Физика</option>
-                <option value="Химия">Химия</option>
-                <option value="Русский язык">Русский</option>
-              </select>
-              <select id="day-select">
-                <option value="mon">Пн</option>
-                <option value="tue">Вт</option>
-                <option value="wed">Ср</option>
-                <option value="thu">Чт</option>
-                <option value="fri">Пт</option>
-                <option value="sat">Сб</option>
-                <option value="sun">Вс</option>
-              </select>
-
-              <input id="type-input" type="text" placeholder="Тип работы">
-              <input id="mark-input" type="number" min="1" max="5" style="width:50px" placeholder="Оценка">
-              <button class="btn" id="add-grade-btn">Добавить</button>
-            </div>
-          </div>
-
-          <div id="tab-by-subject" class="hidden">
-            <p class="panel-subtitle">
-              Список оценок по предметам (для выбранной четверти и недели).
-            </p>
-            <div id="subject-list"></div>
-          </div>
-        </section>
-
-        <!-- Средний балл по предметам -->
-        <section id="page-subjects" class="panel hidden">
-          <div class="panel-header">
-            <div class="panel-title">Средний балл по предметам</div>
-          </div>
-          <table>
-            <thead>
-            <tr>
-              <th>Предмет</th>
-              <th>Оценки</th>
-              <th>Средний</th>
-            </tr>
-            </thead>
-            <tbody id="subjects-table-body"></tbody>
-          </table>
-        </section>
-
-        <!-- Профиль -->
-        <section id="page-profile" class="panel hidden">
-          <div class="profile-grid">
-            <div class="profile-card">
-              <div class="profile-avatar">
-                <img id="profile-avatar-img" src="teacher.jpg" alt="profile">
-              </div>
-              <div style="font-weight:600;margin-bottom:4px;" id="profile-name-display">Веник Веников</div>
-              <div style="font-size:12px;color:var(--text-muted);" id="profile-class-display">Ученик 8Б класса</div>
-            </div>
-
-            <div class="profile-main">
-              <h2 style="font-size:14px;margin-bottom:8px;">Информация</h2>
-              <div class="profile-row">
-                <span class="profile-label">Имя</span>
-                <span id="profile-name-info">Веник Веников</span>
-              </div>
-              <div class="profile-row">
-                <span class="profile-label">Почта</span>
-                <span id="profile-email-info">—</span>
-              </div>
-              <div class="profile-row">
-                <span class="profile-label">Город</span>
-                <span id="profile-city-info">Подольск</span>
-              </div>
-              <div class="profile-row">
-                <span class="profile-label">Класс</span>
-                <span id="profile-class-info">8Б</span>
-              </div>
-              <div class="profile-row">
-                <span class="profile-label">Любимые предметы</span>
-                <span id="profile-fav-info">Информатика, математика</span>
-              </div>
-
-              <div class="profile-form">
-                <h3 style="font-size:13px;margin-bottom:6px;">Редактировать</h3>
-                <div class="profile-form-row">
-                  <span style="width:110px;">URL аватарки:</span>
-                  <input id="profile-avatar-input" type="text" placeholder="Ссылка на картинку">
-                </div>
-                <div class="profile-form-row">
-                  <span style="width:110px;">Имя:</span>
-                  <input id="profile-name-input" type="text" placeholder="Имя и фамилия">
-                </div>
-                <div class="profile-form-row">
-                  <span style="width:110px;">Город:</span>
-                  <input id="profile-city-input" type="text" placeholder="Город">
-                </div>
-                <div class="profile-form-row">
-                  <span style="width:110px;">Класс:</span>
-                  <input id="profile-class-input" type="text" placeholder="8Б">
-                </div>
-                <div class="profile-form-row">
-                  <span style="width:110px;">Любимые предметы:</span>
-                  <input id="profile-fav-input" type="text" placeholder="Через запятую">
-                </div>
-                <button class="btn" id="profile-save-btn">Сохранить</button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Расписание -->
-        <section id="page-schedule" class="panel hidden">
-          <div class="panel-header">
-            <div>
-              <div class="panel-title">Расписание</div>
-              <div class="panel-subtitle">Выбери день сверху, чтобы не листать огромный список.</div>
-            </div>
-          </div>
-
-          <div class="day-tabs" id="schedule-day-tabs"></div>
-          <div id="schedule-container"></div>
-        </section>
-
-        <!-- Домашка -->
-        <section id="page-tasks" class="panel hidden">
-          <div class="panel-header">
-            <div>
-              <div class="panel-title">Домашние задания</div>
-              <div class="panel-subtitle">
-                Сделал ДЗ — поставь галочку, можно фильтровать по статусу.
-              </div>
-            </div>
-          </div>
-
-          <div class="tasks-filter">
-            <span>Показать:</span>
-            <select id="tasks-filter-select">
-              <option value="all">Все</option>
-              <option value="done">Только выполненные</option>
-              <option value="todo">Только невыполненные</option>
-            </select>
-          </div>
-
-          <div class="day-tabs" id="tasks-day-tabs"></div>
-          <div id="tasks-container"></div>
-        </section>
-
-        <!-- Рейтинг -->
-        <section id="page-rating" class="panel hidden">
-          <div class="panel-header">
-            <div class="panel-title">Рейтинг класса</div>
-            <button class="btn secondary" id="rating-refresh-btn">Обновить</button>
-          </div>
-          <p class="panel-subtitle">
-            Считается по оценкам выбранной четверти и недели, обновляется в реальном времени.
-          </p>
-          <table>
-            <thead>
-            <tr>
-              <th>#</th>
-              <th>Ученик</th>
-              <th>Средний балл</th>
-            </tr>
-            </thead>
-            <tbody id="rating-table-body"></tbody>
-          </table>
-          <div id="rating-history"></div>
-        </section>
-
-        <!-- Уведомления -->
-        <section id="page-notifications" class="panel hidden">
-          <div class="panel-header">
-            <div class="panel-title">Уведомления</div>
-          </div>
-          <div id="notifications-panel" class="notifications-panel">
-            <div class="notifications-header">
-              <span>Уведомления</span>
-              <div class="notifications-actions">
-                <button id="notif-mark-read" class="notif-chip-btn">Прочитать всё</button>
-                <button id="notif-clear" class="notif-chip-btn">Очистить</button>
-              </div>
-            </div>
-            <div id="notifications-list" class="notifications-list"></div>
-          </div>
-        </section>
-
-        <!-- Сообщения (чат) -->
-        <section id="page-chat" class="panel hidden">
-          <div class="panel-header">
-            <div class="panel-title">Сообщения</div>
-            <div class="panel-subtitle">Пиши одноклассникам, чат обновляется в реальном времени.</div>
-          </div>
-          <div class="chat-layout">
-            <div class="chat-dialogs">
-              <div class="chat-dialogs-header">Диалоги</div>
-              <div id="chat-dialogs-list" class="chat-dialogs-list"></div>
-            </div>
-            <div class="chat-window">
-              <div class="chat-window-header">
-                <span id="chat-current-name">Выбери собеседника слева</span>
-                <span id="chat-current-status" style="font-size:11px;color:var(--text-muted);"></span>
-              </div>
-              <div id="chat-messages" class="chat-messages"></div>
-              <div class="chat-input-row">
-                <input id="chat-input" type="text" placeholder="Написать сообщение..." disabled>
-                <button class="btn" id="chat-send-btn" disabled>Отправить</button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Админ -->
-        <section id="page-admin" class="panel hidden">
-          <div class="panel-header">
-            <div class="panel-title">Админ-панель: визиты</div>
-          </div>
-          <p class="panel-subtitle">
-            Здесь видно, кто заходил на сайт (uid, email, браузер, язык, экран).
-          </p>
-          <div id="admin-warning" style="font-size:12px;color:#f97373;margin:6px 0;"></div>
-          <table>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Время</th>
-                <th>UID / Email</th>
-                <th>User-Agent</th>
-                <th>Язык</th>
-                <th>Экран</th>
-                <th>Действия</th>
-              </tr>
-            </thead>
-            <tbody id="admin-visits-body"></tbody>
-          </table>
-        </section>
-      </main>
-    </div>
-  </div>
-
-  <!-- Часть 2/3: большой скрипт с Firebase, realtime оценками, рейтингом, уведомлениями и профилем будет в следующем сообщении -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import {
@@ -1220,8 +839,7 @@
     limit,
     deleteDoc,
     collectionGroup,
-    serverTimestamp,
-    onSnapshot
+    serverTimestamp
   } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; /* [web:490][web:501] */
 
   const firebaseConfig = {
@@ -1276,6 +894,7 @@
   const classInput = document.getElementById('profile-class-input');
   const favInput = document.getElementById('profile-fav-input');
   const profileSaveBtn = document.getElementById('profile-save-btn');
+  const profileMessageBtn = document.getElementById('profile-message-btn');
 
   const bellBadge = document.getElementById('bell-badge');
   const notifPanel = document.getElementById('notifications-panel');
@@ -1496,6 +1115,10 @@
 
     const profileForm = document.querySelector('.profile-form');
     if (profileForm) profileForm.style.display = isOwn ? 'block' : 'none';
+
+    if (profileMessageBtn) {
+      profileMessageBtn.style.display = (!isOwn && currentUser) ? 'inline-flex' : 'none';
+    }
   }
 
   async function loadUserQuarterDoc(uid, quarter) {
@@ -1619,8 +1242,22 @@
     if (profileForm) {
       profileForm.style.display = (currentUser && uid === currentUser.uid) ? 'block' : 'none';
     }
+
+    if (profileMessageBtn) {
+      const isOwn = currentUser && uid === currentUser.uid;
+      profileMessageBtn.style.display = (!isOwn && currentUser) ? 'inline-flex' : 'none';
+      profileMessageBtn.onclick = () => {
+        if (!currentUser) return;
+        if (typeof window.openChatForUid === 'function') {
+          window.openChatForUid(uid);
+        }
+        showPage('chat');
+      };
+    }
+
     showPage('profile');
   }
+  window.openProfileForUser = openProfileForUser;
 
   // --- Оценки / четверти / недели ---
   const GRADES_PREFIX = 'venik-grades-q';
@@ -1646,12 +1283,14 @@
     const data = await loadUserQuarterDoc(currentUser.uid, currentQuarter);
     grades = data['grades_w' + currentWeek] || [];
   }
+  window.loadGrades = loadGrades;
 
   async function saveGrades() {
     localStorage.setItem(storageKeyFor(currentQuarter, currentWeek), JSON.stringify(grades));
     if (!currentUser) return;
     await saveUserQuarterDoc(currentUser.uid, currentQuarter);
   }
+  window.saveGrades = saveGrades;
 
   async function switchQuarter(q) {
     currentQuarter = q;
@@ -1670,6 +1309,9 @@
     await renderRating();
     renderRatingHistory();
   }
+  window.switchQuarter = switchQuarter;
+  window.switchWeek = switchWeek;
+
   quarterBtns.forEach(btn => btn.addEventListener('click', () => switchQuarter(Number(btn.dataset.quarter))));
   weekBtns.forEach(btn => btn.addEventListener('click', () => switchWeek(Number(btn.dataset.week))));
 
@@ -1740,6 +1382,7 @@
       block.appendChild(createLessonCard(g));
     });
   }
+  window.renderAllByDate = renderAllByDate;
 
   const subjectSelect = document.getElementById('subject-input');
   const typeInput = document.getElementById('type-input');
@@ -1808,6 +1451,8 @@
       subjectsTableBody.appendChild(tr);
     });
   }
+  window.renderSubjectsTable = renderSubjectsTable;
+
   function renderSubjectList() {
     const groups = groupBySubject();
     subjectListDiv.innerHTML = '';
@@ -1823,10 +1468,13 @@
       subjectListDiv.appendChild(p);
     });
   }
+  window.renderSubjectList = renderSubjectList;
+
   function getMyAverage() {
     const marks = grades.map(g => g.mark).filter(m => m > 0);
     return calcAverage(marks) || 0;
   }
+  window.getMyAverage = getMyAverage;
 
   // --- Расписание + ДЗ ---
   const SCHEDULE = {
@@ -1995,6 +1643,7 @@
 
     scheduleContainer.appendChild(block);
   }
+  window.renderSchedule = renderSchedule;
 
   // --- Домашка (tasksDone) ---
   const TASKS_DONE_KEY = 'venik-tasks-done';
@@ -2013,6 +1662,7 @@
     if (!currentUser) return;
     await saveUserQuarterDoc(currentUser.uid, currentQuarter);
   }
+  window.tasksDone = tasksDone;
 
   const tasksDayTabs = document.getElementById('tasks-day-tabs');
   const tasksContainer = document.getElementById('tasks-container');
@@ -2098,8 +1748,9 @@
 
     tasksContainer.appendChild(block);
   }
+  window.renderTasksForDay = renderTasksForDay;
 
-  // --- Рейтинг (пока без realtime-слушателя, он в части 3) ---
+  // --- Рейтинг ---
   const ratingTableBody = document.getElementById('rating-table-body');
   const ratingRefreshBtn = document.getElementById('rating-refresh-btn');
   const ratingHistoryDiv = document.getElementById('rating-history');
@@ -2148,6 +1799,9 @@
   function saveRatingHistory(history) {
     localStorage.setItem('venik-rating-history', JSON.stringify(history));
   }
+  window.loadRatingHistory = loadRatingHistory;
+  window.saveRatingHistory = saveRatingHistory;
+
   function saveRatingHistoryEntry() {
     const history = loadRatingHistory();
     const avg = getMyAverage();
@@ -2160,6 +1814,8 @@
     });
     saveRatingHistory(history);
   }
+  window.saveRatingHistoryEntry = saveRatingHistoryEntry;
+
   function renderRatingHistory() {
     const history = loadRatingHistory();
     if (!history.length) {
@@ -2176,6 +1832,7 @@
       ratingHistoryDiv.appendChild(p);
     });
   }
+  window.renderRatingHistory = renderRatingHistory;
 
   async function buildRatingData() {
     const myAvg = getMyAverage();
@@ -2199,13 +1856,20 @@
   }
 
   async function renderRating() {
-    const { rated, myAvg } = await buildRatingData();
+    const { rated } = await buildRatingData();
     ratingTableBody.innerHTML = '';
     rated.forEach(row => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${row.place}</td>
-        <td>${row.name}</td>
+        <td>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <div style="width:26px;height:26px;border-radius:999px;overflow:hidden;border:1px solid rgba(148,163,184,0.7);flex-shrink:0;">
+              <img src="${row.avatarUrl || 'teacher.jpg'}" alt="" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <span>${row.name}</span>
+          </div>
+        </td>
         <td>${row.avg.toFixed(2)}</td>
       `;
       tr.addEventListener('click', () => {
@@ -2213,10 +1877,8 @@
       });
       ratingTableBody.appendChild(tr);
     });
-    if (myAvg) {
-      saveRatingHistoryEntry();
-    }
   }
+  window.renderRating = renderRating;
 
   ratingRefreshBtn.addEventListener('click', () => {
     renderRating();
@@ -2272,6 +1934,7 @@
       adminVisitsBody.appendChild(tr);
     });
   }
+  window.loadAdminVisits = loadAdminVisits;
 
   // --- Регистрация / логин по официальной схеме [web:496][web:505] ---
   function showError(msg) { authError.textContent = msg; }
@@ -2308,21 +1971,10 @@
   });
 
   // --- onAuthStateChanged + инициализация ---
-  let unsubQuarter = null;
-  let unsubRatingCG = null;
-  let unsubChatMessages = null;
-
-  function cleanupListeners() {
-    if (unsubQuarter) { unsubQuarter(); unsubQuarter = null; }
-    if (unsubRatingCG) { unsubRatingCG(); unsubRatingCG = null; }
-    if (unsubChatMessages) { unsubChatMessages(); unsubChatMessages = null; }
-  }
-
   loadTheme();
   loadNotifications();
 
   onAuthStateChanged(auth, async (user) => {
-    cleanupListeners();
     currentUser = user || null;
 
     if (!user) {
@@ -2343,9 +1995,13 @@
     renderRating();
     renderRatingHistory();
     await logVisit(user);
-
-    // Подписки realtime на четверть, рейтинг и чат будут подключены в части 3/3
+    // Realtime слушатели и чат подключаются во втором скрипте
   });
+
+  window.profile = profile;
+  window.currentQuarter = currentQuarter;
+  window.currentWeek = currentWeek;
+  window.currentTasksDay = currentTasksDay;
 </script>
 <script type="module">
   import {
@@ -2359,20 +2015,18 @@
     collectionGroup
   } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; /* [web:490][web:501] */
 
-  import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"; /* [web:505][web:522] */
   import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
   const auth = getAuth();
   const db = getFirestore();
 
-  // Доступ к переменным и функциям из первого скрипта
-  // (они в глобальной области: currentUser, currentQuarter, currentWeek, grades, tasksDone, profile и т.д.)
-
-  // --- Realtime: четверть (оценки, профиль, tasksDone, avgByWeek, ratingHistory) ---
-  // Переопределяем switchQuarter / switchWeek, чтобы добавлять onSnapshot на doc quarters/qN
-  const _switchQuarterOriginal = window.switchQuarter || null;
-  const _switchWeekOriginal = window.switchWeek || null;
+  const chatDialogsList = document.getElementById('chat-dialogs-list');
+  const chatMessagesDiv = document.getElementById('chat-messages');
+  const chatInput = document.getElementById('chat-input');
+  const chatSendBtn = document.getElementById('chat-send-btn');
+  const chatCurrentName = document.getElementById('chat-current-name');
+  const chatCurrentStatus = document.getElementById('chat-current-status');
 
   let unsubQuarter = null;
   let unsubRatingCG = null;
@@ -2395,7 +2049,7 @@
       const data = snap.data() || {};
       const fieldGrades = data['grades_w' + window.currentWeek] || [];
       window.grades = fieldGrades;
-      window.profile = Object.assign(window.profile, data.profile || {});
+      window.profile = Object.assign(window.profile || {}, data.profile || {});
       window.tasksDone = data.tasksDone || window.tasksDone;
       const history = data.ratingHistory || window.loadRatingHistory();
       window.saveRatingHistory(history);
@@ -2411,35 +2065,32 @@
     });
   }
 
+  const _switchQuarterOriginal = window.switchQuarter || null;
+  const _switchWeekOriginal = window.switchWeek || null;
+
   async function switchQuarterPatched(q) {
     window.currentQuarter = q;
-    await window.loadGrades();
-    window.renderAllByDate();
-    window.renderSubjectsTable();
-    window.renderSubjectList();
-    window.renderTasksForDay(window.currentTasksDay);
-    window.renderRating();
-    window.renderRatingHistory();
-
+    if (_switchQuarterOriginal) {
+      await _switchQuarterOriginal(q);
+    } else {
+      await window.switchQuarter(q);
+    }
     const user = auth.currentUser;
     if (user) await attachQuarterListener(user.uid, q);
   }
 
   async function switchWeekPatched(w) {
     window.currentWeek = w;
-    await window.loadGrades();
-    window.renderAllByDate();
-    window.renderSubjectsTable();
-    window.renderSubjectList();
-    window.renderTasksForDay(window.currentTasksDay);
-    window.renderRating();
-    window.renderRatingHistory();
+    if (_switchWeekOriginal) {
+      await _switchWeekOriginal(w);
+    } else {
+      await window.switchWeek(w);
+    }
   }
 
   window.switchQuarter = switchQuarterPatched;
   window.switchWeek = switchWeekPatched;
 
-  // --- Realtime: рейтинг через collectionGroup(quarters) [web:490][web:504] ---
   function attachRatingListener() {
     if (unsubRatingCG) { unsubRatingCG(); unsubRatingCG = null; }
     const cg = collectionGroup(db, 'quarters');
@@ -2449,14 +2100,6 @@
       console.error('rating collectionGroup onSnapshot error', err);
     });
   }
-
-  // --- Мини‑мессенджер ---
-  const chatDialogsList = document.getElementById('chat-dialogs-list');
-  const chatMessagesDiv = document.getElementById('chat-messages');
-  const chatInput = document.getElementById('chat-input');
-  const chatSendBtn = document.getElementById('chat-send-btn');
-  const chatCurrentName = document.getElementById('chat-current-name');
-  const chatCurrentStatus = document.getElementById('chat-current-status');
 
   const CLASSMATES = [
     'Матвей Иванов','Денис Чернобай','Матвей Козлов',
@@ -2485,8 +2128,8 @@
 
     const myEntry = {
       uid: myUid,
-      name: window.profile.name || 'Ты',
-      avatarUrl: window.profile.avatarUrl || 'teacher.jpg'
+      name: window.profile?.name || 'Ты',
+      avatarUrl: window.profile?.avatarUrl || 'teacher.jpg'
     };
 
     const classmates = CLASSMATES.map((name, idx) => ({
@@ -2498,7 +2141,7 @@
     const list = [myEntry, ...classmates];
 
     list.forEach(entry => {
-      if (entry.uid === myUid) return; // себе отдельный диалог не нужен
+      if (entry.uid === myUid) return;
 
       const item = document.createElement('div');
       item.className = 'chat-dialog-item';
@@ -2615,8 +2258,33 @@
     }
   });
 
-  // --- Реакция на смену auth (добавляем сюда подписки) ---
-  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"; /* [web:496][web:505] */
+  // Открыть чат по uid (для кнопки "Написать" из профиля)
+  window.openChatForUid = function(targetUid) {
+    const user = auth.currentUser;
+    if (!user) return;
+    if (targetUid === user.uid) return;
+
+    let foundEntry = null;
+    document.querySelectorAll('.chat-dialog-item').forEach(item => {
+      if (item.dataset.uid === targetUid) {
+        foundEntry = {
+          uid: targetUid,
+          name: item.querySelector('.chat-dialog-name')?.textContent || 'Ученик',
+          avatarUrl: item.querySelector('.chat-dialog-avatar img')?.src || 'teacher.jpg'
+        };
+      }
+    });
+
+    if (!foundEntry) {
+      foundEntry = {
+        uid: targetUid,
+        name: 'Ученик',
+        avatarUrl: 'teacher.jpg'
+      };
+    }
+
+    openChat(foundEntry);
+  };
 
   onAuthStateChanged(auth, async (user) => {
     cleanupListenersLocal();
@@ -2630,17 +2298,393 @@
       return;
     }
 
-    // Четверть realtime
     await attachQuarterListener(user.uid, window.currentQuarter || 1);
-
-    // Рейтинг realtime
     attachRatingListener();
-
-    // Чаты
     renderChatDialogs();
   });
 </script>
 
+<body>
+
+  <!-- Auth -->
+  <section id="auth-panel" class="panel">
+    <h2 style="margin-bottom:8px;">Вход / Регистрация</h2>
+    <p class="panel-subtitle" style="margin-bottom:10px;">
+      Введи email и пароль. «Регистрация» создаёт аккаунт, «Вход» логинит, «Выйти» — выход.
+    </p>
+    <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;">
+      <input id="auth-email" type="email" placeholder="Email"
+             style="padding:6px 8px;border-radius:8px;border:1px solid rgba(55,65,81,0.9);">
+      <input id="auth-password" type="password" placeholder="Пароль"
+             style="padding:6px 8px;border-radius:8px;border:1px solid rgba(55,65,81,0.9);">
+      <div style="display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;">
+        <button class="btn" id="auth-login-btn">Вход</button>
+        <button class="btn secondary" id="auth-signup-btn">Регистрация</button>
+        <button class="btn secondary" id="auth-logout-btn">Выйти</button>
+      </div>
+      <div id="auth-error" style="color:#f97373;font-size:12px;margin-top:4px;"></div>
+    </div>
+  </section>
+
+  <!-- App -->
+  <div id="app-root" class="hidden">
+    <div class="topbar">
+      <div class="topbar-logo" data-page="grades">школа</div>
+      <div class="topbar-title" id="topbar-title">Дневник Веника</div>
+
+      <div class="topbar-nav">
+        <div class="topbar-nav-item" data-page="schedule">Расписание</div>
+        <div class="topbar-nav-item" data-page="tasks">Задания</div>
+        <div class="topbar-nav-item active" data-page="grades">
+          Оценки <span class="dot"></span>
+        </div>
+        <div class="topbar-nav-item" data-page="rating">Рейтинг</div>
+        <div class="topbar-nav-item" data-page="chat">Сообщения</div>
+      </div>
+
+      <div class="topbar-spacer"></div>
+
+      <button id="theme-toggle">
+        <span id="theme-toggle-icon">🌙</span>
+        <span id="theme-toggle-text">Тёмная</span>
+      </button>
+
+      <div class="topbar-right" data-page="profile">
+        <div class="avatar-small">
+          <img id="avatar-small-img" src="teacher.jpg" alt="profile">
+        </div>
+        <div id="topbar-name">Веник ▾</div>
+      </div>
+    </div>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-user" data-page="profile">
+          <div class="avatar">
+            <img id="sidebar-avatar-img" src="teacher.jpg" alt="profile">
+          </div>
+          <div>
+            <div class="sidebar-user-name" id="sidebar-name">Дневник Веника</div>
+            <div style="font-size:12px;color:var(--text-muted);" id="sidebar-class">8Б класс</div>
+          </div>
+        </div>
+
+        <div class="sidebar-section-title">Навигация</div>
+        <div class="sidebar-item active" data-page="grades"><span>Текущие оценки</span></div>
+        <div class="sidebar-item" data-page="schedule"><span>Расписание</span></div>
+        <div class="sidebar-item" data-page="tasks"><span>Домашка</span></div>
+        <div class="sidebar-item" data-page="rating"><span>Рейтинг</span></div>
+        <div class="sidebar-item" id="sidebar-notif-item">
+          <span>Уведомления</span>
+          <span id="bell-badge" class="bell-badge hidden">0</span>
+        </div>
+        <div class="sidebar-item" data-page="chat"><span>Сообщения</span></div>
+        <div class="sidebar-item" data-page="profile"><span>Профиль</span></div>
+        <div class="sidebar-item" data-page="admin"><span>Админ</span></div>
+      </aside>
+
+      <main class="content">
+        <!-- Оценки -->
+        <section id="page-grades" class="panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Текущие оценки</div>
+              <div class="panel-subtitle">
+                Четверть: <span id="current-quarter-label"></span>,
+                неделя: <span id="current-week-label"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="tabs">
+            <div class="tab active" data-tab="by-date">По дням</div>
+            <div class="tab" data-tab="by-subject">По предметам</div>
+          </div>
+
+          <div id="tab-by-date">
+            <div class="quarter-switcher">
+              <button class="quarter-btn active" data-quarter="1">1 четверть</button>
+              <button class="quarter-btn" data-quarter="2">2 четверть</button>
+              <button class="quarter-btn" data-quarter="3">3 четверть</button>
+              <button class="quarter-btn" data-quarter="4">4 четверть</button>
+            </div>
+
+            <div class="week-switcher">
+              <button class="week-btn active" data-week="1">1 неделя</button>
+              <button class="week-btn" data-week="2">2 неделя</button>
+              <button class="week-btn" data-week="3">3 неделя</button>
+              <button class="week-btn" data-week="4">4 неделя</button>
+            </div>
+
+            <section class="day-block" id="mon-block">
+              <div class="day-title"><span class="day-icon">Пн</span>Понедельник</div>
+            </section>
+            <section class="day-block" id="tue-block">
+              <div class="day-title"><span class="day-icon">Вт</span>Вторник</div>
+            </section>
+            <section class="day-block" id="wed-block">
+              <div class="day-title"><span class="day-icon">Ср</span>Среда</div>
+            </section>
+            <section class="day-block" id="thu-block">
+              <div class="day-title"><span class="day-icon">Чт</span>Четверг</div>
+            </section>
+            <section class="day-block" id="fri-block">
+              <div class="day-title"><span class="day-icon">Пт</span>Пятница</div>
+            </section>
+            <section class="day-block" id="sat-block">
+              <div class="day-title"><span class="day-icon">Сб</span>Суббота</div>
+            </section>
+            <section class="day-block" id="sun-block">
+              <div class="day-title"><span class="day-icon">Вс</span>Воскресенье</div>
+            </section>
+
+            <div class="grade-form">
+              <span>Добавить оценку:</span>
+              <select id="subject-input">
+                <option value="Алгебра">Алгебра</option>
+                <option value="Биология">Биология</option>
+                <option value="География">География</option>
+                <option value="Геометрия">Геометрия</option>
+                <option value="Иностранный (английский) язык">Английский</option>
+                <option value="Информатика">Информатика</option>
+                <option value="История">История</option>
+                <option value="Физика">Физика</option>
+                <option value="Химия">Химия</option>
+                <option value="Русский язык">Русский</option>
+              </select>
+              <select id="day-select">
+                <option value="mon">Пн</option>
+                <option value="tue">Вт</option>
+                <option value="wed">Ср</option>
+                <option value="thu">Чт</option>
+                <option value="fri">Пт</option>
+                <option value="sat">Сб</option>
+                <option value="sun">Вс</option>
+              </select>
+
+              <input id="type-input" type="text" placeholder="Тип работы">
+              <input id="mark-input" type="number" min="1" max="5" style="width:50px" placeholder="Оценка">
+              <button class="btn" id="add-grade-btn">Добавить</button>
+            </div>
+          </div>
+
+          <div id="tab-by-subject" class="hidden">
+            <p class="panel-subtitle">
+              Список оценок по предметам (для выбранной четверти и недели).
+            </p>
+            <div id="subject-list"></div>
+          </div>
+        </section>
+
+        <!-- Средний балл по предметам -->
+        <section id="page-subjects" class="panel hidden">
+          <div class="panel-header">
+            <div class="panel-title">Средний балл по предметам</div>
+          </div>
+          <table>
+            <thead>
+            <tr>
+              <th>Предмет</th>
+              <th>Оценки</th>
+              <th>Средний</th>
+            </tr>
+            </thead>
+            <tbody id="subjects-table-body"></tbody>
+          </table>
+        </section>
+
+        <!-- Профиль -->
+        <section id="page-profile" class="panel hidden">
+          <div class="profile-grid">
+            <div class="profile-card">
+              <div class="profile-avatar">
+                <img id="profile-avatar-img" src="teacher.jpg" alt="profile">
+              </div>
+              <div style="font-weight:600;margin-bottom:4px;" id="profile-name-display">Веник Веников</div>
+              <div style="font-size:12px;color:var(--text-muted);" id="profile-class-display">Ученик 8Б класса</div>
+              <button class="btn" id="profile-message-btn" style="margin-top:8px;display:none;">
+                Написать
+              </button>
+            </div>
+
+            <div class="profile-main">
+              <h2 style="font-size:14px;margin-bottom:8px;">Информация</h2>
+              <div class="profile-row">
+                <span class="profile-label">Имя</span>
+                <span id="profile-name-info">Веник Веников</span>
+              </div>
+              <div class="profile-row">
+                <span class="profile-label">Почта</span>
+                <span id="profile-email-info">—</span>
+              </div>
+              <div class="profile-row">
+                <span class="profile-label">Город</span>
+                <span id="profile-city-info">Подольск</span>
+              </div>
+              <div class="profile-row">
+                <span class="profile-label">Класс</span>
+                <span id="profile-class-info">8Б</span>
+              </div>
+              <div class="profile-row">
+                <span class="profile-label">Любимые предметы</span>
+                <span id="profile-fav-info">Информатика, математика</span>
+              </div>
+
+              <div class="profile-form">
+                <h3 style="font-size:13px;margin-bottom:6px;">Редактировать</h3>
+                <div class="profile-form-row">
+                  <span style="width:110px;">URL аватарки:</span>
+                  <input id="profile-avatar-input" type="text" placeholder="Ссылка на картинку">
+                </div>
+                <div class="profile-form-row">
+                  <span style="width:110px;">Имя:</span>
+                  <input id="profile-name-input" type="text" placeholder="Имя и фамилия">
+                </div>
+                <div class="profile-form-row">
+                  <span style="width:110px;">Город:</span>
+                  <input id="profile-city-input" type="text" placeholder="Город">
+                </div>
+                <div class="profile-form-row">
+                  <span style="width:110px;">Класс:</span>
+                  <input id="profile-class-input" type="text" placeholder="8Б">
+                </div>
+                <div class="profile-form-row">
+                  <span style="width:110px;">Любимые предметы:</span>
+                  <input id="profile-fav-input" type="text" placeholder="Через запятую">
+                </div>
+                <button class="btn" id="profile-save-btn">Сохранить</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Расписание -->
+        <section id="page-schedule" class="panel hidden">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Расписание</div>
+              <div class="panel-subtitle">Выбери день сверху, чтобы не листать огромный список.</div>
+            </div>
+          </div>
+
+          <div class="day-tabs" id="schedule-day-tabs"></div>
+          <div id="schedule-container"></div>
+        </section>
+
+        <!-- Домашка -->
+        <section id="page-tasks" class="panel hidden">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Домашние задания</div>
+              <div class="panel-subtitle">
+                Сделал ДЗ — поставь галочку, можно фильтровать по статусу.
+              </div>
+            </div>
+          </div>
+
+          <div class="tasks-filter">
+            <span>Показать:</span>
+            <select id="tasks-filter-select">
+              <option value="all">Все</option>
+              <option value="done">Только выполненные</option>
+              <option value="todo">Только невыполненные</option>
+            </select>
+          </div>
+
+          <div class="day-tabs" id="tasks-day-tabs"></div>
+          <div id="tasks-container"></div>
+        </section>
+
+        <!-- Рейтинг -->
+        <section id="page-rating" class="panel hidden">
+          <div class="panel-header">
+            <div class="panel-title">Рейтинг класса</div>
+            <button class="btn secondary" id="rating-refresh-btn">Обновить</button>
+          </div>
+          <p class="panel-subtitle">
+            Считается по оценкам выбранной четверти и недели, обновляется в реальном времени.
+          </p>
+          <table>
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Ученик</th>
+              <th>Средний балл</th>
+            </tr>
+            </thead>
+            <tbody id="rating-table-body"></tbody>
+          </table>
+          <div id="rating-history"></div>
+        </section>
+
+        <!-- Уведомления -->
+        <section id="page-notifications" class="panel hidden">
+          <div class="panel-header">
+            <div class="panel-title">Уведомления</div>
+          </div>
+          <div id="notifications-panel" class="notifications-panel">
+            <div class="notifications-header">
+              <span>Уведомления</span>
+              <div class="notifications-actions">
+                <button id="notif-mark-read" class="notif-chip-btn">Прочитать всё</button>
+                <button id="notif-clear" class="notif-chip-btn">Очистить</button>
+              </div>
+            </div>
+            <div id="notifications-list" class="notifications-list"></div>
+          </div>
+        </section>
+
+        <!-- Сообщения (чат) -->
+        <section id="page-chat" class="panel hidden">
+          <div class="panel-header">
+            <div class="panel-title">Сообщения</div>
+            <div class="panel-subtitle">Пиши одноклассникам, чат обновляется в реальном времени.</div>
+          </div>
+          <div class="chat-layout">
+            <div class="chat-dialogs">
+              <div class="chat-dialogs-header">Диалоги</div>
+              <div id="chat-dialogs-list" class="chat-dialogs-list"></div>
+            </div>
+            <div class="chat-window">
+              <div class="chat-window-header">
+                <span id="chat-current-name">Выбери собеседника слева</span>
+                <span id="chat-current-status" style="font-size:11px;color:var(--text-muted);"></span>
+              </div>
+              <div id="chat-messages" class="chat-messages"></div>
+              <div class="chat-input-row">
+                <input id="chat-input" type="text" placeholder="Написать сообщение..." disabled>
+                <button class="btn" id="chat-send-btn" disabled>Отправить</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Админ -->
+        <section id="page-admin" class="panel hidden">
+          <div class="panel-header">
+            <div class="panel-title">Админ-панель: визиты</div>
+          </div>
+          <p class="panel-subtitle">
+            Здесь видно, кто заходил на сайт (uid, email, браузер, язык, экран).
+          </p>
+          <div id="admin-warning" style="font-size:12px;color:#f97373;margin:6px 0;"></div>
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Время</th>
+                <th>UID / Email</th>
+                <th>User-Agent</th>
+                <th>Язык</th>
+                <th>Экран</th>
+                <th>Действия</th>
+              </tr>
+            </thead>
+            <tbody id="admin-visits-body"></tbody>
+          </table>
+        </section>
+      </main>
+    </div>
+  </div>
 </body>
 </html>
-
