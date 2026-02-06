@@ -1,819 +1,929 @@
-<!doctype html>
-<html lang="ru">
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <title>Дневник Веника</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --radius-lg: 18px;
-      --radius-md: 12px;
-      --radius-pill: 999px;
-      --shadow-soft: 0 16px 35px rgba(15, 23, 42, 0.6);
-      --blur-strong: blur(18px);
-
-      --bg-gradient: radial-gradient(circle at top left, #0f172a 0, #020617 45%, #000000 100%);
-      --card-bg: rgba(15, 23, 42, 0.94);
-      --card-border: rgba(148, 163, 184, 0.4);
-      --accent: #6366f1;
-      --accent-soft: rgba(99, 102, 241, 0.12);
-      --accent-2: #22c55e;
+      --bg-main: #020617;
+      --bg-elevated: #020617;
+      --bg-soft: #020617;
+      --border-subtle: rgba(148, 163, 184, 0.35);
+      --border-strong: rgba(148, 163, 184, 0.55);
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.1);
+      --accent-strong: #0ea5e9;
       --text-main: #e5e7eb;
       --text-muted: #9ca3af;
-      --chip-bg: rgba(15, 23, 42, 0.9);
+      --text-soft: #6b7280;
+      --danger: #f97373;
+      --danger-soft: rgba(248, 113, 113, 0.1);
+      --success: #4ade80;
+      --success-soft: rgba(74, 222, 128, 0.12);
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.85);
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --radius-sm: 10px;
+      --radius-pill: 999px;
+      --blur-bg: blur(16px);
     }
 
-    :root[data-theme="light"] {
-      --bg-gradient: radial-gradient(circle at top left, #e5f0ff 0, #f9fafb 40%, #e5e7eb 100%);
-      --card-bg: #ffffff;
-      --card-border: #d1d5db;
-      --accent: #4f46e5;
-      --accent-soft: rgba(79, 70, 229, 0.06);
-      --accent-2: #16a34a;
-      --text-main: #111827;
-      --text-muted: #6b7280;
-      --chip-bg: #f3f4f6;
+    [data-theme="light"] {
+      --bg-main: #e5f3ff;
+      --bg-elevated: rgba(255, 255, 255, 0.92);
+      --bg-soft: rgba(255, 255, 255, 0.82);
+      --border-subtle: rgba(148, 163, 184, 0.45);
+      --border-strong: rgba(30, 64, 175, 0.6);
+      --accent: #0f766e;
+      --accent-soft: rgba(15, 118, 110, 0.08);
+      --accent-strong: #0d9488;
+      --text-main: #020617;
+      --text-muted: #4b5563;
+      --text-soft: #6b7280;
+      --danger: #dc2626;
+      --danger-soft: rgba(220, 38, 38, 0.08);
+      --success: #16a34a;
+      --success-soft: rgba(22, 163, 74, 0.08);
+      --shadow-soft: 0 18px 50px rgba(15, 23, 42, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--bg-gradient);
-      color: var(--text-main);
+      margin: 0;
       min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, #0f172a 0, #020617 40%, #020617 100%);
+      color: var(--text-main);
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
     }
-    .hidden { display: none; }
 
-    .topbar {
-      height: 56px;
-      backdrop-filter: blur(18px);
-      background: linear-gradient(to right, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.8));
-      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
-      color: #e5e7eb;
-      display: flex;
-      align-items: center;
-      padding: 0 16px;
-      position: sticky;
-      top: 0;
-      z-index: 20;
-    }
-    .topbar-logo {
-      background: radial-gradient(circle at top left, #22c55e, #16a34a);
-      border-radius: 10px;
-      padding: 5px 9px;
-      font-weight: 700;
-      margin-right: 14px;
-      font-size: 12px;
-      cursor: pointer;
-      letter-spacing: 0.03em;
-      text-transform: uppercase;
-      box-shadow: 0 10px 24px rgba(22, 163, 74, 0.45);
-    }
-    .topbar-title {
-      font-weight: 600;
-      margin-right: 24px;
-      font-size: 15px;
-    }
-    .topbar-nav {
-      display: flex;
-      gap: 10px;
-      font-size: 13px;
-    }
-    .topbar-nav-item {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      color: var(--text-muted);
-      padding: 4px 9px;
-      border-radius: 999px;
-      transition: 0.16s ease;
-    }
-    .topbar-nav-item:hover,
-    .topbar-nav-item.active {
+    #auth-panel {
+      max-width: 380px;
+      width: 100%;
+      margin: 40px auto;
+      padding: 24px 22px 22px;
       background: rgba(15, 23, 42, 0.96);
-      color: #e5e7eb;
-    }
-    .topbar-nav-item span.dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-    }
-    .topbar-spacer { flex: 1; }
-
-    :root[data-theme="light"] .topbar {
-      background: linear-gradient(to right, #ffffff, #e5edff);
-      border-bottom-color: #d1d5db;
-      color: #111827;
-    }
-    :root[data-theme="light"] #theme-toggle {
-      background: #f3f4f6;
-      color: #111827;
-      border-color: #d1d5db;
-    }
-    :root[data-theme="light"] .topbar-right {
-      background: #f9fafb;
-      border-color: #d1d5db;
-    }
-
-    .topbar-right {
-      margin-left: 8px;
+      border-radius: 22px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.9);
       display: flex;
-      align-items: center;
+      flex-direction: column;
       gap: 10px;
-      cursor: pointer;
-      padding: 3px 8px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      font-size: 12px;
     }
-    .avatar-small {
-      width: 28px;
-      height: 28px;
+
+    #auth-panel input {
+      width: 100%;
+      padding: 9px 11px;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      font-size: 14px;
+      outline: none;
+    }
+
+    #auth-panel input:focus {
+      border-color: var(--accent-strong);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.5);
+    }
+
+    #auth-panel button {
+      padding: 9px 12px;
       border-radius: 999px;
-      overflow: hidden;
-      background: #1f2937;
+      border: none;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    #auth-login-btn {
+      background: linear-gradient(to right, #0f766e, #0ea5e9);
+      color: white;
+    }
+
+    #auth-signup-btn {
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
       border: 1px solid rgba(148, 163, 184, 0.7);
     }
-    .avatar-small img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    #theme-toggle {
-      margin-left: 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.5);
-      background: rgba(15,23,42,0.9);
-      color: #e5e7eb;
-      padding: 4px 9px;
-      font-size: 11px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 5px;
+
+    #auth-logout-btn {
+      background: transparent;
+      color: var(--text-soft);
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+      margin-top: 4px;
     }
 
-    .layout {
+    #auth-error {
+      font-size: 12px;
+      color: var(--danger);
+      min-height: 16px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    #app-root {
       display: flex;
-      min-height: calc(100vh - 56px);
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 14px 12px 24px;
+      width: 100%;
+      max-width: 1300px;
+      margin: 24px auto;
+      padding: 16px 14px;
       gap: 14px;
     }
 
     .sidebar {
-      width: 230px;
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--card-border);
-      padding: 14px 10px 12px;
-      font-size: 14px;
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: var(--blur-strong);
+      width: 250px;
+      flex-shrink: 0;
+      background: rgba(15, 23, 42, 0.98);
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.75);
+      box-shadow: 0 20px 55px rgba(15, 23, 42, 0.95);
+      padding: 14px 13px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: sticky;
+      top: 16px;
+      height: fit-content;
     }
-    .sidebar-user {
+
+    .sidebar-header {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 12px;
-      cursor: pointer;
-      padding: 6px;
-      border-radius: var(--radius-md);
-      transition: 0.16s ease;
+      padding: 6px 7px;
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.18), transparent 55%), rgba(15, 23, 42, 0.95);
     }
-    .sidebar-user:hover { background: rgba(15, 23, 42, 0.96); }
-    .avatar {
+
+    .sidebar-header img {
       width: 38px;
       height: 38px;
-      border-radius: 12px;
-      overflow: hidden;
-      background: #020617;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-    }
-    .avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .sidebar-user-name { font-weight: 600; font-size: 14px; }
-    .sidebar-section-title {
-      font-size: 11px;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin: 8px 6px 4px;
-      letter-spacing: 0.08em;
-    }
-    .sidebar-item {
-      padding: 7px 8px;
-      border-radius: 9px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      color: var(--text-muted);
-      transition: 0.16s ease;
-      font-size: 13px;
-    }
-    .sidebar-item:hover { background: rgba(15, 23, 42, 0.96); color: #e5e7eb; }
-    .sidebar-item.active {
-      background: var(--accent-soft);
-      border: 1px solid rgba(129, 140, 248, 0.7);
-      color: #e5e7eb;
+      border-radius: 999px;
+      object-fit: cover;
+      border: 1.2px solid rgba(56, 189, 248, 0.6);
+      box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.9);
     }
 
-    .content {
-      flex: 1;
+    #sidebar-name {
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.01em;
+    }
+
+    #sidebar-class {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .sidebar-nav {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-    }
-    .panel {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--card-border);
-      padding: 14px 14px 16px;
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: var(--blur-strong);
-      font-size: 14px;
-    }
-
-    :root[data-theme="light"] .sidebar {
-      background: #ffffff;
-      box-shadow: 0 10px 25px rgba(148, 163, 184, 0.3);
-    }
-    :root[data-theme="light"] .panel {
-      background: #ffffff;
-      box-shadow: 0 10px 25px rgba(148, 163, 184, 0.3);
-    }
-
-    .panel-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
-    }
-    .panel-title { font-weight: 600; font-size: 15px; }
-    .panel-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
-
-    .tabs {
-      display: flex;
-      border-bottom: 1px solid rgba(51, 65, 85, 0.7);
-      margin-bottom: 10px;
-      gap: 10px;
-      font-size: 13px;
-    }
-    .tab {
-      padding: 0 0 6px;
-      color: var(--text-muted);
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      display: flex;
-      align-items: center;
       gap: 4px;
-      transition: 0.16s ease;
-    }
-    .tab.active {
-      color: var(--text-main);
-      border-color: var(--accent);
-      font-weight: 500;
-    }
-
-    .quarter-switcher, .week-switcher {
-      display: flex;
-      gap: 6px;
       margin-top: 6px;
-      flex-wrap: wrap;
-    }
-    .quarter-btn, .week-btn {
-      font-size: 12px;
-      padding: 4px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      background: rgba(15, 23, 42, 0.98);
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: 0.15s ease;
-    }
-    .quarter-btn.active, .week-btn.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #e5e7eb;
     }
 
-    .day-block {
-      margin-top: 10px;
-      border-radius: 14px;
-      background: rgba(15, 23, 42, 0.9);
-      padding: 8px 8px 6px;
-      border: 1px dashed rgba(75, 85, 99, 0.85);
-    }
-    .day-title {
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+    .sidebar-item {
       display: flex;
       align-items: center;
-      gap: 6px;
-    }
-    .day-icon {
-      width: 18px;
-      height: 18px;
-      border-radius: 6px;
-      background: rgba(148, 163, 184, 0.25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-    }
-
-    :root[data-theme="light"] .day-block {
-      background: #f9fafb;
-      border-color: #e5e7eb;
-    }
-
-    .lesson-card {
-      background: rgba(15, 23, 42, 0.98);
-      border-radius: 11px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
       padding: 7px 9px;
-      display: flex;
-      align-items: center;
-      margin-bottom: 6px;
-    }
-    .lesson-teacher {
-      width: 32px;
-      height: 32px;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-right: 8px;
-      flex-shrink: 0;
-      background: #020617;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-    }
-    .lesson-teacher img { width: 100%; height: 100%; object-fit: cover; }
-    .lesson-main { flex: 1; display: flex; flex-direction: column; gap: 2px; }
-    .lesson-subject { font-size: 13px; font-weight: 500; display:flex; align-items:center; gap:6px; }
-    .lesson-type { font-size: 11px; color: var(--text-muted); }
-    .lesson-more {
+      border-radius: 999px;
       font-size: 14px;
-      color: rgba(148, 163, 184, 0.9);
+      color: var(--text-muted);
       cursor: pointer;
-      margin-left: 6px;
-      padding: 3px;
-      border-radius: 999px;
+      transition: all 0.16s ease-out;
+      border: 1px solid transparent;
     }
 
-    :root[data-theme="light"] .lesson-card {
-      background: #ffffff;
-      border-color: #e5e7eb;
-    }
-
-    .badge {
-      display:inline-block;
-      padding:2px 6px;
-      border-radius:999px;
-      font-size:10px;
-      text-transform:uppercase;
-      letter-spacing:0.06em;
-      color:#0b1120;
-    }
-    .badge-math { background:#fbbf24; }
-    .badge-ru   { background:#f97316; }
-    .badge-eng  { background:#38bdf8; }
-    .badge-it   { background:#22c55e; }
-    .badge-sci  { background:#a855f7; }
-    .badge-geo  { background:#2dd4bf; }
-    .badge-hist { background:#f97373; }
-    .badge-pe   { background:#4ade80; }
-    .badge-other{ background:#e5e7eb; }
-
-    .grade-form {
-      margin-top: 12px;
-      padding: 9px;
-      border-radius: 12px;
-      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.08), rgba(15, 23, 42, 0.96));
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      align-items: center;
-      font-size: 12px;
-      border: 1px solid rgba(37, 99, 235, 0.5);
-    }
-    :root[data-theme="light"] .grade-form {
-      background: #eef2ff;
-      border-color: #c7d2fe;
-    }
-    .grade-form input,
-    .grade-form select {
-      padding: 5px 7px;
-      border-radius: 8px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      font-size: 12px;
-      background: rgba(15, 23, 42, 0.96);
-      color: #e5e7eb;
-      outline: none;
-      min-width: 120px;
-    }
-
-    .btn {
-      padding: 5px 11px;
-      border-radius: var(--radius-pill);
-      border: none;
-      background: radial-gradient(circle at top left, #4f46e5, #1d4ed8);
-      color: #e5e7eb;
-      font-size: 12px;
-      cursor: pointer;
-      font-weight: 500;
-      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.55);
-      white-space: nowrap;
-    }
-    .btn.secondary {
+    .sidebar-item:hover {
       background: rgba(15, 23, 42, 0.9);
+      border-color: rgba(148, 163, 184, 0.5);
+      color: var(--text-main);
+    }
+
+    .sidebar-item.active {
+      background: rgba(15, 23, 42, 0.95);
+      color: #f9fafb;
+      border-color: rgba(56, 189, 248, 0.8);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.15);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      margin-bottom: 10px;
+      border-radius: 22px;
       border: 1px solid rgba(148, 163, 184, 0.6);
-      box-shadow: none;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.12), transparent 55%), rgba(15, 23, 42, 0.96);
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(16px);
     }
 
-    .profile-grid { display: grid; grid-template-columns: 210px 1fr; gap: 16px; }
-    .profile-card {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--card-border);
-      padding: 14px;
-      text-align: center;
-      box-shadow: var(--shadow-soft);
-    }
-    .profile-avatar {
-      width: 80px;
-      height: 80px;
-      border-radius: 999px;
-      overflow: hidden;
-      margin: 0 auto 10px;
-      background: #020617;
-      border: 2px solid rgba(129, 140, 248, 0.9);
-      box-shadow: 0 10px 26px rgba(79, 70, 229, 0.7);
-    }
-    .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .profile-main {
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--card-border);
-      padding: 14px;
-      font-size: 13px;
-      box-shadow: var(--shadow-soft);
-    }
-    .profile-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 5px 0;
-      border-bottom: 1px solid rgba(30, 41, 59, 0.9);
-      font-size: 13px;
-    }
-    .profile-label { color: var(--text-muted); }
-    .profile-form { margin-top: 12px; padding-top: 8px; border-top: 1px solid rgba(30, 41, 59, 0.9); }
-    .profile-form-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 6px;
-      align-items: center;
-      font-size: 12px;
-    }
-    .profile-form input {
-      padding: 5px 7px;
-      border-radius: 8px;
-      border: 1px solid rgba(55, 65, 81, 0.95);
-      font-size: 12px;
-      min-width: 180px;
-      background: rgba(15, 23, 42, 0.96);
-      color: #e5e7eb;
-      outline: none;
-    }
-
-    table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 13px; }
-    th, td { border-bottom: 1px solid rgba(30, 41, 59, 0.95); padding: 6px 5px; text-align: left; }
-    th {
-      background: rgba(15, 23, 42, 0.98);
-      font-weight: 600;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      font-size: 11px;
-      letter-spacing: 0.08em;
-    }
-
-    .day-tabs {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 8px;
-      flex-wrap: wrap;
-    }
-    .day-tab {
-      font-size: 12px;
-      padding: 4px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(55,65,81,0.9);
-      background: rgba(15,23,42,0.96);
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: 0.15s ease;
-    }
-    .day-tab.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #e5e7eb;
-    }
-
-    :root[data-theme="light"] .day-tab {
-      background: #f3f4f6;
-      border-color: #d1d5db;
-      color: #4b5563;
-    }
-    :root[data-theme="light"] .day-tab.active {
-      background: #4f46e5;
-      border-color: #4f46e5;
-      color: #f9fafb;
-    }
-
-    .task-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      margin-bottom: 6px;
-      padding: 6px 8px;
-      border-radius: 10px;
-      background: rgba(15,23,42,0.95);
-      border: 1px solid rgba(55,65,81,0.9);
-      font-size: 13px;
-    }
-    .task-row.done {
-      opacity: 0.7;
-      text-decoration: line-through;
-      border-color: rgba(22, 163, 74, 0.9);
-    }
-    .task-row input[type="checkbox"] {
-      margin-top: 2px;
-      cursor: pointer;
-    }
-    .task-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
-
-    :root[data-theme="light"] .task-row {
-      background: #ffffff;
-      border-color: #e5e7eb;
-    }
-
-    .tasks-filter {
-      display:flex;
-      align-items:center;
-      gap:6px;
-      font-size:12px;
-      margin-bottom:8px;
-    }
-    .tasks-filter select {
-      padding:4px 7px;
-      border-radius:999px;
-      border:1px solid rgba(55,65,81,0.9);
-      background:rgba(15,23,42,0.96);
-      color:#e5e7eb;
-      font-size:12px;
-      outline:none;
-    }
-    :root[data-theme="light"] .tasks-filter select {
-      background:#ffffff;
-      border-color:#d1d5db;
-      color:#111827;
-    }
-
-    .bell-badge {
-      min-width: 18px;
-      padding: 0 6px;
-      height: 18px;
-      border-radius: 999px;
-      background: #ef4444;
-      color: #f9fafb;
-      font-size: 10px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-    }
-
-    .notifications-panel {
-      background: var(--card-bg);
-      border-radius: 14px;
-      border: 1px solid var(--card-border);
-      padding: 8px;
-      display: flex;
-      flex-direction: column;
-      font-size: 12px;
-      max-height: 320px;
-    }
-    .notifications-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 4px;
-    }
-    .notifications-header span {
-      font-weight: 600;
-      font-size: 12px;
-    }
-    .notifications-actions {
-      display: flex;
-      gap: 4px;
-      font-size: 11px;
-    }
-    .notif-chip-btn {
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.5);
-      background: rgba(15,23,42,0.96);
-      color: var(--text-muted);
-      padding: 2px 6px;
-      cursor: pointer;
-    }
-    .notifications-list {
-      margin-top: 4px;
-      overflow-y: auto;
-      padding-right: 2px;
-    }
-    .notif-item {
-      padding: 6px 6px;
-      border-radius: 10px;
-      border: 1px solid rgba(51,65,85,0.8);
-      background: rgba(15,23,42,0.96);
-      margin-bottom: 4px;
+    .topbar-left {
       display: flex;
       flex-direction: column;
       gap: 2px;
     }
-    .notif-item.new {
-      border-color: #22c55e;
-      box-shadow: 0 0 0 1px rgba(34,197,94,0.3);
-    }
-    .notif-main {
-      display: flex;
-      justify-content: space-between;
-      gap: 6px;
-    }
-    .notif-text { font-size: 12px; }
-    .notif-time {
-      font-size: 10px;
-      color: var(--text-muted);
-      white-space: nowrap;
-    }
 
-    :root[data-theme="light"] .notifications-panel {
-      background: #ffffff;
-      border-color: #d1d5db;
-      box-shadow: 0 18px 40px rgba(148,163,184,0.5);
-    }
-    :root[data-theme="light"] .notif-item {
-      background: #f9fafb;
-      border-color: #e5e7eb;
-    }
-
-    #rating-history { margin-top: 12px; font-size: 12px; }
-
-    #auth-panel.panel {
-      max-width: 360px;
-      margin: 40px auto;
-    }
-
-    /* Chat */
-    .chat-layout {
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 12px;
-      height: 420px;
-    }
-    .chat-dialogs {
-      border-radius: 14px;
-      border: 1px solid var(--card-border);
-      background: rgba(15,23,42,0.96);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-    .chat-dialogs-header {
-      padding: 8px 10px;
-      border-bottom: 1px solid rgba(30,41,59,0.9);
-      font-size: 13px;
+    #topbar-title {
+      font-size: 15px;
       font-weight: 600;
+      letter-spacing: 0.02em;
     }
-    .chat-dialogs-list {
-      flex: 1;
-      overflow-y: auto;
-      font-size: 13px;
-    }
-    .chat-dialog-item {
-      padding: 6px 8px;
+
+    .topbar-right {
       display: flex;
       align-items: center;
       gap: 8px;
-      cursor: pointer;
-      border-bottom: 1px solid rgba(30,41,59,0.9);
     }
-    .chat-dialog-item:hover {
-      background: rgba(15,23,42,0.96);
-    }
-    .chat-dialog-item.active {
-      background: var(--accent-soft);
-    }
-    .chat-dialog-avatar {
-      width: 28px;
-      height: 28px;
+
+    .notif-bell {
+      position: relative;
+      width: 32px;
+      height: 32px;
       border-radius: 999px;
-      overflow: hidden;
-      border: 1px solid rgba(148,163,184,0.7);
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.18), transparent 60%), rgba(15, 23, 42, 0.96);
     }
-    .chat-dialog-avatar img {
-      width: 100%;
-      height: 100%;
+
+    #bell-badge {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      min-width: 17px;
+      height: 17px;
+      padding: 0 4px;
+      border-radius: 999px;
+      background: #f97316;
+      color: white;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9);
+    }
+
+    .topbar-user {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px 4px 4px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.75);
+      background: rgba(15, 23, 42, 0.96);
+      cursor: pointer;
+      transition: all 0.16s ease-out;
+    }
+
+    .topbar-user:hover {
+      border-color: rgba(56, 189, 248, 0.9);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.15);
+    }
+
+    #avatar-small-img {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.7);
       object-fit: cover;
+      flex-shrink: 0;
     }
-    .chat-dialog-name {
+
+    #topbar-name {
+      font-size: 13px;
+      color: var(--text-main);
+    }
+
+    .btn {
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      padding: 7px 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+
+    .btn.primary {
+      background: linear-gradient(to right, #0f766e, #0ea5e9);
+      color: white;
+      border: 1px solid rgba(15, 23, 42, 0.9);
+    }
+
+    .btn.secondary {
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--text-main);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+    }
+
+    .btn.secondary:hover {
+      border-color: rgba(56, 189, 248, 0.8);
+    }
+
+    main {
       flex: 1;
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.75);
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.11), transparent 60%), rgba(15, 23, 42, 0.97);
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.96);
+      padding: 14px 14px 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
-    .chat-dialog-last {
-      font-size: 11px;
+
+    h2 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      align-items: center;
+      font-size: 13px;
       color: var(--text-muted);
     }
 
-    .chat-window {
-      border-radius: 14px;
-      border: 1px solid var(--card-border);
-      background: rgba(15,23,42,0.96);
-      display: flex;
-      flex-direction: column;
-    }
-    .chat-window-header {
-      padding: 8px 10px;
-      border-bottom: 1px solid rgba(30,41,59,0.9);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 13px;
-    }
-    .chat-messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 8px 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      font-size: 13px;
-    }
-    .chat-message {
-      max-width: 75%;
-      padding: 6px 8px;
-      border-radius: 10px;
-      background: rgba(30,64,175,0.9);
-      align-self: flex-start;
-    }
-    .chat-message.me {
-      align-self: flex-end;
-      background: rgba(22,163,74,0.9);
-    }
-    .chat-message-meta {
-      font-size: 10px;
-      color: #e5e7eb;
-      opacity: 0.8;
-      margin-top: 2px;
-      text-align: right;
-    }
-    .chat-input-row {
-      padding: 6px;
-      border-top: 1px solid rgba(30,41,59,0.9);
-      display: flex;
-      gap: 6px;
-    }
-    .chat-input-row input {
-      flex: 1;
-      padding: 6px 8px;
+    .controls button {
       border-radius: 999px;
-      border: 1px solid rgba(55,65,81,0.9);
-      background: rgba(15,23,42,0.96);
-      color: #e5e7eb;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-main);
+      padding: 5px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      margin-left: 2px;
+    }
+
+    .controls button.active {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: rgba(56, 189, 248, 0.9);
+      color: #e5faff;
+    }
+
+    .add-grade {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+      padding: 7px;
+      border-radius: 18px;
+      border: 1px dashed rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .add-grade select,
+    .add-grade input {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.65);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--text-main);
       font-size: 13px;
+      padding: 5px 9px;
       outline: none;
     }
 
-    @media (max-width: 900px) {
-      .layout { flex-direction: column; }
-      .sidebar { width: 100%; display: flex; flex-wrap: wrap; gap: 6px; }
-      .sidebar-section-title { width: 100%; }
-      .topbar-spacer { display:none; }
+    .add-grade select:focus,
+    .add-grade input:focus {
+      border-color: rgba(56, 189, 248, 0.9);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.3);
+    }
+
+    .week-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .day-block {
+      border-radius: 16px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.96);
+      padding: 6px;
+      min-height: 70px;
+    }
+
+    .day-block h3 {
+      margin: 0 0 4px;
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .lesson-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      padding: 6px;
+      margin-bottom: 4px;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    .lesson-teacher img {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.7);
+      object-fit: cover;
+    }
+
+    .lesson-main {
+      flex: 1;
+    }
+
+    .lesson-subject {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    .lesson-type {
+      font-size: 12px;
+      color: var(--text-soft);
+      margin-top: 2px;
+    }
+
+    .lesson-more {
+      font-size: 16px;
+      color: var(--text-soft);
+      cursor: pointer;
+      padding: 0 4px;
+    }
+
+    .badge {
+      border-radius: 999px;
+      padding: 1px 7px;
+      font-size: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      white-space: nowrap;
+    }
+
+    .badge-math { border-color:#eab308; color:#eab308; background:rgba(234,179,8,.12); }
+    .badge-ru   { border-color:#f97316; color:#f97316; background:rgba(249,115,22,.12); }
+    .badge-eng  { border-color:#22c55e; color:#22c55e; background:rgba(34,197,94,.12); }
+    .badge-it   { border-color:#38bdf8; color:#38bdf8; background:rgba(56,189,248,.12); }
+    .badge-sci  { border-color:#a855f7; color:#a855f7; background:rgba(168,85,247,.12); }
+    .badge-geo  { border-color:#22c55e; color:#22c55e; background:rgba(34,197,94,.12); }
+    .badge-hist { border-color:#f97316; color:#f97316; background:rgba(249,115,22,.12); }
+    .badge-pe   { border-color:#facc15; color:#facc15; background:rgba(250,204,21,.12); }
+    .badge-other{ border-color:#6b7280; color:#9ca3af; background:rgba(148,163,184,.14); }
+
+    .subjects-summary table,
+    #page-rating table,
+    #page-admin table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 6px;
+      font-size: 13px;
+    }
+
+    table thead {
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    table th, table td {
+      border: 1px solid rgba(148, 163, 184, 0.65);
+      padding: 5px 6px;
+      text-align: left;
+    }
+
+    table th {
+      font-weight: 500;
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    #subject-list {
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .tabs-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .day-tab {
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--text-main);
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .day-tab.active {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: rgba(56, 189, 248, 0.9);
+      color: #e5faff;
+    }
+
+    .day-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      margin-bottom: 6px;
+      color: var(--text-muted);
+    }
+
+    .day-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
+
+    .tasks-controls {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .tasks-controls select {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-main);
+      font-size: 12px;
+      padding: 3px 8px;
+      margin-left: 4px;
+    }
+
+    .task-row {
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+      padding: 5px 6px;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.98);
+      margin-bottom: 4px;
+      font-size: 12px;
+    }
+
+    .task-row input[type="checkbox"] {
+      margin-top: 3px;
+    }
+
+    .task-row.done {
+      background: var(--success-soft);
+      border-color: var(--success);
+    }
+
+    .task-meta {
+      margin-top: 2px;
+      color: var(--text-soft);
+      font-size: 11px;
+    }
+
+    .chat-layout {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 10px;
+      height: 100%;
+      min-height: 320px;
+    }
+
+    .chat-sidebar {
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.98);
+      padding: 8px 7px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .chat-sidebar h3 {
+      margin: 0 0 4px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    #chat-dialogs-list {
+      flex: 1;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+
+    .chat-dialog-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 6px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.14s ease-out;
+    }
+
+    .chat-dialog-item:hover {
+      background: rgba(30, 64, 175, 0.25);
+    }
+
+    .chat-dialog-item.active {
+      background: rgba(56, 189, 248, 0.18);
+      border: 1px solid rgba(56, 189, 248, 0.8);
+    }
+
+    .chat-dialog-avatar img {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      object-fit: cover;
+    }
+
+    .chat-dialog-name {
+      font-size: 13px;
+    }
+
+    .chat-dialog-last {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-left: auto;
+    }
+
+    .chat-main {
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.98);
+      display: flex;
+      flex-direction: column;
+      padding: 6px;
+    }
+
+    .chat-header {
+      padding: 4px 4px 6px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    #chat-current-name {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .chat-status {
+      font-size: 11px;
+      color: var(--text-soft);
+    }
+
+    #chat-messages {
+      flex: 1;
+      padding: 6px 4px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 13px;
+    }
+
+    .chat-message {
+      max-width: 70%;
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      padding: 5px 7px;
+      background: rgba(15, 23, 42, 0.96);
+    }
+
+    .chat-message.me {
+      margin-left: auto;
+      background: rgba(56, 189, 248, 0.15);
+      border-color: rgba(56, 189, 248, 0.9);
+    }
+
+    .chat-message-meta {
+      margin-top: 2px;
+      font-size: 10px;
+      color: var(--text-soft);
+      text-align: right;
+    }
+
+    .chat-input-row {
+      margin-top: 6px;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    #chat-input {
+      flex: 1;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--text-main);
+      font-size: 13px;
+      padding: 6px 10px;
+      outline: none;
+    }
+
+    #chat-input:focus {
+      border-color: rgba(56, 189, 248, 0.9);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.35);
+    }
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 7px;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    #profile-avatar-img {
+      width: 52px;
+      height: 52px;
+      border-radius: 999px;
+      border: 1.5px solid rgba(56, 189, 248, 0.8);
+      object-fit: cover;
+    }
+
+    #profile-name-display {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    #profile-class-display {
+      margin: 2px 0 0;
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .profile-info {
+      margin-top: 8px;
+      padding: 8px 8px 9px;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.98);
+      font-size: 13px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(170px,1fr));
+      gap: 6px;
+    }
+
+    .profile-form {
+      margin-top: 8px;
+      padding: 8px;
+      border-radius: 18px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.96);
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .profile-form label {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 12px;
+      color: var(--text-soft);
+    }
+
+    .profile-form input {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.96);
+      color: var(--text-main);
+      font-size: 13px;
+      padding: 5px 9px;
+      outline: none;
+    }
+
+    #page-notifications .notif-controls {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    #notifications-list {
+      margin-top: 4px;
+      max-height: 260px;
+      overflow-y: auto;
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.98);
+      padding: 6px;
+      font-size: 12px;
+    }
+
+    .notif-item {
+      padding: 5px;
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.96);
+      margin-bottom: 4px;
+    }
+
+    .notif-item.new {
+      border-color: rgba(56, 189, 248, 0.9);
+      background: rgba(56, 189, 248, 0.12);
+    }
+
+    .notif-main {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .notif-text {
+      font-size: 12px;
+    }
+
+    .notif-time {
+      font-size: 11px;
+      color: var(--text-soft);
+      white-space: nowrap;
+    }
+
+    #page-admin table {
+      font-size: 11px;
+    }
+
+    @media (max-width: 960px) {
+      #app-root {
+        flex-direction: column;
+        padding: 10px;
+      }
+      .sidebar {
+        position: static;
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        overflow-x: auto;
+      }
+      .sidebar-header {
+        flex-shrink: 0;
+      }
+      .sidebar-nav {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+      }
       .chat-layout {
         grid-template-columns: 1fr;
-        height: auto;
       }
     }
+
     @media (max-width: 640px) {
-      .topbar-title { display: none; }
-      .profile-grid { grid-template-columns: 1fr; }
+      main {
+        padding: 10px;
+      }
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+      .add-grade {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
@@ -840,7 +950,7 @@
     deleteDoc,
     collectionGroup,
     serverTimestamp
-  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; /* [web:490][web:501] */
+  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; /* [web:505][web:570] */
 
   const firebaseConfig = {
     apiKey: "AIzaSyAFcX2I6lfzmxwEGEpOej-SqiG6-DFWSDc",
@@ -858,7 +968,7 @@
 
   const ADMIN_EMAIL = 'alex.bibikov082011@yandex.ru';
 
-  // --- DOM общие ---
+  // --- DOM ---
   const authPanel = document.getElementById('auth-panel');
   const appRoot = document.getElementById('app-root');
   const emailInput = document.getElementById('auth-email');
@@ -897,7 +1007,6 @@
   const profileMessageBtn = document.getElementById('profile-message-btn');
 
   const bellBadge = document.getElementById('bell-badge');
-  const notifPanel = document.getElementById('notifications-panel');
   const notifList = document.getElementById('notifications-list');
   const notifMarkReadBtn = document.getElementById('notif-mark-read');
   const notifClearBtn = document.getElementById('notif-clear');
@@ -905,7 +1014,29 @@
 
   const pageSections = document.querySelectorAll('[id^="page-"]');
   const sidebarItems = document.querySelectorAll('.sidebar-item');
-  const topbarNavItems = document.querySelectorAll('.topbar-nav-item');
+
+  const subjectsTableBody = document.getElementById('subjects-table-body');
+  const subjectListDiv = document.getElementById('subject-list');
+
+  const ratingTableBody = document.getElementById('rating-table-body');
+  const ratingRefreshBtn = document.getElementById('rating-refresh-btn');
+  const ratingHistoryDiv = document.getElementById('rating-history');
+
+  const adminVisitsBody = document.getElementById('admin-visits-body');
+  const adminWarning = document.getElementById('admin-warning');
+
+  const subjectSelect = document.getElementById('subject-input');
+  const typeInput = document.getElementById('type-input');
+  const daySelect = document.getElementById('day-select');
+  const markInput = document.getElementById('mark-input');
+  const addBtn = document.getElementById('add-grade-btn');
+
+  const scheduleDayTabs = document.getElementById('schedule-day-tabs');
+  const scheduleContainer = document.getElementById('schedule-container');
+
+  const tasksDayTabs = document.getElementById('tasks-day-tabs');
+  const tasksContainer = document.getElementById('tasks-container');
+  const tasksFilterSelect = document.getElementById('tasks-filter-select');
 
   // --- Theme ---
   const THEME_KEY = 'venik-theme';
@@ -932,7 +1063,7 @@
   }
   themeToggleBtn.addEventListener('click', toggleTheme);
 
-  // --- Notifications (локальные) ---
+  // --- Notifications ---
   const NOTIF_KEY = 'venik-notifications';
   let notifications = [];
   let unreadCount = 0;
@@ -1030,12 +1161,10 @@
       const isNotif = pageName === 'notifications' && i.id === 'sidebar-notif-item';
       i.classList.toggle('active', i.dataset.page === pageName || isNotif);
     });
-    topbarNavItems.forEach(i => i.classList.toggle('active', i.dataset.page === pageName));
 
     if (pageName === 'schedule') renderSchedule();
     if (pageName === 'tasks') renderTasksForDay(currentTasksDay);
     if (pageName === 'rating') { renderRating(); renderRatingHistory(); }
-    if (pageName === 'subjects') renderSubjectsTable();
     if (pageName === 'admin') loadAdminVisits();
   }
 
@@ -1061,7 +1190,7 @@
     favSubjects: 'Информатика, математика'
   };
   let currentUser = null;
-  let viewedProfileUid = null; // null = свой профиль
+  let viewedProfileUid = null;
 
   function validateName(raw) {
     const name = (raw || '').trim();
@@ -1070,7 +1199,7 @@
     }
     const allowedRe = /^[A-Za-zА-Яа-яЁё \-]+$/u;
     if (!allowedRe.test(name)) {
-      return { ok: false, reason: 'Имя может содержать только буквы (русские или латинские), пробел и дефис.' };
+      return { ok: false, reason: 'Имя может содержать только буквы, пробел и дефис.' };
     }
     const badWords = [
       'хуй','хуе','хер','пизд','еба','ебл','мудак','сука','бляд','лох',
@@ -1120,6 +1249,7 @@
       profileMessageBtn.style.display = (!isOwn && currentUser) ? 'inline-flex' : 'none';
     }
   }
+  window.applyProfileToUI = applyProfileToUI;
 
   async function loadUserQuarterDoc(uid, quarter) {
     const ref = doc(db, 'users', uid, 'quarters', 'q' + quarter);
@@ -1161,7 +1291,7 @@
       }
     };
     payload['grades_w' + currentWeek] = grades;
-    await setDoc(ref, payload, { merge: true }); /* не затираем другие поля [web:490] */
+    await setDoc(ref, payload, { merge: true });
   }
 
   async function loadProfile() {
@@ -1173,11 +1303,29 @@
       const data = await loadUserQuarterDoc(currentUser.uid, currentQuarter);
       profile = Object.assign(profile, data.profile || {});
     }
+    if (currentUser) {
+      await setDoc(doc(db, 'users', currentUser.uid), {
+        uid: currentUser.uid,
+        email: currentUser.email || null,
+        name: profile.name,
+        avatarUrl: profile.avatarUrl || '',
+        className: profile.className || '',
+        city: profile.city || ''
+      }, { merge: true }); /* [web:568] */
+    }
   }
   async function saveProfile() {
     localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
     if (!currentUser) return;
     await saveUserQuarterDoc(currentUser.uid, currentQuarter);
+    await setDoc(doc(db, 'users', currentUser.uid), {
+      uid: currentUser.uid,
+      email: currentUser.email || null,
+      name: profile.name,
+      avatarUrl: profile.avatarUrl || '',
+      className: profile.className || '',
+      city: profile.city || ''
+    }, { merge: true });
   }
 
   profileSaveBtn.addEventListener('click', async () => {
@@ -1384,12 +1532,6 @@
   }
   window.renderAllByDate = renderAllByDate;
 
-  const subjectSelect = document.getElementById('subject-input');
-  const typeInput = document.getElementById('type-input');
-  const daySelect = document.getElementById('day-select');
-  const markInput = document.getElementById('mark-input');
-  const addBtn = document.getElementById('add-grade-btn');
-
   addBtn.addEventListener('click', async () => {
     const subject = subjectSelect.value;
     const type = typeInput.value.trim();
@@ -1421,9 +1563,6 @@
   });
 
   // --- Средний балл по предметам ---
-  const subjectsTableBody = document.getElementById('subjects-table-body');
-  const subjectListDiv = document.getElementById('subject-list');
-
   function calcAverage(arr) {
     if (!arr.length) return 0;
     const sum = arr.reduce((a, b) => a + b, 0);
@@ -1587,8 +1726,6 @@
     return list[i];
   }
 
-  const scheduleDayTabs = document.getElementById('schedule-day-tabs');
-  const scheduleContainer = document.getElementById('schedule-container');
   const dayKeys = Object.keys(SCHEDULE);
   let currentScheduleDay = dayKeys[0];
 
@@ -1645,9 +1782,11 @@
   }
   window.renderSchedule = renderSchedule;
 
-  // --- Домашка (tasksDone) ---
+  // --- Домашка ---
   const TASKS_DONE_KEY = 'venik-tasks-done';
   let tasksDone = {};
+  let currentTasksDay = dayKeys[0];
+  let currentTasksFilter = 'all';
 
   async function loadTasksDone() {
     const raw = localStorage.getItem(TASKS_DONE_KEY);
@@ -1663,12 +1802,6 @@
     await saveUserQuarterDoc(currentUser.uid, currentQuarter);
   }
   window.tasksDone = tasksDone;
-
-  const tasksDayTabs = document.getElementById('tasks-day-tabs');
-  const tasksContainer = document.getElementById('tasks-container');
-  const tasksFilterSelect = document.getElementById('tasks-filter-select');
-  let currentTasksDay = dayKeys[0];
-  let currentTasksFilter = 'all';
 
   tasksFilterSelect.addEventListener('change', () => {
     currentTasksFilter = tasksFilterSelect.value;
@@ -1750,38 +1883,7 @@
   }
   window.renderTasksForDay = renderTasksForDay;
 
-  // --- Рейтинг ---
-  const ratingTableBody = document.getElementById('rating-table-body');
-  const ratingRefreshBtn = document.getElementById('rating-refresh-btn');
-  const ratingHistoryDiv = document.getElementById('rating-history');
-
-
-  async function getAllUsersAverages() {
-    const result = [];
-    try {
-      const cg = collectionGroup(db, 'quarters');
-      const qSnap = await getDocs(cg);
-      qSnap.forEach(docSnap => {
-        const data = docSnap.data();
-        const avgByWeek = data.avgByWeek || {};
-        const avg = Number(avgByWeek[currentWeek] || 0);
-        if (!avg || avg <= 0) return;
-
-        const prof = data.profile || {};
-        const name = prof.name || 'Ученик';
-        const avatarUrl = prof.avatarUrl || 'teacher.jpg';
-
-        const refPath = docSnap.ref.path; // users/{uid}/quarters/qN
-        const uid = refPath.split('/')[1] || null;
-
-        result.push({ uid, name, avatarUrl, avg });
-      });
-    } catch (e) {
-      console.error('getAllUsersAverages error', e);
-    }
-    return result;
-  }
-
+  // --- Рейтинг (только реальные пользователи) ---
   function loadRatingHistory() {
     const raw = localStorage.getItem('venik-rating-history');
     return raw ? JSON.parse(raw) : [];
@@ -1824,20 +1926,37 @@
   }
   window.renderRatingHistory = renderRatingHistory;
 
+  async function getAllUsersAverages() {
+    const result = [];
+    try {
+      const cg = collectionGroup(db, 'quarters');
+      const qSnap = await getDocs(cg);
+      qSnap.forEach(docSnap => {
+        const data = docSnap.data();
+        const avgByWeek = data.avgByWeek || {};
+        const avg = Number(avgByWeek[currentWeek] || 0);
+        if (!avg || avg <= 0) return;
+
+        const prof = data.profile || {};
+        const name = prof.name || 'Ученик';
+        const avatarUrl = prof.avatarUrl || 'teacher.jpg';
+
+        const refPath = docSnap.ref.path; // users/{uid}/quarters/qN
+        const uid = refPath.split('/')[1] || null;
+
+        result.push({ uid, name, avatarUrl, avg });
+      });
+    } catch (e) {
+      console.error('getAllUsersAverages error', e);
+    }
+    return result;
+  }
+
   async function buildRatingData() {
     const myAvg = getMyAverage();
     const fromCloud = await getAllUsersAverages();
-
-    const classmatesMock = CLASSMATES.map(name => ({
-      uid: null,
-      name,
-      avatarUrl: 'teacher.jpg',
-      avg: Number(generateRandomMark())
-    }));
-
-    const all = [...fromCloud, ...classmatesMock];
+    const all = [...fromCloud];
     all.sort((a, b) => b.avg - a.avg);
-
     const rated = all.map((item, index) => ({
       place: index + 1,
       ...item
@@ -1875,9 +1994,6 @@
   });
 
   // --- Админ визиты ---
-  const adminVisitsBody = document.getElementById('admin-visits-body');
-  const adminWarning = document.getElementById('admin-warning');
-
   async function logVisit(user) {
     try {
       await addDoc(collection(db, 'visits'), {
@@ -1926,7 +2042,7 @@
   }
   window.loadAdminVisits = loadAdminVisits;
 
-  // --- Регистрация / логин по официальной схеме [web:496][web:505] ---
+  // --- Auth (регистрация / вход / выход) ---
   function showError(msg) { authError.textContent = msg; }
 
   signupBtn.addEventListener('click', async () => {
@@ -1960,7 +2076,7 @@
     }
   });
 
-  // --- onAuthStateChanged + инициализация ---
+  // --- onAuthStateChanged + init ---
   loadTheme();
   loadNotifications();
 
@@ -1985,7 +2101,6 @@
     renderRating();
     renderRatingHistory();
     await logVisit(user);
-    // Realtime слушатели и чат подключаются во втором скрипте
   });
 
   window.profile = profile;
@@ -1995,22 +2110,25 @@
 </script>
 <script type="module">
   import {
-    doc,
     collection,
+    doc,
+    setDoc,
+    addDoc,
+    getDoc,
+    getDocs,
     query,
+    where,
     orderBy,
     onSnapshot,
-    setDoc,
-    serverTimestamp,
-    collectionGroup
-  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; /* [web:490][web:501] */
-
-  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"; /* [web:505][web:522] */
-  import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; /* [web:579] */
 
   const auth = getAuth();
   const db = getFirestore();
 
+  // DOM для чата
   const chatDialogsList = document.getElementById('chat-dialogs-list');
   const chatMessagesDiv = document.getElementById('chat-messages');
   const chatInput = document.getElementById('chat-input');
@@ -2018,663 +2136,553 @@
   const chatCurrentName = document.getElementById('chat-current-name');
   const chatCurrentStatus = document.getElementById('chat-current-status');
 
-  let unsubQuarter = null;
-  let unsubRatingCG = null;
-  let unsubChatMessages = null;
+  let chatUnsubMessages = null;
+  let currentChatId = null;
+  let currentChatPartner = null;
 
-  function cleanupListenersLocal() {
-    if (unsubQuarter) { unsubQuarter(); unsubQuarter = null; }
-    if (unsubRatingCG) { unsubRatingCG(); unsubRatingCG = null; }
-    if (unsubChatMessages) { unsubChatMessages(); unsubChatMessages = null; }
-  }
-  window.cleanupListeners = cleanupListenersLocal;
+  // ========== ВСПОМОГАЮЩИЕ ФУНКЦИИ ==========
 
-  async function attachQuarterListener(uid, quarter) {
-    if (!uid) return;
-    if (unsubQuarter) { unsubQuarter(); unsubQuarter = null; }
-
-    const ref = doc(db, 'users', uid, 'quarters', 'q' + quarter);
-    unsubQuarter = onSnapshot(ref, (snap) => {
-      if (!snap.exists()) return;
-      const data = snap.data() || {};
-      const fieldGrades = data['grades_w' + window.currentWeek] || [];
-      window.grades = fieldGrades;
-      window.profile = Object.assign(window.profile || {}, data.profile || {});
-      window.tasksDone = data.tasksDone || window.tasksDone;
-      const history = data.ratingHistory || window.loadRatingHistory();
-      window.saveRatingHistory(history);
-
-      window.applyProfileToUI();
-      window.renderAllByDate();
-      window.renderSubjectsTable();
-      window.renderSubjectList();
-      window.renderTasksForDay(window.currentTasksDay);
-      window.renderRatingHistory();
-    }, (err) => {
-      console.error('quarter onSnapshot error', err);
-    });
+  function getCurrentUser() {
+    return auth.currentUser || null;
   }
 
-  const _switchQuarterOriginal = window.switchQuarter || null;
-  const _switchWeekOriginal = window.switchWeek || null;
-
-  async function switchQuarterPatched(q) {
-    window.currentQuarter = q;
-    if (_switchQuarterOriginal) {
-      await _switchQuarterOriginal(q);
-    } else {
-      await window.switchQuarter(q);
-    }
-    const user = auth.currentUser;
-    if (user) await attachQuarterListener(user.uid, q);
+  function normalizeChatId(uid1, uid2) {
+    return [uid1, uid2].sort().join('_');
   }
 
-  async function switchWeekPatched(w) {
-    window.currentWeek = w;
-    if (_switchWeekOriginal) {
-      await _switchWeekOriginal(w);
-    } else {
-      await window.switchWeek(w);
-    }
+  function formatTimeShort(ts) {
+    if (!ts) return '';
+    const d = ts.toDate ? ts.toDate() : new Date(ts);
+    const hh = String(d.getHours()).padStart(2, '0');
+    const mm = String(d.getMinutes()).padStart(2, '0');
+    return hh + ':' + mm;
   }
 
-  window.switchQuarter = switchQuarterPatched;
-  window.switchWeek = switchWeekPatched;
-
-  function attachRatingListener() {
-    if (unsubRatingCG) { unsubRatingCG(); unsubRatingCG = null; }
-    const cg = collectionGroup(db, 'quarters');
-    unsubRatingCG = onSnapshot(cg, async () => {
-      await window.renderRating();
-    }, (err) => {
-      console.error('rating collectionGroup onSnapshot error', err);
-    });
+  function clearMessages() {
+    chatMessagesDiv.innerHTML = '';
   }
 
-  const CLASSMATES = [
-    'Матвей Иванов','Денис Чернобай','Матвей Козлов',
-    'Камилла Зайнудинова','Леонид Синанни','Екатерина Новикова(Посмертно)',
-    'Тимофей Морозов','Полина Кекки','Артём Сухов','Алексей Бибиков',
-    'Тихонов Тихон','Кирилл Ефанов','Ксения Тонконогова','Артём Кухарев',
-    'Артём Васильев','Герыч','Ларин Максим','Слугин Гордей','Муханов Глеб',
-    'Арсений Борисов','Рита Баронкина','Анастасия Трохона','Ярослав Сулимов',
-    'Любовь Мхчян','Анастасия Понасуткина','Любовь Данилова','Савелий Ходыкин','Климентий'
-  ];
-
-  function makeChatId(uid1, uid2) {
-    return uid1 < uid2 ? uid1 + '_' + uid2 : uid2 + '_' + uid1;
+  function appendMessage(msg, isMine) {
+    const bubble = document.createElement('div');
+    bubble.className = 'chat-message' + (isMine ? ' me' : '');
+    const textDiv = document.createElement('div');
+    textDiv.textContent = msg.text;
+    const metaDiv = document.createElement('div');
+    metaDiv.className = 'chat-message-meta';
+    metaDiv.textContent = formatTimeShort(msg.createdAt);
+    bubble.appendChild(textDiv);
+    bubble.appendChild(metaDiv);
+    chatMessagesDiv.appendChild(bubble);
+    chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
   }
 
-  let currentChat = null; // { uid, name, avatarUrl, chatId }
+  function setChatEnabled(enabled) {
+    chatInput.disabled = !enabled;
+    chatSendBtn.disabled = !enabled;
+  }
 
-  function renderChatDialogs() {
-    const user = auth.currentUser;
-    if (!user) {
-      chatDialogsList.innerHTML = '<div style="padding:6px;font-size:12px;color:var(--text-muted);">Войди в аккаунт, чтобы писать сообщения.</div>';
+  // ========== ЗАГРУЗКА СПИСКА ПОЛЬЗОВАТЕЛЕЙ ДЛЯ ЧАТА ==========
+
+  async function loadChatUsersList() {
+    const me = getCurrentUser();
+    chatDialogsList.innerHTML = '';
+
+    if (!me) {
+      const p = document.createElement('p');
+      p.style.fontSize = '12px';
+      p.style.color = 'var(--text-muted)';
+      p.textContent = 'Авторизуйся, чтобы увидеть список собеседников.';
+      chatDialogsList.appendChild(p);
+      setChatEnabled(false);
       return;
     }
-    chatDialogsList.innerHTML = '';
-    const myUid = user.uid;
 
-    const myEntry = {
-      uid: myUid,
-      name: window.profile?.name || 'Ты',
-      avatarUrl: window.profile?.avatarUrl || 'teacher.jpg'
-    };
+    // тянем всех пользователей из коллекции users, кроме себя
+    const usersSnap = await getDocs(collection(db, 'users'));
+    const items = [];
+    usersSnap.forEach(uDoc => {
+      const data = uDoc.data();
+      if (!data.uid || data.uid === me.uid) return;
+      items.push({
+        uid: data.uid,
+        name: data.name || 'Ученик',
+        avatarUrl: data.avatarUrl || 'teacher.jpg',
+        className: data.className || ''
+      });
+    });
 
-    const classmates = CLASSMATES.map((name, idx) => ({
-      uid: 'mock-' + idx,
-      name,
-      avatarUrl: 'teacher.jpg'
-    }));
+    if (!items.length) {
+      const p = document.createElement('p');
+      p.style.fontSize = '12px';
+      p.style.color = 'var(--text-muted)';
+      p.textContent = 'Пока нет других пользователей. Зайди под другим аккаунтом, чтобы протестировать чат.';
+      chatDialogsList.appendChild(p);
+      setChatEnabled(false);
+      return;
+    }
 
-    const list = [myEntry, ...classmates];
-
-    list.forEach(entry => {
-      if (entry.uid === myUid) return;
-
+    items.forEach(user => {
       const item = document.createElement('div');
       item.className = 'chat-dialog-item';
-      item.dataset.uid = entry.uid;
+      item.dataset.uid = user.uid;
 
-      const avatar = document.createElement('div');
-      avatar.className = 'chat-dialog-avatar';
-      avatar.innerHTML = `<img src="${entry.avatarUrl}" alt="">`;
+      const av = document.createElement('div');
+      av.className = 'chat-dialog-avatar';
+      av.innerHTML = `<img src="${user.avatarUrl}" alt="">`;
 
       const nameDiv = document.createElement('div');
       nameDiv.className = 'chat-dialog-name';
-      nameDiv.textContent = entry.name;
+      nameDiv.textContent = user.name;
 
       const lastDiv = document.createElement('div');
       lastDiv.className = 'chat-dialog-last';
-      lastDiv.textContent = 'Нажми, чтобы открыть';
+      lastDiv.textContent = '';
 
-      item.appendChild(avatar);
+      item.appendChild(av);
       item.appendChild(nameDiv);
       item.appendChild(lastDiv);
 
-      item.addEventListener('click', () => openChat(entry));
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.chat-dialog-item').forEach(el => el.classList.remove('active'));
+        item.classList.add('active');
+        openChatWith(user);
+      });
 
       chatDialogsList.appendChild(item);
     });
+
+    setChatEnabled(false);
+    chatCurrentName.textContent = 'Выбери собеседника слева';
+    chatCurrentStatus.textContent = '';
   }
+  window.loadChatUsersList = loadChatUsersList;
 
-  function setActiveDialog(uid) {
-    document.querySelectorAll('.chat-dialog-item').forEach(i => {
-      i.classList.toggle('active', i.dataset.uid === uid);
-    });
-  }
+  // ========== ОТКРЫТИЕ/СОЗДАНИЕ ЧАТА ==========
 
-  function openChat(entry) {
-    const user = auth.currentUser;
-    if (!user) return;
-
-    const chatId = makeChatId(user.uid, entry.uid);
-    currentChat = {
-      uid: entry.uid,
-      name: entry.name,
-      avatarUrl: entry.avatarUrl,
-      chatId
-    };
-
-    chatCurrentName.textContent = entry.name;
-    chatCurrentStatus.textContent = 'Подключение...';
-    chatInput.disabled = false;
-    chatSendBtn.disabled = false;
-    chatMessagesDiv.innerHTML = '';
-
-    setActiveDialog(entry.uid);
-
-    if (unsubChatMessages) { unsubChatMessages(); unsubChatMessages = null; }
-
-    const messagesRef = collection(db, 'chats', chatId, 'messages');
-    const qRef = query(messagesRef, orderBy('createdAt', 'asc'));
-
-    unsubChatMessages = onSnapshot(qRef, (snap) => {
-      chatMessagesDiv.innerHTML = '';
-      snap.forEach(docSnap => {
-        const m = docSnap.data();
-        const div = document.createElement('div');
-        const isMe = m.fromUid === user.uid;
-        div.className = 'chat-message' + (isMe ? ' me' : '');
-        const text = document.createElement('div');
-        text.textContent = m.text || '';
-        const meta = document.createElement('div');
-        meta.className = 'chat-message-meta';
-        const dt = m.createdAt && m.createdAt.toDate ? m.createdAt.toDate() : null;
-        meta.textContent = dt ? dt.toLocaleTimeString().slice(0,5) : '';
-        div.appendChild(text);
-        div.appendChild(meta);
-        chatMessagesDiv.appendChild(div);
+  async function ensureChatDocument(uid1, uid2) {
+    const chatId = normalizeChatId(uid1, uid2);
+    const ref = doc(db, 'chats', chatId);
+    const snap = await getDoc(ref);
+    if (!snap.exists()) {
+      await setDoc(ref, {
+        users: [uid1, uid2],
+        createdAt: serverTimestamp(),
+        lastMessageAt: serverTimestamp()
       });
-      chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
-      chatCurrentStatus.textContent = 'Онлайн';
-    }, (err) => {
-      console.error('chat onSnapshot error', err);
-      chatCurrentStatus.textContent = 'Ошибка';
-    });
+    }
+    return { chatId, ref };
   }
 
-  async function sendChatMessage() {
-    const user = auth.currentUser;
-    if (!user || !currentChat) return;
+  async function openChatWith(user) {
+    const me = getCurrentUser();
+    if (!me) return;
+
+    // отписываемся от предыдущего чата
+    if (chatUnsubMessages) {
+      chatUnsubMessages();
+      chatUnsubMessages = null;
+    }
+
+    const { chatId, ref } = await ensureChatDocument(me.uid, user.uid);
+    currentChatId = chatId;
+    currentChatPartner = user;
+
+    chatCurrentName.textContent = user.name;
+    chatCurrentStatus.textContent = user.className ? `Класс: ${user.className}` : '';
+    setChatEnabled(true);
+    clearMessages();
+
+    // подписка на сообщения
+    const messagesRef = collection(ref, 'messages');
+    const qRef = query(messagesRef, orderBy('createdAt', 'asc'));
+    chatUnsubMessages = onSnapshot(qRef, (snapshot) => {
+      clearMessages();
+      snapshot.forEach(docSnap => {
+        const m = docSnap.data();
+        appendMessage(m, m.from === me.uid);
+      });
+    });
+
+    // подзагрузим последний текст в списке диалогов (lastMessage)
+    updateLastMessageForDialog(user.uid);
+  }
+  window.openChatWith = openChatWith;
+
+  async function updateLastMessageForDialog(partnerUid) {
+    try {
+      const me = getCurrentUser();
+      if (!me) return;
+      const chatId = normalizeChatId(me.uid, partnerUid);
+      const ref = doc(db, 'chats', chatId);
+      const messagesRef = collection(ref, 'messages');
+      const qRef = query(messagesRef, orderBy('createdAt', 'desc'));
+      const snap = await getDocs(qRef);
+      let lastText = '';
+      if (!snap.empty) {
+        const m = snap.docs[0].data();
+        lastText = (m.text || '').slice(0, 24);
+      }
+
+      const item = chatDialogsList.querySelector(`.chat-dialog-item[data-uid="${partnerUid}"]`);
+      if (item) {
+        const lastDiv = item.querySelector('.chat-dialog-last');
+        if (lastDiv) lastDiv.textContent = lastText;
+      }
+    } catch (e) {
+      console.error('updateLastMessageForDialog error', e);
+    }
+  }
+
+  // ========== ОТПРАВКА СООБЩЕНИЯ ==========
+
+  async function sendMessage() {
+    const me = getCurrentUser();
+    if (!me || !currentChatId || !currentChatPartner) return;
     const text = chatInput.value.trim();
     if (!text) return;
-    chatInput.value = '';
 
-    const chatId = currentChat.chatId;
-    const messagesRef = collection(db, 'chats', chatId, 'messages');
-    await setDoc(doc(collection(db, 'chats'), chatId), {
-      members: [user.uid, currentChat.uid],
-      lastMessage: text,
-      lastMessageAt: serverTimestamp()
-    }, { merge: true });
+    try {
+      const chatRef = doc(db, 'chats', currentChatId);
+      const messagesRef = collection(chatRef, 'messages');
+      await addDoc(messagesRef, {
+        from: me.uid,
+        to: currentChatPartner.uid,
+        text,
+        createdAt: serverTimestamp()
+      });
+      await setDoc(chatRef, {
+        lastMessageAt: serverTimestamp()
+      }, { merge: true });
 
-    await setDoc(doc(messagesRef), {
-      fromUid: user.uid,
-      text,
-      attachments: [],
-      createdAt: serverTimestamp()
-    });
-
-    window.addNotification(`Новое сообщение в чате с ${currentChat.name}`, 'chat-send');
+      chatInput.value = '';
+      updateLastMessageForDialog(currentChatPartner.uid);
+    } catch (e) {
+      console.error('sendMessage error', e);
+    }
   }
 
-  chatSendBtn.addEventListener('click', sendChatMessage);
+  chatSendBtn.addEventListener('click', sendMessage);
   chatInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      sendChatMessage();
+      sendMessage();
     }
   });
 
-  // Открыть чат по uid (для кнопки "Написать" из профиля)
-  window.openChatForUid = function(targetUid) {
-    const user = auth.currentUser;
-    if (!user) return;
-    if (targetUid === user.uid) return;
+  // ========== АВТО-ОТКРЫТИЕ ЧАТА ИЗ ПРОФИЛЯ ==========
 
-    let foundEntry = null;
-    document.querySelectorAll('.chat-dialog-item').forEach(item => {
-      if (item.dataset.uid === targetUid) {
-        foundEntry = {
-          uid: targetUid,
-          name: item.querySelector('.chat-dialog-name')?.textContent || 'Ученик',
-          avatarUrl: item.querySelector('.chat-dialog-avatar img')?.src || 'teacher.jpg'
-        };
-      }
-    });
+  window.openChatForUid = async function (uid) {
+    const me = getCurrentUser();
+    if (!me || me.uid === uid) return;
 
-    if (!foundEntry) {
-      foundEntry = {
-        uid: targetUid,
-        name: 'Ученик',
-        avatarUrl: 'teacher.jpg'
-      };
+    const uRef = doc(db, 'users', uid);
+    const snap = await getDoc(uRef);
+    if (!snap.exists()) {
+      alert('Пользователь не найден в базе.');
+      return;
     }
+    const data = snap.data();
+    const user = {
+      uid: data.uid || uid,
+      name: data.name || 'Ученик',
+      avatarUrl: data.avatarUrl || 'teacher.jpg',
+      className: data.className || ''
+    };
 
-    openChat(foundEntry);
+    await loadChatUsersList();
+    const item = chatDialogsList.querySelector(`.chat-dialog-item[data-uid="${user.uid}"]`);
+    if (item) {
+      document.querySelectorAll('.chat-dialog-item').forEach(el => el.classList.remove('active'));
+      item.classList.add('active');
+    }
+    await openChatWith(user);
   };
 
-  onAuthStateChanged(auth, async (user) => {
-    cleanupListenersLocal();
+  // ========== РЕАКЦИЯ НА ВХОД/ВЫХОД ПОЛЬЗОВАТЕЛЯ ==========
 
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"; /* [web:522] */
+
+  onAuthStateChanged(auth, async (user) => {
     if (!user) {
+      // разлогинились
+      if (chatUnsubMessages) {
+        chatUnsubMessages();
+        chatUnsubMessages = null;
+      }
+      currentChatId = null;
+      currentChatPartner = null;
+      chatDialogsList.innerHTML = '';
+      clearMessages();
+      setChatEnabled(false);
       chatCurrentName.textContent = 'Выбери собеседника слева';
       chatCurrentStatus.textContent = '';
-      chatInput.disabled = true;
-      chatSendBtn.disabled = true;
-      chatMessagesDiv.innerHTML = '';
       return;
     }
 
-    await attachQuarterListener(user.uid, window.currentQuarter || 1);
-    attachRatingListener();
-    renderChatDialogs();
+    // вошли — подгружаем список реальных пользователей для чата
+    await loadChatUsersList();
   });
 </script>
 
 <body>
 
-  <!-- Auth -->
-  <section id="auth-panel" class="panel">
-    <h2 style="margin-bottom:8px;">Вход / Регистрация</h2>
-    <p class="panel-subtitle" style="margin-bottom:10px;">
-      Введи email и пароль. «Регистрация» создаёт аккаунт, «Вход» логинит, «Выйти» — выход.
-    </p>
-    <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;">
-      <input id="auth-email" type="email" placeholder="Email"
-             style="padding:6px 8px;border-radius:8px;border:1px solid rgba(55,65,81,0.9);">
-      <input id="auth-password" type="password" placeholder="Пароль"
-             style="padding:6px 8px;border-radius:8px;border:1px solid rgba(55,65,81,0.9);">
-      <div style="display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;">
-        <button class="btn" id="auth-login-btn">Вход</button>
-        <button class="btn secondary" id="auth-signup-btn">Регистрация</button>
-        <button class="btn secondary" id="auth-logout-btn">Выйти</button>
-      </div>
-      <div id="auth-error" style="color:#f97373;font-size:12px;margin-top:4px;"></div>
-    </div>
-  </section>
+  <!-- ПАНЕЛЬ АВТОРИЗАЦИИ -->
+  <div id="auth-panel">
+    <h2 style="margin:0 0 6px;">Вход / Регистрация</h2>
+    <input id="auth-email" type="email" placeholder="Email">
+    <input id="auth-password" type="password" placeholder="Пароль">
+    <button id="auth-login-btn">Войти</button>
+    <button id="auth-signup-btn">Регистрация</button>
+    <button id="auth-logout-btn">Выйти</button>
+    <div id="auth-error"></div>
+  </div>
 
-  <!-- App -->
+  <!-- ОСНОВНОЕ ПРИЛОЖЕНИЕ -->
   <div id="app-root" class="hidden">
-    <div class="topbar">
-      <div class="topbar-logo" data-page="grades">школа</div>
-      <div class="topbar-title" id="topbar-title">Дневник Веника</div>
-
-      <div class="topbar-nav">
-        <div class="topbar-nav-item" data-page="schedule">Расписание</div>
-        <div class="topbar-nav-item" data-page="tasks">Задания</div>
-        <div class="topbar-nav-item active" data-page="grades">
-          Оценки <span class="dot"></span>
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img id="sidebar-avatar-img" src="teacher.jpg" alt="">
+        <div>
+          <div id="sidebar-name">Дневник Веника</div>
+          <div id="sidebar-class">8Б класс</div>
         </div>
-        <div class="topbar-nav-item" data-page="rating">Рейтинг</div>
-        <div class="topbar-nav-item" data-page="chat">Сообщения</div>
       </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-item active" data-page="journal">Дневник</div>
+        <div class="sidebar-item" data-page="schedule">Расписание</div>
+        <div class="sidebar-item" data-page="tasks">Домашка</div>
+        <div class="sidebar-item" data-page="rating">Рейтинг</div>
+        <div class="sidebar-item" data-page="chat">Чат</div>
+        <div class="sidebar-item" data-page="profile">Профиль</div>
+        <div class="sidebar-item" id="sidebar-notif-item" data-page="notifications">Уведомления</div>
+        <div class="sidebar-item" data-page="admin">Админ</div>
+      </nav>
+    </aside>
 
-      <div class="topbar-spacer"></div>
-
-      <button id="theme-toggle">
-        <span id="theme-toggle-icon">🌙</span>
-        <span id="theme-toggle-text">Тёмная</span>
-      </button>
-
-      <div class="topbar-right" data-page="profile">
-        <div class="avatar-small">
-          <img id="avatar-small-img" src="teacher.jpg" alt="profile">
+    <div style="flex:1; display:flex; flex-direction:column; gap:10px;">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div id="topbar-title">Дневник Веника</div>
         </div>
-        <div id="topbar-name">Веник ▾</div>
-      </div>
-    </div>
+        <div class="topbar-right">
+          <button id="theme-toggle" class="btn secondary">
+            <span id="theme-toggle-icon">🌙</span>
+            <span id="theme-toggle-text">Тёмная</span>
+          </button>
+          <div class="notif-bell" data-page="notifications">
+            🔔
+            <span id="bell-badge" class="hidden">0</span>
+          </div>
+          <div class="topbar-user" data-page="profile">
+            <img id="avatar-small-img" src="teacher.jpg" alt="">
+            <span id="topbar-name">Профиль ▾</span>
+          </div>
+        </div>
+      </header>
 
-    <div class="layout">
-      <aside class="sidebar">
-        <div class="sidebar-user" data-page="profile">
-          <div class="avatar">
-            <img id="sidebar-avatar-img" src="teacher.jpg" alt="profile">
+      <!-- СТРАНИЦЫ -->
+      <main id="page-journal">
+        <section class="controls">
+          <div>
+            Четверть:
+            <button class="quarter-btn active" data-quarter="1">1</button>
+            <button class="quarter-btn" data-quarter="2">2</button>
+            <button class="quarter-btn" data-quarter="3">3</button>
+            <button class="quarter-btn" data-quarter="4">4</button>
+            <span id="current-quarter-label">1 четверть</span>
           </div>
           <div>
-            <div class="sidebar-user-name" id="sidebar-name">Дневник Веника</div>
-            <div style="font-size:12px;color:var(--text-muted);" id="sidebar-class">8Б класс</div>
-          </div>
-        </div>
-
-        <div class="sidebar-section-title">Навигация</div>
-        <div class="sidebar-item active" data-page="grades"><span>Текущие оценки</span></div>
-        <div class="sidebar-item" data-page="schedule"><span>Расписание</span></div>
-        <div class="sidebar-item" data-page="tasks"><span>Домашка</span></div>
-        <div class="sidebar-item" data-page="rating"><span>Рейтинг</span></div>
-        <div class="sidebar-item" id="sidebar-notif-item">
-          <span>Уведомления</span>
-          <span id="bell-badge" class="bell-badge hidden">0</span>
-        </div>
-        <div class="sidebar-item" data-page="chat"><span>Сообщения</span></div>
-        <div class="sidebar-item" data-page="profile"><span>Профиль</span></div>
-        <div class="sidebar-item" data-page="admin"><span>Админ</span></div>
-      </aside>
-
-      <main class="content">
-        <!-- Оценки -->
-        <section id="page-grades" class="panel">
-          <div class="panel-header">
-            <div>
-              <div class="panel-title">Текущие оценки</div>
-              <div class="panel-subtitle">
-                Четверть: <span id="current-quarter-label"></span>,
-                неделя: <span id="current-week-label"></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="tabs">
-            <div class="tab active" data-tab="by-date">По дням</div>
-            <div class="tab" data-tab="by-subject">По предметам</div>
-          </div>
-
-          <div id="tab-by-date">
-            <div class="quarter-switcher">
-              <button class="quarter-btn active" data-quarter="1">1 четверть</button>
-              <button class="quarter-btn" data-quarter="2">2 четверть</button>
-              <button class="quarter-btn" data-quarter="3">3 четверть</button>
-              <button class="quarter-btn" data-quarter="4">4 четверть</button>
-            </div>
-
-            <div class="week-switcher">
-              <button class="week-btn active" data-week="1">1 неделя</button>
-              <button class="week-btn" data-week="2">2 неделя</button>
-              <button class="week-btn" data-week="3">3 неделя</button>
-              <button class="week-btn" data-week="4">4 неделя</button>
-            </div>
-
-            <section class="day-block" id="mon-block">
-              <div class="day-title"><span class="day-icon">Пн</span>Понедельник</div>
-            </section>
-            <section class="day-block" id="tue-block">
-              <div class="day-title"><span class="day-icon">Вт</span>Вторник</div>
-            </section>
-            <section class="day-block" id="wed-block">
-              <div class="day-title"><span class="day-icon">Ср</span>Среда</div>
-            </section>
-            <section class="day-block" id="thu-block">
-              <div class="day-title"><span class="day-icon">Чт</span>Четверг</div>
-            </section>
-            <section class="day-block" id="fri-block">
-              <div class="day-title"><span class="day-icon">Пт</span>Пятница</div>
-            </section>
-            <section class="day-block" id="sat-block">
-              <div class="day-title"><span class="day-icon">Сб</span>Суббота</div>
-            </section>
-            <section class="day-block" id="sun-block">
-              <div class="day-title"><span class="day-icon">Вс</span>Воскресенье</div>
-            </section>
-
-            <div class="grade-form">
-              <span>Добавить оценку:</span>
-              <select id="subject-input">
-                <option value="Алгебра">Алгебра</option>
-                <option value="Биология">Биология</option>
-                <option value="География">География</option>
-                <option value="Геометрия">Геометрия</option>
-                <option value="Иностранный (английский) язык">Английский</option>
-                <option value="Информатика">Информатика</option>
-                <option value="История">История</option>
-                <option value="Физика">Физика</option>
-                <option value="Химия">Химия</option>
-                <option value="Русский язык">Русский</option>
-              </select>
-              <select id="day-select">
-                <option value="mon">Пн</option>
-                <option value="tue">Вт</option>
-                <option value="wed">Ср</option>
-                <option value="thu">Чт</option>
-                <option value="fri">Пт</option>
-                <option value="sat">Сб</option>
-                <option value="sun">Вс</option>
-              </select>
-
-              <input id="type-input" type="text" placeholder="Тип работы">
-              <input id="mark-input" type="number" min="1" max="5" style="width:50px" placeholder="Оценка">
-              <button class="btn" id="add-grade-btn">Добавить</button>
-            </div>
-          </div>
-
-          <div id="tab-by-subject" class="hidden">
-            <p class="panel-subtitle">
-              Список оценок по предметам (для выбранной четверти и недели).
-            </p>
-            <div id="subject-list"></div>
+            Неделя:
+            <button class="week-btn active" data-week="1">1</button>
+            <button class="week-btn" data-week="2">2</button>
+            <button class="week-btn" data-week="3">3</button>
+            <button class="week-btn" data-week="4">4</button>
+            <span id="current-week-label">1 неделя</span>
           </div>
         </section>
 
-        <!-- Средний балл по предметам -->
-        <section id="page-subjects" class="panel hidden">
-          <div class="panel-header">
-            <div class="panel-title">Средний балл по предметам</div>
-          </div>
-          <table>
-            <thead>
-            <tr>
-              <th>Предмет</th>
-              <th>Оценки</th>
-              <th>Средний</th>
-            </tr>
-            </thead>
-            <tbody id="subjects-table-body"></tbody>
-          </table>
+        <section class="add-grade">
+          <select id="subject-input">
+            <option>Алгебра</option>
+            <option>Геометрия</option>
+            <option>Русский язык</option>
+            <option>Иностранный (английский) язык</option>
+            <option>Физика</option>
+            <option>Химия</option>
+            <option>Биология</option>
+            <option>История</option>
+            <option>География</option>
+            <option>Информатика</option>
+            <option>Искусственный интеллект</option>
+            <option>Обществознание</option>
+            <option>Физическая культура</option>
+            <option>Труд (технология)</option>
+            <option>Музыка</option>
+          </select>
+          <input id="type-input" type="text" placeholder="Тип работы (контрольная, ДЗ...)">
+          <select id="day-select">
+            <option value="mon">Пн</option>
+            <option value="tue">Вт</option>
+            <option value="wed">Ср</option>
+            <option value="thu">Чт</option>
+            <option value="fri">Пт</option>
+            <option value="sat">Сб</option>
+            <option value="sun">Вс</option>
+          </select>
+          <input id="mark-input" type="number" min="1" max="5" placeholder="Оценка">
+          <button id="add-grade-btn" class="btn primary">Добавить</button>
         </section>
 
-        <!-- Профиль -->
-        <section id="page-profile" class="panel hidden">
-          <div class="profile-grid">
-            <div class="profile-card">
-              <div class="profile-avatar">
-                <img id="profile-avatar-img" src="teacher.jpg" alt="profile">
-              </div>
-              <div style="font-weight:600;margin-bottom:4px;" id="profile-name-display">Веник Веников</div>
-              <div style="font-size:12px;color:var(--text-muted);" id="profile-class-display">Ученик 8Б класса</div>
-              <button class="btn" id="profile-message-btn" style="margin-top:8px;display:none;">
-                Написать
-              </button>
-            </div>
-
-            <div class="profile-main">
-              <h2 style="font-size:14px;margin-bottom:8px;">Информация</h2>
-              <div class="profile-row">
-                <span class="profile-label">Имя</span>
-                <span id="profile-name-info">Веник Веников</span>
-              </div>
-              <div class="profile-row">
-                <span class="profile-label">Почта</span>
-                <span id="profile-email-info">—</span>
-              </div>
-              <div class="profile-row">
-                <span class="profile-label">Город</span>
-                <span id="profile-city-info">Подольск</span>
-              </div>
-              <div class="profile-row">
-                <span class="profile-label">Класс</span>
-                <span id="profile-class-info">8Б</span>
-              </div>
-              <div class="profile-row">
-                <span class="profile-label">Любимые предметы</span>
-                <span id="profile-fav-info">Информатика, математика</span>
-              </div>
-
-              <div class="profile-form">
-                <h3 style="font-size:13px;margin-bottom:6px;">Редактировать</h3>
-                <div class="profile-form-row">
-                  <span style="width:110px;">URL аватарки:</span>
-                  <input id="profile-avatar-input" type="text" placeholder="Ссылка на картинку">
-                </div>
-                <div class="profile-form-row">
-                  <span style="width:110px;">Имя:</span>
-                  <input id="profile-name-input" type="text" placeholder="Имя и фамилия">
-                </div>
-                <div class="profile-form-row">
-                  <span style="width:110px;">Город:</span>
-                  <input id="profile-city-input" type="text" placeholder="Город">
-                </div>
-                <div class="profile-form-row">
-                  <span style="width:110px;">Класс:</span>
-                  <input id="profile-class-input" type="text" placeholder="8Б">
-                </div>
-                <div class="profile-form-row">
-                  <span style="width:110px;">Любимые предметы:</span>
-                  <input id="profile-fav-input" type="text" placeholder="Через запятую">
-                </div>
-                <button class="btn" id="profile-save-btn">Сохранить</button>
-              </div>
-            </div>
-          </div>
+        <section class="week-grid">
+          <div id="mon-block" class="day-block"><h3>Понедельник</h3></div>
+          <div id="tue-block" class="day-block"><h3>Вторник</h3></div>
+          <div id="wed-block" class="day-block"><h3>Среда</h3></div>
+          <div id="thu-block" class="day-block"><h3>Четверг</h3></div>
+          <div id="fri-block" class="day-block"><h3>Пятница</h3></div>
+          <div id="sat-block" class="day-block"><h3>Суббота</h3></div>
+          <div id="sun-block" class="day-block"><h3>Воскресенье</h3></div>
         </section>
 
-        <!-- Расписание -->
-        <section id="page-schedule" class="panel hidden">
-          <div class="panel-header">
-            <div>
-              <div class="panel-title">Расписание</div>
-              <div class="panel-subtitle">Выбери день сверху, чтобы не листать огромный список.</div>
-            </div>
-          </div>
-
-          <div class="day-tabs" id="schedule-day-tabs"></div>
-          <div id="schedule-container"></div>
-        </section>
-
-        <!-- Домашка -->
-        <section id="page-tasks" class="panel hidden">
-          <div class="panel-header">
-            <div>
-              <div class="panel-title">Домашние задания</div>
-              <div class="panel-subtitle">
-                Сделал ДЗ — поставь галочку, можно фильтровать по статусу.
-              </div>
-            </div>
-          </div>
-
-          <div class="tasks-filter">
-            <span>Показать:</span>
-            <select id="tasks-filter-select">
-              <option value="all">Все</option>
-              <option value="done">Только выполненные</option>
-              <option value="todo">Только невыполненные</option>
-            </select>
-          </div>
-
-          <div class="day-tabs" id="tasks-day-tabs"></div>
-          <div id="tasks-container"></div>
-        </section>
-
-        <!-- Рейтинг -->
-        <section id="page-rating" class="panel hidden">
-          <div class="panel-header">
-            <div class="panel-title">Рейтинг класса</div>
-            <button class="btn secondary" id="rating-refresh-btn">Обновить</button>
-          </div>
-          <p class="panel-subtitle">
-            Считается по оценкам выбранной четверти и недели, обновляется в реальном времени.
-          </p>
-          <table>
-            <thead>
-            <tr>
-              <th>#</th>
-              <th>Ученик</th>
-              <th>Средний балл</th>
-            </tr>
-            </thead>
-            <tbody id="rating-table-body"></tbody>
-          </table>
-          <div id="rating-history"></div>
-        </section>
-
-        <!-- Уведомления -->
-        <section id="page-notifications" class="panel hidden">
-          <div class="panel-header">
-            <div class="panel-title">Уведомления</div>
-          </div>
-          <div id="notifications-panel" class="notifications-panel">
-            <div class="notifications-header">
-              <span>Уведомления</span>
-              <div class="notifications-actions">
-                <button id="notif-mark-read" class="notif-chip-btn">Прочитать всё</button>
-                <button id="notif-clear" class="notif-chip-btn">Очистить</button>
-              </div>
-            </div>
-            <div id="notifications-list" class="notifications-list"></div>
-          </div>
-        </section>
-
-        <!-- Сообщения (чат) -->
-        <section id="page-chat" class="panel hidden">
-          <div class="panel-header">
-            <div class="panel-title">Сообщения</div>
-            <div class="panel-subtitle">Пиши одноклассникам, чат обновляется в реальном времени.</div>
-          </div>
-          <div class="chat-layout">
-            <div class="chat-dialogs">
-              <div class="chat-dialogs-header">Диалоги</div>
-              <div id="chat-dialogs-list" class="chat-dialogs-list"></div>
-            </div>
-            <div class="chat-window">
-              <div class="chat-window-header">
-                <span id="chat-current-name">Выбери собеседника слева</span>
-                <span id="chat-current-status" style="font-size:11px;color:var(--text-muted);"></span>
-              </div>
-              <div id="chat-messages" class="chat-messages"></div>
-              <div class="chat-input-row">
-                <input id="chat-input" type="text" placeholder="Написать сообщение..." disabled>
-                <button class="btn" id="chat-send-btn" disabled>Отправить</button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Админ -->
-        <section id="page-admin" class="panel hidden">
-          <div class="panel-header">
-            <div class="panel-title">Админ-панель: визиты</div>
-          </div>
-          <p class="panel-subtitle">
-            Здесь видно, кто заходил на сайт (uid, email, браузер, язык, экран).
-          </p>
-          <div id="admin-warning" style="font-size:12px;color:#f97373;margin:6px 0;"></div>
+        <section class="subjects-summary">
+          <h3 style="margin:6px 0 4px;font-size:14px;">Средний балл по предметам</h3>
           <table>
             <thead>
               <tr>
-                <th>#</th>
-                <th>Время</th>
-                <th>UID / Email</th>
-                <th>User-Agent</th>
-                <th>Язык</th>
-                <th>Экран</th>
-                <th>Действия</th>
+                <th>Предмет</th>
+                <th>Оценки</th>
+                <th>Средний</th>
               </tr>
             </thead>
-            <tbody id="admin-visits-body"></tbody>
+            <tbody id="subjects-table-body"></tbody>
           </table>
+          <div id="subject-list"></div>
         </section>
+      </main>
+
+      <main id="page-schedule" class="hidden">
+        <h2>Расписание</h2>
+        <div id="schedule-day-tabs" class="tabs-row"></div>
+        <div id="schedule-container"></div>
+      </main>
+
+      <main id="page-tasks" class="hidden">
+        <h2>Домашка</h2>
+        <div class="tasks-controls">
+          <label>Показать:
+            <select id="tasks-filter-select">
+              <option value="all">Все</option>
+              <option value="todo">Только невыполненные</option>
+              <option value="done">Только выполненные</option>
+            </select>
+          </label>
+        </div>
+        <div id="tasks-day-tabs" class="tabs-row"></div>
+        <div id="tasks-container"></div>
+      </main>
+
+      <main id="page-rating" class="hidden">
+        <h2>Рейтинг класса</h2>
+        <button id="rating-refresh-btn" class="btn secondary">Обновить</button>
+        <table>
+          <thead>
+          <tr>
+            <th>Место</th>
+            <th>Ученик</th>
+            <th>Средний балл</th>
+          </tr>
+          </thead>
+          <tbody id="rating-table-body"></tbody>
+        </table>
+        <div id="rating-history" style="margin-top:6px;font-size:12px;color:var(--text-muted);"></div>
+      </main>
+
+      <main id="page-chat" class="hidden">
+        <section class="chat-layout">
+          <div class="chat-sidebar">
+            <h3>Чаты</h3>
+            <div id="chat-dialogs-list"></div>
+          </div>
+          <div class="chat-main">
+            <div class="chat-header">
+              <div>
+                <div id="chat-current-name">Выбери собеседника слева</div>
+                <div id="chat-current-status" class="chat-status"></div>
+              </div>
+            </div>
+            <div id="chat-messages"></div>
+            <div class="chat-input-row">
+              <input id="chat-input" type="text" placeholder="Напиши сообщение..." disabled>
+              <button id="chat-send-btn" class="btn primary" disabled>Отправить</button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <main id="page-profile" class="hidden">
+        <section class="profile-header">
+          <img id="profile-avatar-img" src="teacher.jpg" alt="">
+          <div>
+            <h2 id="profile-name-display">Веник Веников</h2>
+            <p id="profile-class-display">Ученик 8Б класса</p>
+          </div>
+          <button id="profile-message-btn" class="btn primary" style="margin-left:auto;display:none;">Написать</button>
+        </section>
+
+        <section class="profile-info">
+          <div><strong>Имя:</strong> <span id="profile-name-info"></span></div>
+          <div><strong>Email:</strong> <span id="profile-email-info"></span></div>
+          <div><strong>Город:</strong> <span id="profile-city-info"></span></div>
+          <div><strong>Класс:</strong> <span id="profile-class-info"></span></div>
+          <div><strong>Любимые предметы:</strong> <span id="profile-fav-info"></span></div>
+        </section>
+
+        <section class="profile-form">
+          <h3 style="margin:0 0 4px;font-size:14px;">Редактирование профиля</h3>
+          <label>Ссылка на аватар:
+            <input id="profile-avatar-input" type="text">
+          </label>
+          <label>Имя:
+            <input id="profile-name-input" type="text">
+          </label>
+          <label>Город:
+            <input id="profile-city-input" type="text">
+          </label>
+          <label>Класс:
+            <input id="profile-class-input" type="text">
+          </label>
+          <label>Любимые предметы:
+            <input id="profile-fav-input" type="text">
+          </label>
+          <button id="profile-save-btn" class="btn primary">Сохранить</button>
+        </section>
+      </main>
+
+      <main id="page-notifications" class="hidden">
+        <h2>Уведомления</h2>
+        <div class="notif-controls">
+          <button id="notif-mark-read" class="btn secondary">Отметить как прочитанные</button>
+          <button id="notif-clear" class="btn secondary">Очистить</button>
+        </div>
+        <div id="notifications-list"></div>
+      </main>
+
+      <main id="page-admin" class="hidden">
+        <h2>Админ-панель</h2>
+        <div id="admin-warning" style="color:#f97316;font-size:13px;"></div>
+        <table>
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Когда</th>
+            <th>Пользователь</th>
+            <th>User‑Agent</th>
+            <th>Язык</th>
+            <th>Экран</th>
+            <th>Действие</th>
+          </tr>
+          </thead>
+          <tbody id="admin-visits-body"></tbody>
+        </table>
       </main>
     </div>
   </div>
-</body>
-</html>
