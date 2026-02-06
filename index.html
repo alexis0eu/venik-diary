@@ -726,165 +726,99 @@
       margin: 40px auto;
     }
 
-    /* ===== Верхний баннер рекламы (пример) ===== */
-    .top-banner {
-      position: fixed;
+    /* ===== Верхний баннер рекламы ===== */
+    #top-banner {
+      position: sticky;
       top: 56px;
-      left: 50%;
-      transform: translateX(-50%);
-      max-width: 640px;
-      width: calc(100% - 20px);
-      background: linear-gradient(135deg, #0f172a, #1d283a);
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.6);
-      padding: 6px 10px;
+      z-index: 19;
+      background: linear-gradient(90deg, #4f46e5, #22c55e);
+      color: #f9fafb;
+      padding: 8px 12px;
+    }
+    #top-banner-inner {
+      max-width: 1200px;
+      margin: 0 auto;
       display: flex;
       align-items: center;
-      gap: 8px;
-      color: #e5e7eb;
-      font-size: 12px;
-      box-shadow: 0 16px 35px rgba(15,23,42,0.8);
-      z-index: 25;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 13px;
     }
-    .top-banner-logo {
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      background: radial-gradient(circle at top left,#22c55e,#16a34a);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:14px;
-    }
-    .top-banner-main {
-      flex:1;
-      display:flex;
-      flex-direction:column;
-      gap:2px;
-    }
-    .top-banner-title {
-      font-weight:600;
-      font-size:12px;
-    }
-    .top-banner-sub {
-      font-size:11px;
-      color:#9ca3af;
-    }
-    .top-banner-actions {
-      display:flex;
-      align-items:center;
-      gap:6px;
+    #top-banner-buttons {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
     }
     .top-banner-btn {
+      border-radius: 999px;
+      border: none;
+      padding: 4px 9px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .top-banner-btn.primary {
+      background: rgba(15,23,42,0.9);
+      color: #e5e7eb;
+    }
+    .top-banner-btn.secondary {
+      background: rgba(248,250,252,0.15);
+      color: #f9fafb;
+    }
+
+    /* ===== Нижний баннер TGK Discord ===== */
+    #tgk-discord-banner {
+      position: fixed;
+      left: 16px;
+      bottom: 16px;
+      z-index: 40;
+      background: rgba(15,23,42,0.97);
+      border-radius: 14px;
+      border: 1px solid rgba(148,163,184,0.7);
+      padding: 10px 11px 9px;
+      box-shadow: 0 18px 35px rgba(15,23,42,0.85);
+      max-width: 260px;
+      font-size: 12px;
+      color: #e5e7eb;
+    }
+    #tgk-discord-banner-header {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:4px;
+    }
+    #tgk-discord-title {
+      font-weight:600;
+      font-size:13px;
+    }
+    #tgk-discord-close-btn {
+      cursor:pointer;
+      border:none;
+      background:transparent;
+      color:#9ca3af;
+      font-size:14px;
+    }
+    #tgk-discord-text {
+      font-size:12px;
+      margin-bottom:6px;
+      color:#cbd5f5;
+    }
+    #tgk-discord-go-btn {
       border-radius:999px;
       border:none;
       padding:4px 9px;
-      font-size:11px;
-      cursor:pointer;
-      background: radial-gradient(circle at top left,#4f46e5,#1d4ed8);
-      color:#e5e7eb;
-      box-shadow: 0 8px 20px rgba(37,99,235,0.6);
-      white-space:nowrap;
-    }
-    .top-banner-skip {
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,0.6);
-      padding:3px 7px;
-      font-size:11px;
-      cursor:pointer;
-      background:rgba(15,23,42,0.8);
-      color:#9ca3af;
-    }
-    :root[data-theme="light"] .top-banner {
-      background:#ffffff;
-      border-color:#d1d5db;
-      color:#111827;
-    }
-    :root[data-theme="light"] .top-banner-skip {
-      background:#f3f4f6;
-      border-color:#d1d5db;
-      color:#6b7280;
-    }
-
-    /* ===== Баннер Discord TGK снизу слева ===== */
-    .tgk-discord-banner {
-      position: fixed;
-      left: 12px;
-      bottom: 12px;
-      z-index: 40;
-      max-width: 260px;
-      background: linear-gradient(135deg, #111827, #020617);
-      border-radius: 18px;
-      border: 1px solid rgba(129, 140, 248, 0.7);
-      padding: 10px 10px 9px;
-      display: flex;
-      gap: 8px;
-      color: #e5e7eb;
-      font-size: 12px;
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.95);
-    }
-    .tgk-discord-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      background: radial-gradient(circle at top left,#5865f2,#3b82f6);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:18px;
-    }
-    .tgk-discord-main {
-      flex:1;
-      display:flex;
-      flex-direction:column;
-      gap:3px;
-    }
-    .tgk-discord-title {
-      font-weight:600;
       font-size:12px;
-    }
-    .tgk-discord-sub {
-      font-size:11px;
-      color:#9ca3af;
-    }
-    .tgk-discord-actions {
-      margin-top:4px;
-      display:flex;
-      gap:6px;
-      align-items:center;
-      flex-wrap:wrap;
-    }
-    .tgk-discord-go {
-      border-radius:999px;
-      border:none;
-      padding:4px 8px;
-      font-size:11px;
       cursor:pointer;
-      background: radial-gradient(circle at top left,#5865f2,#4f46e5);
-      color:#e5e7eb;
-      box-shadow:0 10px 22px rgba(88,101,242,0.7);
-      white-space:nowrap;
+      background:#5865F2;
+      color:#f9fafb;
+      width:100%;
+      text-align:center;
     }
-    .tgk-discord-close {
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,0.7);
-      padding:3px 6px;
-      font-size:11px;
-      cursor:pointer;
-      background:rgba(15,23,42,0.95);
-      color:#9ca3af;
-    }
-    :root[data-theme="light"] .tgk-discord-banner {
+    :root[data-theme="light"] #tgk-discord-banner {
       background:#ffffff;
-      border-color:#c7d2fe;
+      border-color:#d1d5db;
       color:#111827;
     }
-    :root[data-theme="light"] .tgk-discord-sub {
-      color:#6b7280;
-    }
-    :root[data-theme="light"] .tgk-discord-close {
-      background:#f3f4f6;
-      border-color:#d1d5db;
+    :root[data-theme="light"] #tgk-discord-text {
       color:#4b5563;
     }
 
@@ -892,8 +826,12 @@
       .layout { flex-direction: column; }
       .sidebar { width: 100%; display: flex; flex-wrap: wrap; gap: 6px; }
       .sidebar-section-title { width: 100%; }
-      .top-banner { display:none; }
       .topbar-spacer { display:none; }
+      #tgk-discord-banner {
+        left: 8px;
+        right: 8px;
+        max-width: none;
+      }
     }
     @media (max-width: 640px) {
       .topbar-title { display: none; }
@@ -902,6 +840,19 @@
   </style>
 </head>
 <body>
+
+  <!-- Верхний рекламный баннер -->
+  <div id="top-banner" class="hidden">
+    <div id="top-banner-inner">
+      <div>
+        <strong>Реклама:</strong> подпишись на крутой Telegram/Discord, чтобы не пропускать дз и подсказки.
+      </div>
+      <div id="top-banner-buttons">
+        <button id="top-banner-go-btn" class="top-banner-btn primary">Перейти</button>
+        <button id="top-banner-skip-btn" class="top-banner-btn secondary">Закрыть</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Панель авторизации -->
   <section id="auth-panel" class="panel">
@@ -922,6 +873,18 @@
       <div id="auth-error" style="color:#f97373;font-size:12px;margin-top:4px;"></div>
     </div>
   </section>
+
+  <!-- Нижний баннер TGK Discord -->
+  <div id="tgk-discord-banner">
+    <div id="tgk-discord-banner-header">
+      <div id="tgk-discord-title">Discord TGK</div>
+      <button id="tgk-discord-close-btn" title="Закрыть">✕</button>
+    </div>
+    <div id="tgk-discord-text">
+      Ламповый сервер с одноклассниками, общение, помощь с уроками и мемы. Залетай, пока не забыл!
+    </div>
+    <button id="tgk-discord-go-btn">Зайти на сервер</button>
+  </div>
 
   <!-- Вся основная часть сайта -->
   <div id="app-root" class="hidden">
@@ -968,19 +931,6 @@
           <img id="avatar-small-img" src="teacher.jpg" alt="profile">
         </div>
         <div id="topbar-name">Веник ▾</div>
-      </div>
-    </div>
-
-    <!-- Верхний баннер рекламы -->
-    <div id="top-banner" class="top-banner hidden">
-      <div class="top-banner-logo">AI</div>
-      <div class="top-banner-main">
-        <div class="top-banner-title">Надоела МЭШ? Делай дневник сам.</div>
-        <div class="top-banner-sub">Оценивай себя, следи за средним баллом и сохранением в облаке.</div>
-      </div>
-      <div class="top-banner-actions">
-        <button id="top-banner-go-btn" class="top-banner-btn">Понял, спасибо</button>
-        <button id="top-banner-skip-btn" class="top-banner-skip">Скрыть</button>
       </div>
     </div>
 
@@ -1238,21 +1188,6 @@
     </div>
   </div>
 
-  <!-- Баннер Discord TGK снизу слева -->
-  <div id="tgk-discord-banner" class="tgk-discord-banner">
-    <div class="tgk-discord-icon">
-      💬
-    </div>
-    <div class="tgk-discord-main">
-      <div class="tgk-discord-title">Discord TGK — ламповый сервер</div>
-      <div class="tgk-discord-sub">Залетай в голос, обсуждай ДЗ и катай катки с 8Б.</div>
-      <div class="tgk-discord-actions">
-        <button id="tgk-discord-go-btn" class="tgk-discord-go">Зайти в Discord</button>
-        <button id="tgk-discord-close-btn" class="tgk-discord-close">Не показывать</button>
-      </div>
-    </div>
-  </div>
-
   <!-- Основной JS + Firebase Auth + Firestore -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -1268,7 +1203,7 @@
       doc,
       setDoc,
       getDoc
-    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; [file:365]
 
     const firebaseConfig = {
       apiKey: "AIzaSyAFcX2I6lfzmxwEGEpOej-SqiG6-DFWSDc",
@@ -1453,6 +1388,73 @@
         notifPanel.classList.add('hidden');
       }
     });
+
+    /* ===== Верхний баннер: локальное состояние ===== */
+    const TOP_BANNER_KEY = 'venik-top-banner-closed';
+    const topBanner = document.getElementById('top-banner');
+    const topBannerGoBtn = document.getElementById('top-banner-go-btn');
+    const topBannerSkipBtn = document.getElementById('top-banner-skip-btn');
+
+    function loadTopAdState() {
+      const closed = localStorage.getItem(TOP_BANNER_KEY) === '1';
+      if (!closed && topBanner) {
+        topBanner.classList.remove('hidden');
+      }
+    }
+    function closeTopAd(permanent) {
+      if (!topBanner) return;
+      topBanner.classList.add('hidden');
+      if (permanent) {
+        localStorage.setItem(TOP_BANNER_KEY, '1');
+      }
+    }
+
+    if (topBannerGoBtn) {
+      topBannerGoBtn.addEventListener('click', () => {
+        closeTopAd(true);
+        addNotification('Рекламный баннер закрыт, приятного пользования дневником!', 'top-banner');
+      });
+    }
+    if (topBannerSkipBtn) {
+      topBannerSkipBtn.addEventListener('click', () => {
+        closeTopAd(true);
+      });
+    }
+
+    /* ===== Реклама TGK Discord снизу слева ===== */
+    const TGK_DISCORD_KEY = 'venik-tgk-discord-closed';
+    const tgkDiscordBanner = document.getElementById('tgk-discord-banner');
+    const tgkDiscordGoBtn = document.getElementById('tgk-discord-go-btn');
+    const tgkDiscordCloseBtn = document.getElementById('tgk-discord-close-btn');
+
+    function loadTgkDiscordState() {
+      const closed = localStorage.getItem(TGK_DISCORD_KEY) === '1';
+      if (closed && tgkDiscordBanner) {
+        tgkDiscordBanner.classList.add('hidden');
+      }
+    }
+
+    function closeTgkDiscord(permanent) {
+      if (!tgkDiscordBanner) return;
+      tgkDiscordBanner.classList.add('hidden');
+      if (permanent) {
+        localStorage.setItem(TGK_DISCORD_KEY, '1');
+      }
+    }
+
+    if (tgkDiscordGoBtn) {
+      tgkDiscordGoBtn.addEventListener('click', () => {
+        window.open('https://discord.gg/UQ8qFC6s', '_blank');
+        addNotification('Открылся Discord TGK — лучший и ламповый сервер.', 'tgk-discord');
+      });
+    }
+
+    if (tgkDiscordCloseBtn) {
+      tgkDiscordCloseBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeTgkDiscord(true);
+      });
+    }
 
     /* ===== Профиль ===== */
     const PROFILE_KEY = 'venik-profile';
@@ -2201,73 +2203,6 @@
         list.appendChild(li);
       });
       ratingHistoryDiv.appendChild(list);
-    }
-
-    /* ===== Верхний баннер: локальное состояние ===== */
-    const TOP_BANNER_KEY = 'venik-top-banner-closed';
-    const topBanner = document.getElementById('top-banner');
-    const topBannerGoBtn = document.getElementById('top-banner-go-btn');
-    const topBannerSkipBtn = document.getElementById('top-banner-skip-btn');
-
-    function loadTopAdState() {
-      const closed = localStorage.getItem(TOP_BANNER_KEY) === '1';
-      if (!closed && topBanner) {
-        topBanner.classList.remove('hidden');
-      }
-    }
-    function closeTopAd(permanent) {
-      if (!topBanner) return;
-      topBanner.classList.add('hidden');
-      if (permanent) {
-        localStorage.setItem(TOP_BANNER_KEY, '1');
-      }
-    }
-
-    if (topBannerGoBtn) {
-      topBannerGoBtn.addEventListener('click', () => {
-        closeTopAd(true);
-        addNotification('Рекламный баннер закрыт, приятного пользования дневником!', 'top-banner');
-      });
-    }
-    if (topBannerSkipBtn) {
-      topBannerSkipBtn.addEventListener('click', () => {
-        closeTopAd(true);
-      });
-    }
-
-    /* ===== Реклама TGK Discord снизу слева ===== */
-    const TGK_DISCORD_KEY = 'venik-tgk-discord-closed';
-    const tgkDiscordBanner = document.getElementById('tgk-discord-banner');
-    const tgkDiscordGoBtn = document.getElementById('tgk-discord-go-btn');
-    const tgkDiscordCloseBtn = document.getElementById('tgk-discord-close-btn');
-
-    function loadTgkDiscordState() {
-      const closed = localStorage.getItem(TGK_DISCORD_KEY) === '1';
-      if (closed && tgkDiscordBanner) {
-        tgkDiscordBanner.classList.add('hidden');
-      }
-    }
-
-    function closeTgkDiscord(permanent) {
-      if (!tgkDiscordBanner) return;
-      tgkDiscordBanner.classList.add('hidden');
-      if (permanent) {
-        localStorage.setItem(TGK_DISCORD_KEY, '1');
-      }
-    }
-
-    if (tgkDiscordGoBtn) {
-      tgkDiscordGoBtn.addEventListener('click', () => {
-        window.open('https://discord.gg/UQ8qFC6s', '_blank');
-        addNotification('Открылся Discord TGK — лучший и ламповый сервер.', 'tgk-discord');
-      });
-    }
-
-    if (tgkDiscordCloseBtn) {
-      tgkDiscordCloseBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        closeTgkDiscord(true);
-      });
     }
 
     /* ===== Auth state → Firestore, почта в профиле ===== */
