@@ -104,111 +104,6 @@
     }
     .topbar-spacer { flex: 1; }
 
-    .topbar-notifications {
-      position: relative;
-      margin-right: 8px;
-    }
-    .bell-btn {
-      position: relative;
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.6);
-      background: rgba(15,23,42,0.95);
-      color: #e5e7eb;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    .bell-badge {
-      position: absolute;
-      top: -4px;
-      right: -4px;
-      min-width: 16px;
-      padding: 0 4px;
-      height: 16px;
-      border-radius: 999px;
-      background: #ef4444;
-      color: #f9fafb;
-      font-size: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-    }
-
-    .notifications-panel {
-      position: absolute;
-      top: 40px;
-      right: 0;
-      width: 280px;
-      max-height: 320px;
-      background: var(--card-bg);
-      border-radius: 14px;
-      border: 1px solid var(--card-border);
-      box-shadow: 0 18px 40px rgba(15,23,42,0.7);
-      padding: 8px;
-      display: flex;
-      flex-direction: column;
-      font-size: 12px;
-      z-index: 30;
-    }
-    .notifications-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 4px;
-    }
-    .notifications-header span {
-      font-weight: 600;
-      font-size: 12px;
-    }
-    .notifications-actions {
-      display: flex;
-      gap: 4px;
-      font-size: 11px;
-    }
-    .notif-chip-btn {
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.5);
-      background: rgba(15,23,42,0.96);
-      color: var(--text-muted);
-      padding: 2px 6px;
-      cursor: pointer;
-    }
-    .notifications-list {
-      margin-top: 4px;
-      overflow-y: auto;
-      padding-right: 2px;
-    }
-    .notif-item {
-      padding: 6px 6px;
-      border-radius: 10px;
-      border: 1px solid rgba(51,65,85,0.8);
-      background: rgba(15,23,42,0.96);
-      margin-bottom: 4px;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .notif-item.new {
-      border-color: #22c55e;
-      box-shadow: 0 0 0 1px rgba(34,197,94,0.3);
-    }
-    .notif-main {
-      display: flex;
-      justify-content: space-between;
-      gap: 6px;
-    }
-    .notif-text { font-size: 12px; }
-    .notif-time {
-      font-size: 10px;
-      color: var(--text-muted);
-      white-space: nowrap;
-    }
-
     :root[data-theme="light"] .topbar {
       background: linear-gradient(to right, #ffffff, #e5edff);
       border-bottom-color: #d1d5db;
@@ -222,20 +117,6 @@
     :root[data-theme="light"] .topbar-right {
       background: #f9fafb;
       border-color: #d1d5db;
-    }
-    :root[data-theme="light"] .bell-btn {
-      background: #f9fafb;
-      border-color: #d1d5db;
-      color: #111827;
-    }
-    :root[data-theme="light"] .notifications-panel {
-      background: #ffffff;
-      border-color: #d1d5db;
-      box-shadow: 0 18px 40px rgba(148,163,184,0.5);
-    }
-    :root[data-theme="light"] .notif-item {
-      background: #f9fafb;
-      border-color: #e5e7eb;
     }
 
     .topbar-right {
@@ -287,7 +168,7 @@
     }
 
     .sidebar {
-      width: 210px;
+      width: 230px;
       background: var(--card-bg);
       border-radius: var(--radius-lg);
       border: 1px solid var(--card-border);
@@ -706,6 +587,94 @@
       color:#111827;
     }
 
+    .bell-badge {
+      min-width: 18px;
+      padding: 0 6px;
+      height: 18px;
+      border-radius: 999px;
+      background: #ef4444;
+      color: #f9fafb;
+      font-size: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+    }
+
+    .notifications-panel {
+      background: var(--card-bg);
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      font-size: 12px;
+      max-height: 320px;
+    }
+    .notifications-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .notifications-header span {
+      font-weight: 600;
+      font-size: 12px;
+    }
+    .notifications-actions {
+      display: flex;
+      gap: 4px;
+      font-size: 11px;
+    }
+    .notif-chip-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.5);
+      background: rgba(15,23,42,0.96);
+      color: var(--text-muted);
+      padding: 2px 6px;
+      cursor: pointer;
+    }
+    .notifications-list {
+      margin-top: 4px;
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+    .notif-item {
+      padding: 6px 6px;
+      border-radius: 10px;
+      border: 1px solid rgba(51,65,85,0.8);
+      background: rgba(15,23,42,0.96);
+      margin-bottom: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .notif-item.new {
+      border-color: #22c55e;
+      box-shadow: 0 0 0 1px rgba(34,197,94,0.3);
+    }
+    .notif-main {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .notif-text { font-size: 12px; }
+    .notif-time {
+      font-size: 10px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    :root[data-theme="light"] .notifications-panel {
+      background: #ffffff;
+      border-color: #d1d5db;
+      box-shadow: 0 18px 40px rgba(148,163,184,0.5);
+    }
+    :root[data-theme="light"] .notif-item {
+      background: #f9fafb;
+      border-color: #e5e7eb;
+    }
+
     #rating-history { margin-top: 12px; font-size: 12px; }
 
     #auth-panel.panel {
@@ -713,11 +682,134 @@
       margin: 40px auto;
     }
 
+    /* Chat */
+    .chat-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 12px;
+      height: 420px;
+    }
+    .chat-dialogs {
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+      background: rgba(15,23,42,0.96);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .chat-dialogs-header {
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(30,41,59,0.9);
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .chat-dialogs-list {
+      flex: 1;
+      overflow-y: auto;
+      font-size: 13px;
+    }
+    .chat-dialog-item {
+      padding: 6px 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(30,41,59,0.9);
+    }
+    .chat-dialog-item:hover {
+      background: rgba(15,23,42,0.96);
+    }
+    .chat-dialog-item.active {
+      background: var(--accent-soft);
+    }
+    .chat-dialog-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(148,163,184,0.7);
+    }
+    .chat-dialog-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .chat-dialog-name {
+      flex: 1;
+    }
+    .chat-dialog-last {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .chat-window {
+      border-radius: 14px;
+      border: 1px solid var(--card-border);
+      background: rgba(15,23,42,0.96);
+      display: flex;
+      flex-direction: column;
+    }
+    .chat-window-header {
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(30,41,59,0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+    }
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 13px;
+    }
+    .chat-message {
+      max-width: 75%;
+      padding: 6px 8px;
+      border-radius: 10px;
+      background: rgba(30,64,175,0.9);
+      align-self: flex-start;
+    }
+    .chat-message.me {
+      align-self: flex-end;
+      background: rgba(22,163,74,0.9);
+    }
+    .chat-message-meta {
+      font-size: 10px;
+      color: #e5e7eb;
+      opacity: 0.8;
+      margin-top: 2px;
+      text-align: right;
+    }
+    .chat-input-row {
+      padding: 6px;
+      border-top: 1px solid rgba(30,41,59,0.9);
+      display: flex;
+      gap: 6px;
+    }
+    .chat-input-row input {
+      flex: 1;
+      padding: 6px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(55,65,81,0.9);
+      background: rgba(15,23,42,0.96);
+      color: #e5e7eb;
+      font-size: 13px;
+      outline: none;
+    }
+
     @media (max-width: 900px) {
       .layout { flex-direction: column; }
       .sidebar { width: 100%; display: flex; flex-wrap: wrap; gap: 6px; }
       .sidebar-section-title { width: 100%; }
       .topbar-spacer { display:none; }
+      .chat-layout {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
     }
     @media (max-width: 640px) {
       .topbar-title { display: none; }
@@ -727,6 +819,7 @@
 </head>
 <body>
 
+  <!-- Auth -->
   <section id="auth-panel" class="panel">
     <h2 style="margin-bottom:8px;">Вход / Регистрация</h2>
     <p class="panel-subtitle" style="margin-bottom:10px;">
@@ -746,6 +839,7 @@
     </div>
   </section>
 
+  <!-- App -->
   <div id="app-root" class="hidden">
     <div class="topbar">
       <div class="topbar-logo" data-page="grades">школа</div>
@@ -758,26 +852,10 @@
           Оценки <span class="dot"></span>
         </div>
         <div class="topbar-nav-item" data-page="rating">Рейтинг</div>
+        <div class="topbar-nav-item" data-page="chat">Сообщения</div>
       </div>
 
       <div class="topbar-spacer"></div>
-
-      <div class="topbar-notifications">
-        <button id="bell-btn" class="bell-btn" aria-label="Уведомления">
-          🔔
-          <span id="bell-badge" class="bell-badge hidden">0</span>
-        </button>
-        <div id="notifications-panel" class="notifications-panel hidden">
-          <div class="notifications-header">
-            <span>Уведомления</span>
-            <div class="notifications-actions">
-              <button id="notif-mark-read" class="notif-chip-btn">Прочитать всё</button>
-              <button id="notif-clear" class="notif-chip-btn">Очистить</button>
-            </div>
-          </div>
-          <div id="notifications-list" class="notifications-list"></div>
-        </div>
-      </div>
 
       <button id="theme-toggle">
         <span id="theme-toggle-icon">🌙</span>
@@ -809,11 +887,17 @@
         <div class="sidebar-item" data-page="schedule"><span>Расписание</span></div>
         <div class="sidebar-item" data-page="tasks"><span>Домашка</span></div>
         <div class="sidebar-item" data-page="rating"><span>Рейтинг</span></div>
+        <div class="sidebar-item" id="sidebar-notif-item">
+          <span>Уведомления</span>
+          <span id="bell-badge" class="bell-badge hidden">0</span>
+        </div>
+        <div class="sidebar-item" data-page="chat"><span>Сообщения</span></div>
         <div class="sidebar-item" data-page="profile"><span>Профиль</span></div>
         <div class="sidebar-item" data-page="admin"><span>Админ</span></div>
       </aside>
 
       <main class="content">
+        <!-- Оценки -->
         <section id="page-grades" class="panel">
           <div class="panel-header">
             <div>
@@ -905,6 +989,7 @@
           </div>
         </section>
 
+        <!-- Средний балл по предметам -->
         <section id="page-subjects" class="panel hidden">
           <div class="panel-header">
             <div class="panel-title">Средний балл по предметам</div>
@@ -921,6 +1006,7 @@
           </table>
         </section>
 
+        <!-- Профиль -->
         <section id="page-profile" class="panel hidden">
           <div class="profile-grid">
             <div class="profile-card">
@@ -982,6 +1068,7 @@
           </div>
         </section>
 
+        <!-- Расписание -->
         <section id="page-schedule" class="panel hidden">
           <div class="panel-header">
             <div>
@@ -994,6 +1081,7 @@
           <div id="schedule-container"></div>
         </section>
 
+        <!-- Домашка -->
         <section id="page-tasks" class="panel hidden">
           <div class="panel-header">
             <div>
@@ -1017,13 +1105,14 @@
           <div id="tasks-container"></div>
         </section>
 
+        <!-- Рейтинг -->
         <section id="page-rating" class="panel hidden">
           <div class="panel-header">
             <div class="panel-title">Рейтинг класса</div>
             <button class="btn secondary" id="rating-refresh-btn">Обновить</button>
           </div>
           <p class="panel-subtitle">
-            Считается по оценкам выбранной четверти и недели.
+            Считается по оценкам выбранной четверти и недели, обновляется в реальном времени.
           </p>
           <table>
             <thead>
@@ -1038,6 +1127,49 @@
           <div id="rating-history"></div>
         </section>
 
+        <!-- Уведомления -->
+        <section id="page-notifications" class="panel hidden">
+          <div class="panel-header">
+            <div class="panel-title">Уведомления</div>
+          </div>
+          <div id="notifications-panel" class="notifications-panel">
+            <div class="notifications-header">
+              <span>Уведомления</span>
+              <div class="notifications-actions">
+                <button id="notif-mark-read" class="notif-chip-btn">Прочитать всё</button>
+                <button id="notif-clear" class="notif-chip-btn">Очистить</button>
+              </div>
+            </div>
+            <div id="notifications-list" class="notifications-list"></div>
+          </div>
+        </section>
+
+        <!-- Сообщения (чат) -->
+        <section id="page-chat" class="panel hidden">
+          <div class="panel-header">
+            <div class="panel-title">Сообщения</div>
+            <div class="panel-subtitle">Пиши одноклассникам, чат обновляется в реальном времени.</div>
+          </div>
+          <div class="chat-layout">
+            <div class="chat-dialogs">
+              <div class="chat-dialogs-header">Диалоги</div>
+              <div id="chat-dialogs-list" class="chat-dialogs-list"></div>
+            </div>
+            <div class="chat-window">
+              <div class="chat-window-header">
+                <span id="chat-current-name">Выбери собеседника слева</span>
+                <span id="chat-current-status" style="font-size:11px;color:var(--text-muted);"></span>
+              </div>
+              <div id="chat-messages" class="chat-messages"></div>
+              <div class="chat-input-row">
+                <input id="chat-input" type="text" placeholder="Написать сообщение..." disabled>
+                <button class="btn" id="chat-send-btn" disabled>Отправить</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Админ -->
         <section id="page-admin" class="panel hidden">
           <div class="panel-header">
             <div class="panel-title">Админ-панель: визиты</div>
@@ -1065,334 +1197,312 @@
     </div>
   </div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import {
-      getAuth,
-      onAuthStateChanged,
-      createUserWithEmailAndPassword,
-      signInWithEmailAndPassword,
-      signOut
-    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-    import {
-      getFirestore,
-      doc,
-      setDoc,
-      getDoc,
-      collection,
-      addDoc,
-      getDocs,
-      query,
-      orderBy,
-      limit,
-      deleteDoc,
-      collectionGroup
-    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; /* [web:444] */
+  <!-- Часть 2/3: большой скрипт с Firebase, realtime оценками, рейтингом, уведомлениями и профилем будет в следующем сообщении -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import {
+    getAuth,
+    onAuthStateChanged,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+  import {
+    getFirestore,
+    doc,
+    setDoc,
+    getDoc,
+    collection,
+    addDoc,
+    getDocs,
+    query,
+    orderBy,
+    limit,
+    deleteDoc,
+    collectionGroup,
+    serverTimestamp,
+    onSnapshot
+  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; /* [web:490][web:501] */
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyAFcX2I6lfzmxwEGEpOej-SqiG6-DFWSDc",
-      authDomain: "venik-fa40b.firebaseapp.com",
-      projectId: "venik-fa40b",
-      storageBucket: "venik-fa40b.firebasestorage.app",
-      messagingSenderId: "1049573809722",
-      appId: "1:1049573809722:web:492952ba95624b8ac01f03",
-      measurementId: "G-GMM29TBZ2K"
+  const firebaseConfig = {
+    apiKey: "AIzaSyAFcX2I6lfzmxwEGEpOej-SqiG6-DFWSDc",
+    authDomain: "venik-fa40b.firebaseapp.com",
+    projectId: "venik-fa40b",
+    storageBucket: "venik-fa40b.firebasestorage.app",
+    messagingSenderId: "1049573809722",
+    appId: "1:1049573809722:web:492952ba95624b8ac01f03",
+    measurementId: "G-GMM29TBZ2K"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const ADMIN_EMAIL = 'alex.bibikov082011@yandex.ru';
+
+  // --- DOM общие ---
+  const authPanel = document.getElementById('auth-panel');
+  const appRoot = document.getElementById('app-root');
+  const emailInput = document.getElementById('auth-email');
+  const passInput = document.getElementById('auth-password');
+  const loginBtn = document.getElementById('auth-login-btn');
+  const signupBtn = document.getElementById('auth-signup-btn');
+  const logoutBtn = document.getElementById('auth-logout-btn');
+  const authError = document.getElementById('auth-error');
+
+  const themeToggleBtn = document.getElementById('theme-toggle');
+  const themeToggleIcon = document.getElementById('theme-toggle-icon');
+  const themeToggleText = document.getElementById('theme-toggle-text');
+
+  const avatarSmallImg = document.getElementById('avatar-small-img');
+  const sidebarAvatarImg = document.getElementById('sidebar-avatar-img');
+  const topbarTitle = document.getElementById('topbar-title');
+  const topbarName = document.getElementById('topbar-name');
+  const sidebarName = document.getElementById('sidebar-name');
+  const sidebarClass = document.getElementById('sidebar-class');
+
+  const profileAvatarImg = document.getElementById('profile-avatar-img');
+  const profileNameDisplay = document.getElementById('profile-name-display');
+  const profileClassDisplay = document.getElementById('profile-class-display');
+  const profileNameInfo = document.getElementById('profile-name-info');
+  const profileEmailInfo = document.getElementById('profile-email-info');
+  const profileCityInfo = document.getElementById('profile-city-info');
+  const profileClassInfo = document.getElementById('profile-class-info');
+  const profileFavInfo = document.getElementById('profile-fav-info');
+
+  const avatarInput = document.getElementById('profile-avatar-input');
+  const nameInput = document.getElementById('profile-name-input');
+  const cityInput = document.getElementById('profile-city-input');
+  const classInput = document.getElementById('profile-class-input');
+  const favInput = document.getElementById('profile-fav-input');
+  const profileSaveBtn = document.getElementById('profile-save-btn');
+
+  const bellBadge = document.getElementById('bell-badge');
+  const notifPanel = document.getElementById('notifications-panel');
+  const notifList = document.getElementById('notifications-list');
+  const notifMarkReadBtn = document.getElementById('notif-mark-read');
+  const notifClearBtn = document.getElementById('notif-clear');
+  const sidebarNotifItem = document.getElementById('sidebar-notif-item');
+
+  const pageSections = document.querySelectorAll('[id^="page-"]');
+  const sidebarItems = document.querySelectorAll('.sidebar-item');
+  const topbarNavItems = document.querySelectorAll('.topbar-nav-item');
+
+  // --- Theme ---
+  const THEME_KEY = 'venik-theme';
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    if (theme === 'light') {
+      themeToggleIcon.textContent = '☀️';
+      themeToggleText.textContent = 'Светлая';
+    } else {
+      themeToggleIcon.textContent = '🌙';
+      themeToggleText.textContent = 'Тёмная';
+    }
+  }
+  function loadTheme() {
+    const saved = localStorage.getItem(THEME_KEY);
+    const theme = saved === 'light' || saved === 'dark' ? saved : 'dark';
+    applyTheme(theme);
+  }
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme') || 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    localStorage.setItem(THEME_KEY, next);
+  }
+  themeToggleBtn.addEventListener('click', toggleTheme);
+
+  // --- Notifications (локальные) ---
+  const NOTIF_KEY = 'venik-notifications';
+  let notifications = [];
+  let unreadCount = 0;
+
+  function loadNotifications() {
+    const raw = localStorage.getItem(NOTIF_KEY);
+    notifications = raw ? JSON.parse(raw) : [];
+    unreadCount = notifications.filter(n => !n.read).length;
+    updateNotifUI();
+  }
+  function saveNotifications() {
+    localStorage.setItem(NOTIF_KEY, JSON.stringify(notifications));
+  }
+  function formatTime(date) {
+    const d = new Date(date);
+    const hh = String(d.getHours()).padStart(2,'0');
+    const mm = String(d.getMinutes()).padStart(2,'0');
+    return hh + ':' + mm;
+  }
+  function addNotification(text, type) {
+    const newNotif = {
+      id: Date.now().toString() + Math.random().toString(16).slice(2),
+      text,
+      type,
+      createdAt: new Date().toISOString(),
+      read: false
     };
+    notifications.unshift(newNotif);
+    unreadCount++;
+    saveNotifications();
+    updateNotifUI();
+  }
+  window.addNotification = addNotification;
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    let currentUser = null;
-    const ADMIN_EMAIL = 'alex.bibikov082011@yandex.ru';
+  function updateNotifUI() {
+    if (unreadCount > 0) {
+      bellBadge.classList.remove('hidden');
+      bellBadge.textContent = unreadCount > 9 ? '9+' : unreadCount;
+    } else {
+      bellBadge.classList.add('hidden');
+    }
 
-    const authPanel = document.getElementById('auth-panel');
-    const appRoot = document.getElementById('app-root');
-    const emailInput = document.getElementById('auth-email');
-    const passInput = document.getElementById('auth-password');
-    const loginBtn = document.getElementById('auth-login-btn');
-    const signupBtn = document.getElementById('auth-signup-btn');
-    const logoutBtn = document.getElementById('auth-logout-btn');
-    const authError = document.getElementById('auth-error');
-
-    function showError(msg) { authError.textContent = msg; }
-
-    signupBtn.addEventListener('click', async () => {
-      showError('');
-      try {
-        await createUserWithEmailAndPassword(auth, emailInput.value, passInput.value);
-        addNotification('Создан новый аккаунт', 'auth-signup');
-      } catch (e) {
-        showError(e.code || 'Ошибка регистрации');
-      }
+    notifList.innerHTML = '';
+    if (!notifications.length) {
+      const p = document.createElement('p');
+      p.style.fontSize = '12px';
+      p.style.color = 'var(--text-muted)';
+      p.textContent = 'Пока изменений нет.';
+      notifList.appendChild(p);
+      return;
+    }
+    notifications.forEach(n => {
+      const item = document.createElement('div');
+      item.className = 'notif-item' + (n.read ? '' : ' new');
+      const main = document.createElement('div');
+      main.className = 'notif-main';
+      const txt = document.createElement('div');
+      txt.className = 'notif-text';
+      txt.textContent = n.text;
+      const time = document.createElement('div');
+      time.className = 'notif-time';
+      time.textContent = formatTime(n.createdAt);
+      main.appendChild(txt);
+      main.appendChild(time);
+      item.appendChild(main);
+      notifList.appendChild(item);
     });
+  }
 
-    loginBtn.addEventListener('click', async () => {
-      showError('');
-      try {
-        await signInWithEmailAndPassword(auth, emailInput.value, passInput.value);
-        addNotification('Успешный вход в аккаунт', 'auth-login');
-      } catch (e) {
-        showError(e.code || 'Ошибка входа');
-      }
+  notifMarkReadBtn.addEventListener('click', () => {
+    notifications.forEach(n => n.read = true);
+    unreadCount = 0;
+    saveNotifications();
+    updateNotifUI();
+  });
+  notifClearBtn.addEventListener('click', () => {
+    notifications = [];
+    unreadCount = 0;
+    saveNotifications();
+    updateNotifUI();
+  });
+
+  if (sidebarNotifItem) {
+    sidebarNotifItem.addEventListener('click', () => {
+      showPage('notifications');
     });
+  }
 
-    logoutBtn.addEventListener('click', async () => {
-      await signOut(auth);
-      addNotification('Выход из аккаунта', 'auth-logout');
+  // --- Навигация ---
+  function showPage(pageName) {
+    pageSections.forEach(sec => {
+      sec.classList.toggle('hidden', sec.id !== 'page-' + pageName);
     });
-
-    const THEME_KEY = 'venik-theme';
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    const themeToggleIcon = document.getElementById('theme-toggle-icon');
-    const themeToggleText = document.getElementById('theme-toggle-text');
-
-    function applyTheme(theme) {
-      document.documentElement.setAttribute('data-theme', theme);
-      if (theme === 'light') {
-        themeToggleIcon.textContent = '☀️';
-        themeToggleText.textContent = 'Светлая';
-      } else {
-        themeToggleIcon.textContent = '🌙';
-        themeToggleText.textContent = 'Тёмная';
-      }
-    }
-    function loadTheme() {
-      const saved = localStorage.getItem(THEME_KEY);
-      const theme = saved === 'light' || saved === 'dark' ? saved : 'dark';
-      applyTheme(theme);
-    }
-    function toggleTheme() {
-      const current = document.documentElement.getAttribute('data-theme') || 'dark';
-      const next = current === 'dark' ? 'light' : 'dark';
-      applyTheme(next);
-      localStorage.setItem(THEME_KEY, next);
-    }
-    themeToggleBtn.addEventListener('click', toggleTheme);
-
-    const NOTIF_KEY = 'venik-notifications';
-    let notifications = [];
-    let unreadCount = 0;
-
-    const bellBtn = document.getElementById('bell-btn');
-    const bellBadge = document.getElementById('bell-badge');
-    const notifPanel = document.getElementById('notifications-panel');
-    const notifList = document.getElementById('notifications-list');
-    const notifMarkReadBtn = document.getElementById('notif-mark-read');
-    const notifClearBtn = document.getElementById('notif-clear');
-
-    function loadNotifications() {
-      const raw = localStorage.getItem(NOTIF_KEY);
-      notifications = raw ? JSON.parse(raw) : [];
-      unreadCount = notifications.filter(n => !n.read).length;
-      updateNotifUI();
-    }
-    function saveNotifications() {
-      localStorage.setItem(NOTIF_KEY, JSON.stringify(notifications));
-    }
-    function formatTime(date) {
-      const d = new Date(date);
-      const hh = String(d.getHours()).padStart(2,'0');
-      const mm = String(d.getMinutes()).padStart(2,'0');
-      return hh + ':' + mm;
-    }
-    function addNotification(text, type) {
-      const newNotif = {
-        id: Date.now().toString() + Math.random().toString(16).slice(2),
-        text,
-        type,
-        createdAt: new Date().toISOString(),
-        read: false
-      };
-      notifications.unshift(newNotif);
-      unreadCount++;
-      saveNotifications();
-      updateNotifUI();
-    }
-    window.addNotification = addNotification;
-
-    function updateNotifUI() {
-      if (unreadCount > 0) {
-        bellBadge.classList.remove('hidden');
-        bellBadge.textContent = unreadCount > 9 ? '9+' : unreadCount;
-      } else {
-        bellBadge.classList.add('hidden');
-      }
-
-      notifList.innerHTML = '';
-      if (!notifications.length) {
-        const p = document.createElement('p');
-        p.style.fontSize = '12px';
-        p.style.color = 'var(--text-muted)';
-        p.textContent = 'Пока изменений нет.';
-        notifList.appendChild(p);
-        return;
-      }
-      notifications.forEach(n => {
-        const item = document.createElement('div');
-        item.className = 'notif-item' + (n.read ? '' : ' new');
-        const main = document.createElement('div');
-        main.className = 'notif-main';
-        const txt = document.createElement('div');
-        txt.className = 'notif-text';
-        txt.textContent = n.text;
-        const time = document.createElement('div');
-        time.className = 'notif-time';
-        time.textContent = formatTime(n.createdAt);
-        main.appendChild(txt);
-        main.appendChild(time);
-        item.appendChild(main);
-        notifList.appendChild(item);
-      });
-    }
-
-    bellBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      notifPanel.classList.toggle('hidden');
+    sidebarItems.forEach(i => {
+      const isNotif = pageName === 'notifications' && i.id === 'sidebar-notif-item';
+      i.classList.toggle('active', i.dataset.page === pageName || isNotif);
     });
+    topbarNavItems.forEach(i => i.classList.toggle('active', i.dataset.page === pageName));
 
-    notifMarkReadBtn.addEventListener('click', () => {
-      notifications.forEach(n => n.read = true);
-      unreadCount = 0;
-      saveNotifications();
-      updateNotifUI();
+    if (pageName === 'schedule') renderSchedule();
+    if (pageName === 'tasks') renderTasksForDay(currentTasksDay);
+    if (pageName === 'rating') { renderRating(); renderRatingHistory(); }
+    if (pageName === 'subjects') renderSubjectsTable();
+    if (pageName === 'admin') loadAdminVisits();
+  }
+
+  document.querySelectorAll('[data-page]').forEach(el => {
+    el.addEventListener('click', () => {
+      const page = el.dataset.page;
+      if (!page) return;
+      if (page === 'profile') {
+        viewedProfileUid = null;
+        applyProfileToUI();
+      }
+      showPage(page);
     });
+  });
 
-    notifClearBtn.addEventListener('click', () => {
-      notifications = [];
-      unreadCount = 0;
-      saveNotifications();
-      updateNotifUI();
-    });
+  // --- Профиль ---
+  const PROFILE_KEY = 'venik-profile';
+  let profile = {
+    avatarUrl: '',
+    name: 'Веник Веников',
+    city: 'Подольск',
+    className: '8Б',
+    favSubjects: 'Информатика, математика'
+  };
+  let currentUser = null;
+  let viewedProfileUid = null; // null = свой профиль
 
-    document.addEventListener('click', (e) => {
-      if (!notifPanel.contains(e.target) && !bellBtn.contains(e.target)) {
-        notifPanel.classList.add('hidden');
-      }
-    });
+  function validateName(raw) {
+    const name = (raw || '').trim();
+    if (name.length < 2 || name.length > 24) {
+      return { ok: false, reason: 'Имя должно быть от 2 до 24 символов.' };
+    }
+    const allowedRe = /^[A-Za-zА-Яа-яЁё \-]+$/u;
+    if (!allowedRe.test(name)) {
+      return { ok: false, reason: 'Имя может содержать только буквы (русские или латинские), пробел и дефис.' };
+    }
+    const badWords = [
+      'хуй','хуе','хер','пизд','еба','ебл','мудак','сука','бляд','лох',
+      'idiot','fuck','shit','bitch','asshole'
+    ];
+    const lower = name.toLowerCase();
+    if (badWords.some(w => lower.includes(w))) {
+      return { ok: false, reason: 'Оскорбления и мат в имени запрещены.' };
+    }
+    return { ok: true, reason: '' };
+  }
 
-    const PROFILE_KEY = 'venik-profile';
-    let profile = {
-      avatarUrl: '',
-      name: 'Веник Веников',
-      city: 'Подольск',
-      className: '8Б',
-      favSubjects: 'Информатика, математика'
-    };
+  function applyProfileToUI() {
+    const isOwn = !viewedProfileUid || !currentUser || viewedProfileUid === currentUser.uid;
+    const avatar = profile.avatarUrl || 'teacher.jpg';
 
-    const avatarSmallImg = document.getElementById('avatar-small-img');
-    const sidebarAvatarImg = document.getElementById('sidebar-avatar-img');
-    const profileAvatarImg = document.getElementById('profile-avatar-img');
+    avatarSmallImg.src = avatar;
+    sidebarAvatarImg.src = avatar;
+    if (isOwn) profileAvatarImg.src = avatar;
 
-    const topbarTitle = document.getElementById('topbar-title');
-    const topbarName = document.getElementById('topbar-name');
-    const sidebarName = document.getElementById('sidebar-name');
-    const sidebarClass = document.getElementById('sidebar-class');
+    topbarTitle.textContent = 'Дневник Веника';
+    sidebarName.textContent = 'Дневник Веника';
 
-    const profileNameDisplay = document.getElementById('profile-name-display');
-    const profileClassDisplay = document.getElementById('profile-class-display');
-    const profileNameInfo = document.getElementById('profile-name-info');
-    const profileEmailInfo = document.getElementById('profile-email-info');
-    const profileCityInfo = document.getElementById('profile-city-info');
-    const profileClassInfo = document.getElementById('profile-class-info');
-    const profileFavInfo = document.getElementById('profile-fav-info');
+    topbarName.textContent = (profile.name || 'Профиль') + ' ▾';
+    sidebarClass.textContent = profile.className + ' класс';
 
-    const avatarInput = document.getElementById('profile-avatar-input');
-    const nameInput = document.getElementById('profile-name-input');
-    const cityInput = document.getElementById('profile-city-input');
-    const classInput = document.getElementById('profile-class-input');
-    const favInput = document.getElementById('profile-fav-input');
-    const profileSaveBtn = document.getElementById('profile-save-btn');
-
-    let viewedProfileUid = null; // null = свой профиль
-
-    function applyProfileToUI() {
-      const isOwn = !viewedProfileUid || !currentUser || viewedProfileUid === currentUser.uid;
-
-      const avatar = profile.avatarUrl || 'teacher.jpg';
-      avatarSmallImg.src = avatar;
-      sidebarAvatarImg.src = avatar;
-      if (isOwn) {
-        profileAvatarImg.src = avatar;
-      }
-
-      topbarTitle.textContent = 'Дневник Веника';
-      sidebarName.textContent = 'Дневник Веника';
-
-      topbarName.textContent = (profile.name || 'Профиль') + ' ▾';
-      sidebarClass.textContent = profile.className + ' класс';
-
-      if (isOwn) {
-        profileNameDisplay.textContent = profile.name;
-        profileClassDisplay.textContent = `Ученик ${profile.className} класса`;
-        profileNameInfo.textContent = profile.name;
-        profileCityInfo.textContent = profile.city;
-        profileClassInfo.textContent = profile.className;
-        profileFavInfo.textContent = profile.favSubjects;
-        profileEmailInfo.textContent = currentUser ? (currentUser.email || 'без почты') : '—';
-      }
-
-      avatarInput.value = profile.avatarUrl;
-      nameInput.value = profile.name;
-      cityInput.value = profile.city;
-      classInput.value = profile.className;
-      favInput.value = profile.favSubjects;
-
-      const profileForm = document.querySelector('.profile-form');
-      if (profileForm) {
-        profileForm.style.display = isOwn ? 'block' : 'none';
-      }
+    if (isOwn) {
+      profileNameDisplay.textContent = profile.name;
+      profileClassDisplay.textContent = `Ученик ${profile.className} класса`;
+      profileNameInfo.textContent = profile.name;
+      profileCityInfo.textContent = profile.city;
+      profileClassInfo.textContent = profile.className;
+      profileFavInfo.textContent = profile.favSubjects;
+      profileEmailInfo.textContent = currentUser ? (currentUser.email || 'без почты') : '—';
     }
 
-    async function loadUserQuarterDoc(uid, quarter) {
-      const ref = doc(db, 'users', uid, 'quarters', 'q' + quarter);
-      const snap = await getDoc(ref);
-      if (!snap.exists()) {
-        return {
-          grades_w1: [],
-          grades_w2: [],
-          grades_w3: [],
-          grades_w4: [],
-          profile,
-          tasksDone,
-          ratingHistory: loadRatingHistory(),
-          avgByWeek: {}
-        };
-      }
-      const data = snap.data();
+    avatarInput.value = profile.avatarUrl;
+    nameInput.value = profile.name;
+    cityInput.value = profile.city;
+    classInput.value = profile.className;
+    favInput.value = profile.favSubjects;
+
+    const profileForm = document.querySelector('.profile-form');
+    if (profileForm) profileForm.style.display = isOwn ? 'block' : 'none';
+  }
+
+  async function loadUserQuarterDoc(uid, quarter) {
+    const ref = doc(db, 'users', uid, 'quarters', 'q' + quarter);
+    const snap = await getDoc(ref);
+    if (!snap.exists()) {
       return {
-        grades_w1: data.grades_w1 || [],
-        grades_w2: data.grades_w2 || [],
-        grades_w3: data.grades_w3 || [],
-        grades_w4: data.grades_w4 || [],
-        profile: data.profile || profile,
-        tasksDone: data.tasksDone || tasksDone,
-        ratingHistory: data.ratingHistory || [],
-        avgByWeek: data.avgByWeek || {}
-      };
-    }
-
-    async function loadProfileOfUser(uid, quarter) {
-      const ref = doc(db, 'users', uid, 'quarters', 'q' + quarter);
-      const snap = await getDoc(ref);
-      if (!snap.exists()) return null;
-      const data = snap.data() || {};
-      const prof = data.profile || {};
-      return {
-        profile: {
-          avatarUrl: prof.avatarUrl || 'teacher.jpg',
-          name: prof.name || 'Ученик',
-          city: prof.city || 'Город',
-          className: prof.className || 'Класс',
-          favSubjects: prof.favSubjects || 'Информатика, математика'
-        }
-      };
-    }
-
-    async function saveUserQuarterDoc(uid, quarter) {
-      const ref = doc(db, 'users', uid, 'quarters', 'q' + quarter);
-
-      const avgThisWeek = getMyAverage();
-      const payload = {
         grades_w1: [],
         grades_w2: [],
         grades_w3: [],
@@ -1400,929 +1510,1137 @@
         profile,
         tasksDone,
         ratingHistory: loadRatingHistory(),
-        avgByWeek: {
-          [currentWeek]: avgThisWeek || 0
-        }
+        avgByWeek: {}
       };
-      payload['grades_w' + currentWeek] = grades;
-
-      await setDoc(ref, payload, { merge: true });
     }
-
-    async function loadProfile() {
-      const raw = localStorage.getItem(PROFILE_KEY);
-      if (raw) {
-        try { profile = Object.assign(profile, JSON.parse(raw)); } catch(e){}
-      }
-      if (currentUser) {
-        const data = await loadUserQuarterDoc(currentUser.uid, currentQuarter);
-        profile = Object.assign(profile, data.profile || {});
-      }
-    }
-    async function saveProfile() {
-      localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
-      if (!currentUser) return;
-      await saveUserQuarterDoc(currentUser.uid, currentQuarter);
-    }
-
-    profileSaveBtn.addEventListener('click', async () => {
-      profile.avatarUrl = avatarInput.value.trim();
-      profile.name = nameInput.value.trim() || 'Без имени';
-      profile.city = cityInput.value.trim() || 'Город';
-      profile.className = classInput.value.trim() || 'Класс';
-      profile.favSubjects = favInput.value.trim() || 'Нет';
-      await saveProfile();
-      applyProfileToUI();
-      renderAllByDate();
-      addNotification('Профиль обновлён', 'profile');
-      alert('Профиль сохранён');
-    });
-
-    async function openProfileForUser(uid) {
-      if (!uid || !currentUser) return;
-
-      viewedProfileUid = uid;
-
-      const foreign = await loadProfileOfUser(uid, currentQuarter);
-      if (!foreign) {
-        alert('Профиль этого ученика ещё не заполнен.');
-        return;
-      }
-
-      const p = foreign.profile;
-
-      const avatar = p.avatarUrl || 'teacher.jpg';
-      profileAvatarImg.src = avatar;
-      profileNameDisplay.textContent = p.name;
-      profileClassDisplay.textContent = `Ученик ${p.className} класса`;
-      profileNameInfo.textContent = p.name;
-      profileCityInfo.textContent = p.city;
-      profileClassInfo.textContent = p.className;
-      profileFavInfo.textContent = p.favSubjects;
-
-      if (currentUser && uid === currentUser.uid) {
-        profileEmailInfo.textContent = currentUser.email || 'без почты';
-      } else {
-        profileEmailInfo.textContent = 'Скрыто';
-      }
-
-      const profileForm = document.querySelector('.profile-form');
-      if (profileForm) {
-        profileForm.style.display = (currentUser && uid === currentUser.uid) ? 'block' : 'none';
-      }
-
-      showPage('profile');
-    }
-
-    const pageSections = document.querySelectorAll('[id^="page-"]');
-    const sidebarItems = document.querySelectorAll('.sidebar-item');
-    const topbarNavItems = document.querySelectorAll('.topbar-nav-item');
-
-    function showPage(pageName) {
-      pageSections.forEach(sec => {
-        sec.classList.toggle('hidden', sec.id !== 'page-' + pageName);
-      });
-      sidebarItems.forEach(i => i.classList.toggle('active', i.dataset.page === pageName));
-      topbarNavItems.forEach(i => i.classList.toggle('active', i.dataset.page === pageName));
-
-      if (pageName === 'schedule') renderSchedule();
-      if (pageName === 'tasks') renderTasksForDay(currentTasksDay);
-      if (pageName === 'rating') { renderRating(); renderRatingHistory(); }
-      if (pageName === 'subjects') renderSubjectsTable();
-      if (pageName === 'admin') loadAdminVisits();
-    }
-
-    document.querySelectorAll('[data-page]').forEach(el => {
-      el.addEventListener('click', () => {
-        const page = el.dataset.page;
-        if (!page) return;
-
-        if (page === 'profile') {
-          viewedProfileUid = null;
-          applyProfileToUI();
-        }
-
-        showPage(page);
-      });
-    });
-
-    const tabs = document.querySelectorAll('.tab');
-    const tabByDate = document.getElementById('tab-by-date');
-    const tabBySubject = document.getElementById('tab-by-subject');
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        if (tab.dataset.tab === 'by-date') {
-          tabByDate.classList.remove('hidden');
-          tabBySubject.classList.add('hidden');
-        } else {
-          tabByDate.classList.add('hidden');
-          tabBySubject.classList.remove('hidden');
-          renderSubjectList();
-        }
-      });
-    });
-
-    const GRADES_PREFIX = 'venik-grades-q';
-    let currentQuarter = 1;
-    let currentWeek = 1;
-    let grades = [];
-
-    const quarterBtns = document.querySelectorAll('.quarter-btn');
-    const weekBtns = document.querySelectorAll('.week-btn');
-    const currentQuarterLabel = document.getElementById('current-quarter-label');
-    const currentWeekLabel = document.getElementById('current-week-label');
-
-    function storageKeyFor(quarter, week) {
-      return `${GRADES_PREFIX}${quarter}-w${week}`;
-    }
-
-    async function loadGrades() {
-      if (!currentUser) {
-        const raw = localStorage.getItem(storageKeyFor(currentQuarter, currentWeek));
-        grades = raw ? JSON.parse(raw) : [];
-        return;
-      }
-      const data = await loadUserQuarterDoc(currentUser.uid, currentQuarter);
-      grades = data['grades_w' + currentWeek] || [];
-    }
-
-    async function saveGrades() {
-      localStorage.setItem(storageKeyFor(currentQuarter, currentWeek), JSON.stringify(grades));
-      if (!currentUser) return;
-      await saveUserQuarterDoc(currentUser.uid, currentQuarter);
-    }
-
-    async function switchQuarter(q) {
-      currentQuarter = q;
-      quarterBtns.forEach(b => b.classList.toggle('active', Number(b.dataset.quarter) === q));
-      currentQuarterLabel.textContent = q + ' четверть';
-      await switchWeek(1);
-    }
-    async function switchWeek(w) {
-      currentWeek = w;
-      weekBtns.forEach(b => b.classList.toggle('active', Number(b.dataset.week) === w));
-      currentWeekLabel.textContent = w + ' неделя';
-      await loadGrades();
-      renderAllByDate();
-      renderSubjectsTable();
-      renderSubjectList();
-      await renderRating();
-      renderRatingHistory();
-    }
-    quarterBtns.forEach(btn => btn.addEventListener('click', () => switchQuarter(Number(btn.dataset.quarter))));
-    weekBtns.forEach(btn => btn.addEventListener('click', () => switchWeek(Number(btn.dataset.week))));
-
-    const dayBlocksMap = {
-      mon: document.getElementById('mon-block'),
-      tue: document.getElementById('tue-block'),
-      wed: document.getElementById('wed-block'),
-      thu: document.getElementById('thu-block'),
-      fri: document.getElementById('fri-block'),
-      sat: document.getElementById('sat-block'),
-      sun: document.getElementById('sun-block'),
+    const data = snap.data();
+    return {
+      grades_w1: data.grades_w1 || [],
+      grades_w2: data.grades_w2 || [],
+      grades_w3: data.grades_w3 || [],
+      grades_w4: data.grades_w4 || [],
+      profile: data.profile || profile,
+      tasksDone: data.tasksDone || tasksDone,
+      ratingHistory: data.ratingHistory || [],
+      avgByWeek: data.avgByWeek || {}
     };
-    function blockByDay(day) {
-      return dayBlocksMap[day] || dayBlocksMap.mon;
-    }
-    function clearDayBlocks() {
-      Object.values(dayBlocksMap).forEach(block => {
-        block.querySelectorAll('.lesson-card').forEach(c => c.remove());
-      });
-    }
+  }
 
-    function subjectBadgeClass(subject) {
-      if (/алгебра|геометрия|статистик/i.test(subject)) return 'badge-math';
-      if (/русский/i.test(subject)) return 'badge-ru';
-      if (/англий/i.test(subject)) return 'badge-eng';
-      if (/информат|интеллект/i.test(subject)) return 'badge-it';
-      if (/физика|химия|биолог/i.test(subject)) return 'badge-sci';
-      if (/географ/i.test(subject)) return 'badge-geo';
-      if (/истор|обще/i.test(subject)) return 'badge-hist';
-      if (/физическ/i.test(subject)) return 'badge-pe';
-      return 'badge-other';
-    }
-
-    function createLessonCard(grade) {
-      const card = document.createElement('article');
-      card.className = 'lesson-card';
-      card.dataset.id = grade.id;
-      const badgeClass = subjectBadgeClass(grade.subject);
-      card.innerHTML = `
-        <div class="lesson-teacher">
-          <img src="${profile.avatarUrl || 'teacher.jpg'}" alt="teacher">
-        </div>
-        <div class="lesson-main">
-          <div class="lesson-subject">
-            <span>${grade.subject} — ${grade.mark}</span>
-            <span class="badge ${badgeClass}">оценка</span>
-          </div>
-          <div class="lesson-type">${grade.type}</div>
-        </div>
-        <div class="lesson-more" title="Удалить">✕</div>
-      `;
-      card.querySelector('.lesson-more').addEventListener('click', async () => {
-        grades = grades.filter(g => g.id !== grade.id);
-        await saveGrades();
-        card.remove();
-        renderSubjectsTable();
-        renderSubjectList();
-        await renderRating();
-        saveRatingHistoryEntry();
-        addNotification(`Удалена оценка ${grade.mark} по предмету ${grade.subject}`, 'grade-delete');
-      });
-      return card;
-    }
-    function renderAllByDate() {
-      clearDayBlocks();
-      grades.forEach(g => {
-        const block = blockByDay(g.day);
-        block.appendChild(createLessonCard(g));
-      });
-    }
-
-    const subjectSelect = document.getElementById('subject-input');
-    const typeInput = document.getElementById('type-input');
-    const daySelect = document.getElementById('day-select');
-    const markInput = document.getElementById('mark-input');
-    const addBtn = document.getElementById('add-grade-btn');
-
-    addBtn.addEventListener('click', async () => {
-      const subject = subjectSelect.value;
-      const type = typeInput.value.trim();
-      const mark = Number(markInput.value) || 0;
-      const day = daySelect.value;
-      if (!mark || mark < 1 || mark > 5) {
-        alert('Введи оценку от 1 до 5');
-        return;
+  async function saveUserQuarterDoc(uid, quarter) {
+    const ref = doc(db, 'users', uid, 'quarters', 'q' + quarter);
+    const avgThisWeek = getMyAverage();
+    const payload = {
+      profile,
+      tasksDone,
+      ratingHistory: loadRatingHistory(),
+      avgByWeek: {
+        [currentWeek]: avgThisWeek || 0
       }
-      const newGrade = {
-        id: Date.now().toString() + '-' + Math.random().toString(16).slice(2),
-        subject,
-        type: type || 'Работа',
-        mark,
-        day,
-        quarter: currentQuarter,
-        week: currentWeek
-      };
-      grades.push(newGrade);
+    };
+    payload['grades_w' + currentWeek] = grades;
+    await setDoc(ref, payload, { merge: true }); /* не затираем другие поля [web:490] */
+  }
+
+  async function loadProfile() {
+    const raw = localStorage.getItem(PROFILE_KEY);
+    if (raw) {
+      try { profile = Object.assign(profile, JSON.parse(raw)); } catch(e){}
+    }
+    if (currentUser) {
+      const data = await loadUserQuarterDoc(currentUser.uid, currentQuarter);
+      profile = Object.assign(profile, data.profile || {});
+    }
+  }
+  async function saveProfile() {
+    localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+    if (!currentUser) return;
+    await saveUserQuarterDoc(currentUser.uid, currentQuarter);
+  }
+
+  profileSaveBtn.addEventListener('click', async () => {
+    const rawName = nameInput.value.trim();
+    const check = validateName(rawName);
+    if (!check.ok) {
+      alert(check.reason);
+      return;
+    }
+    profile.avatarUrl = avatarInput.value.trim();
+    profile.name = rawName;
+    profile.city = cityInput.value.trim() || 'Город';
+    profile.className = classInput.value.trim() || 'Класс';
+    profile.favSubjects = favInput.value.trim() || 'Нет';
+
+    await saveProfile();
+    applyProfileToUI();
+    renderAllByDate();
+    addNotification('Профиль обновлён', 'profile');
+    alert('Профиль сохранён');
+  });
+
+  async function loadProfileOfUser(uid, quarter) {
+    const ref = doc(db, 'users', uid, 'quarters', 'q' + quarter);
+    const snap = await getDoc(ref);
+    if (!snap.exists()) return null;
+    const data = snap.data() || {};
+    const prof = data.profile || {};
+    return {
+      profile: {
+        avatarUrl: prof.avatarUrl || 'teacher.jpg',
+        name: prof.name || 'Ученик',
+        city: prof.city || 'Город',
+        className: prof.className || 'Класс',
+        favSubjects: prof.favSubjects || 'Информатика, математика'
+      }
+    };
+  }
+
+  async function openProfileForUser(uid) {
+    if (!uid || !currentUser) return;
+    viewedProfileUid = uid;
+    const foreign = await loadProfileOfUser(uid, currentQuarter);
+    if (!foreign) {
+      alert('Профиль этого ученика ещё не заполнен.');
+      return;
+    }
+    const p = foreign.profile;
+    const avatar = p.avatarUrl || 'teacher.jpg';
+    profileAvatarImg.src = avatar;
+    profileNameDisplay.textContent = p.name;
+    profileClassDisplay.textContent = `Ученик ${p.className} класса`;
+    profileNameInfo.textContent = p.name;
+    profileCityInfo.textContent = p.city;
+    profileClassInfo.textContent = p.className;
+    profileFavInfo.textContent = p.favSubjects;
+    profileEmailInfo.textContent = (currentUser && uid === currentUser.uid)
+      ? (currentUser.email || 'без почты')
+      : 'Скрыто';
+
+    const profileForm = document.querySelector('.profile-form');
+    if (profileForm) {
+      profileForm.style.display = (currentUser && uid === currentUser.uid) ? 'block' : 'none';
+    }
+    showPage('profile');
+  }
+
+  // --- Оценки / четверти / недели ---
+  const GRADES_PREFIX = 'venik-grades-q';
+  let currentQuarter = 1;
+  let currentWeek = 1;
+  let grades = [];
+
+  const quarterBtns = document.querySelectorAll('.quarter-btn');
+  const weekBtns = document.querySelectorAll('.week-btn');
+  const currentQuarterLabel = document.getElementById('current-quarter-label');
+  const currentWeekLabel = document.getElementById('current-week-label');
+
+  function storageKeyFor(quarter, week) {
+    return `${GRADES_PREFIX}${quarter}-w${week}`;
+  }
+
+  async function loadGrades() {
+    if (!currentUser) {
+      const raw = localStorage.getItem(storageKeyFor(currentQuarter, currentWeek));
+      grades = raw ? JSON.parse(raw) : [];
+      return;
+    }
+    const data = await loadUserQuarterDoc(currentUser.uid, currentQuarter);
+    grades = data['grades_w' + currentWeek] || [];
+  }
+
+  async function saveGrades() {
+    localStorage.setItem(storageKeyFor(currentQuarter, currentWeek), JSON.stringify(grades));
+    if (!currentUser) return;
+    await saveUserQuarterDoc(currentUser.uid, currentQuarter);
+  }
+
+  async function switchQuarter(q) {
+    currentQuarter = q;
+    quarterBtns.forEach(b => b.classList.toggle('active', Number(b.dataset.quarter) === q));
+    currentQuarterLabel.textContent = q + ' четверть';
+    await switchWeek(1);
+  }
+  async function switchWeek(w) {
+    currentWeek = w;
+    weekBtns.forEach(b => b.classList.toggle('active', Number(b.dataset.week) === w));
+    currentWeekLabel.textContent = w + ' неделя';
+    await loadGrades();
+    renderAllByDate();
+    renderSubjectsTable();
+    renderSubjectList();
+    await renderRating();
+    renderRatingHistory();
+  }
+  quarterBtns.forEach(btn => btn.addEventListener('click', () => switchQuarter(Number(btn.dataset.quarter))));
+  weekBtns.forEach(btn => btn.addEventListener('click', () => switchWeek(Number(btn.dataset.week))));
+
+  const dayBlocksMap = {
+    mon: document.getElementById('mon-block'),
+    tue: document.getElementById('tue-block'),
+    wed: document.getElementById('wed-block'),
+    thu: document.getElementById('thu-block'),
+    fri: document.getElementById('fri-block'),
+    sat: document.getElementById('sat-block'),
+    sun: document.getElementById('sun-block'),
+  };
+  function blockByDay(day) {
+    return dayBlocksMap[day] || dayBlocksMap.mon;
+  }
+  function clearDayBlocks() {
+    Object.values(dayBlocksMap).forEach(block => {
+      block.querySelectorAll('.lesson-card').forEach(c => c.remove());
+    });
+  }
+
+  function subjectBadgeClass(subject) {
+    if (/алгебра|геометрия|статистик/i.test(subject)) return 'badge-math';
+    if (/русский/i.test(subject)) return 'badge-ru';
+    if (/англий/i.test(subject)) return 'badge-eng';
+    if (/информат|интеллект/i.test(subject)) return 'badge-it';
+    if (/физика|химия|биолог/i.test(subject)) return 'badge-sci';
+    if (/географ/i.test(subject)) return 'badge-geo';
+    if (/истор|обще/i.test(subject)) return 'badge-hist';
+    if (/физическ/i.test(subject)) return 'badge-pe';
+    return 'badge-other';
+  }
+
+  function createLessonCard(grade) {
+    const card = document.createElement('article');
+    card.className = 'lesson-card';
+    card.dataset.id = grade.id;
+    const badgeClass = subjectBadgeClass(grade.subject);
+    card.innerHTML = `
+      <div class="lesson-teacher">
+        <img src="${profile.avatarUrl || 'teacher.jpg'}" alt="teacher">
+      </div>
+      <div class="lesson-main">
+        <div class="lesson-subject">
+          <span>${grade.subject} — ${grade.mark}</span>
+          <span class="badge ${badgeClass}">оценка</span>
+        </div>
+        <div class="lesson-type">${grade.type}</div>
+      </div>
+      <div class="lesson-more" title="Удалить">✕</div>
+    `;
+    card.querySelector('.lesson-more').addEventListener('click', async () => {
+      grades = grades.filter(g => g.id !== grade.id);
       await saveGrades();
-      blockByDay(day).appendChild(createLessonCard(newGrade));
-      markInput.value = '';
-      typeInput.value = '';
+      card.remove();
       renderSubjectsTable();
       renderSubjectList();
       await renderRating();
       saveRatingHistoryEntry();
-      addNotification(`Добавлена оценка ${newGrade.mark} по предмету ${newGrade.subject}`, 'grade-add');
+      addNotification(`Удалена оценка ${grade.mark} по предмету ${grade.subject}`, 'grade-delete');
     });
+    return card;
+  }
+  function renderAllByDate() {
+    clearDayBlocks();
+    grades.forEach(g => {
+      const block = blockByDay(g.day);
+      block.appendChild(createLessonCard(g));
+    });
+  }
 
-    const subjectsTableBody = document.getElementById('subjects-table-body');
-    const subjectListDiv = document.getElementById('subject-list');
+  const subjectSelect = document.getElementById('subject-input');
+  const typeInput = document.getElementById('type-input');
+  const daySelect = document.getElementById('day-select');
+  const markInput = document.getElementById('mark-input');
+  const addBtn = document.getElementById('add-grade-btn');
 
-    function calcAverage(arr) {
-      if (!arr.length) return 0;
-      const sum = arr.reduce((a, b) => a + b, 0);
-      return sum / arr.length;
+  addBtn.addEventListener('click', async () => {
+    const subject = subjectSelect.value;
+    const type = typeInput.value.trim();
+    const mark = Number(markInput.value) || 0;
+    const day = daySelect.value;
+    if (!mark || mark < 1 || mark > 5) {
+      alert('Введи оценку от 1 до 5');
+      return;
     }
-    function groupBySubject() {
-      const map = {};
-      grades.forEach(g => {
-        if (!map[g.subject]) map[g.subject] = [];
-        map[g.subject].push(g.mark);
-      });
-      return map;
-    }
-    function renderSubjectsTable() {
-      const groups = groupBySubject();
-      subjectsTableBody.innerHTML = '';
-      Object.keys(groups).forEach(subj => {
-        const marks = groups[subj];
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${subj}</td>
-          <td>${marks.join(', ')}</td>
-          <td>${calcAverage(marks).toFixed(2)}</td>
-        `;
-        subjectsTableBody.appendChild(tr);
-      });
-    }
-    function renderSubjectList() {
-      const groups = groupBySubject();
-      subjectListDiv.innerHTML = '';
-      const keys = Object.keys(groups);
-      if (!keys.length) {
-        subjectListDiv.textContent = 'Пока нет оценок для этой четверти и недели.';
-        return;
-      }
-      keys.forEach(subj => {
-        const marks = groups[subj];
-        const p = document.createElement('p');
-        p.textContent = `${subj}: ${marks.join(', ')} (ср. ${calcAverage(marks).toFixed(2)})`;
-        subjectListDiv.appendChild(p);
-      });
-    }
-    function getMyAverage() {
-      const marks = grades.map(g => g.mark).filter(m => m > 0);
-      return calcAverage(marks) || 0;
-    }
-
-    const SCHEDULE = {
-      'Пн': [
-        { id: 'mon-1', num: 1, time: '08:30 - 09:00', subject: 'Разговоры о важном', room: 'ДБ / корпус 1' },
-        { id: 'mon-2', num: 2, time: '09:10 - 09:55', subject: 'Русский язык', room: 'каб. 28' },
-        { id: 'mon-3', num: 3, time: '10:05 - 10:50', subject: 'Русский язык', room: 'каб. 28' },
-        { id: 'mon-4', num: 4, time: '11:05 - 11:50', subject: 'Геометрия', room: 'каб. 38' },
-        { id: 'mon-5', num: 5, time: '—', subject: 'Геометрия', room: 'каб. 59' },
-        { id: 'mon-6', num: 6, time: '13:00 - 13:45', subject: 'Иностранный (английский) язык', room: 'каб. 27' },
-        { id: 'mon-7', num: 7, time: '14:00 - 14:40', subject: 'Искусственный интеллект', room: 'каб. 48' }
-      ],
-      'Вт': [
-        { id: 'tue-1', num: 1, time: '08:30 - 09:15', subject: 'География', room: 'каб. 38' },
-        { id: 'tue-2', num: 2, time: '09:25 - 10:10', subject: 'Алгебра', room: 'каб. 38' },
-        { id: 'tue-3', num: 3, time: '10:20 - 11:05', subject: 'Вероятность и статистика', room: 'каб. 53' },
-        { id: 'tue-4', num: 4, time: '11:20 - 12:05', subject: 'Химия', room: 'каб. 49' },
-        { id: 'tue-5', num: 5, time: '12:15 - 13:00', subject: 'История', room: 'каб. 32' },
-        { id: 'tue-6', num: 6, time: '13:15 - 13:55', subject: 'Физика', room: 'каб. 49' }
-      ],
-      'Ср': [
-        { id: 'wed-1', num: 1, time: '08:30 - 09:15', subject: 'Биология', room: 'каб. 55' },
-        { id: 'wed-2', num: 2, time: '09:25 - 10:10', subject: 'Биология', room: 'каб. 28' },
-        { id: 'wed-3', num: 3, time: '10:20 - 11:05', subject: 'Русский язык', room: 'каб. 59' },
-        { id: 'wed-4', num: 4, time: '11:20 - 12:05', subject: 'Иностранный (английский) язык', room: 'каб. 38' },
-        { id: 'wed-5', num: 5, time: '12:15 - 13:00', subject: 'Алгебра', room: 'каб. 38' }
-      ],
-      'Чт': [
-        { id: 'thu-1', num: 1, time: '08:30 - 09:00', subject: 'РОССИЯ — МОИ ГОРИЗОНТЫ', room: 'ДБ / внеурочная' },
-        { id: 'thu-2', num: 2, time: '09:10 - 09:55', subject: 'Химия', room: 'каб. 53' },
-        { id: 'thu-3', num: 3, time: '10:05 - 10:50', subject: 'Химия', room: 'каб. 49' },
-        { id: 'thu-4', num: 4, time: '11:20 - 12:05', subject: 'Обществознание', room: 'каб. 59' },
-        { id: 'thu-5', num: 5, time: '12:00 - 12:45', subject: 'Иностранный (английский) язык', room: 'каб. 12' }
-      ],
-      'Пт': [
-        { id: 'fri-1', num: 1, time: '08:30 - 09:15', subject: 'Физическая культура', room: 'спортзал' },
-        { id: 'fri-2', num: 2, time: '09:25 - 10:10', subject: 'Физика', room: 'каб. 12' },
-        { id: 'fri-3', num: 3, time: '10:20 - 11:05', subject: 'Музыка', room: 'каб. 32' },
-        { id: 'fri-4', num: 4, time: '11:20 - 12:05', subject: 'Труд (технология)', room: 'каб. 55' }
-      ]
+    const newGrade = {
+      id: Date.now().toString() + '-' + Math.random().toString(16).slice(2),
+      subject,
+      type: type || 'Работа',
+      mark,
+      day,
+      quarter: currentQuarter,
+      week: currentWeek
     };
+    grades.push(newGrade);
+    await saveGrades();
+    blockByDay(day).appendChild(createLessonCard(newGrade));
+    markInput.value = '';
+    typeInput.value = '';
+    renderSubjectsTable();
+    renderSubjectList();
+    await renderRating();
+    saveRatingHistoryEntry();
+    addNotification(`Добавлена оценка ${newGrade.mark} по предмету ${newGrade.subject}`, 'grade-add');
+  });
 
-    const HOMEWORK_TEMPLATES = {
-      'Русский язык': [
-        'выучить правило и сделать упражнения 1–3',
-        'написать мини-сочинение (80–100 слов)'
-      ],
-      'Алгебра': [
-        'решить номера 101–105',
-        'подготовиться к контрольной, решить 5 задач'
-      ],
-      'Геометрия': [
-        'прочитать параграф и решить 3 задачи',
-        'доказать теорему из конспекта'
-      ],
-      'Физика': [
-        'сделать конспект параграфа, решить 4 задачи',
-        'решить задачи повышенной сложности'
-      ],
-      'Химия': [
-        'составить уравнения реакций, выучить формулы',
-        'решить задачи на массовую долю'
-      ],
-      'Биология': [
-        'выучить термины и заполнить таблицу',
-        'подготовить сообщение по теме'
-      ],
-      'История': [
-        'выучить даты и события параграфа',
-        'сделать план параграфа'
-      ],
-      'География': [
-        'заполнить контурную карту',
-        'ответить на вопросы в тетради'
-      ],
-      'Иностранный (английский) язык': [
-        'выучить 15 новых слов и сделать упражнения',
-        'написать письмо (80–100 слов)'
-      ],
-      'Информатика': [
-        'написать программу по образцу',
-        'решить задачи на алгоритмы'
-      ],
-      'Искусственный интеллект': [
-        'посмотреть видео по теме и записать 5 фактов',
-        'придумать идею проекта с ИИ'
-      ],
-      'Обществознание': [
-        'ответить письменно на вопросы параграфа',
-        'подготовить примеры к понятиям'
-      ],
-      'Физическая культура': [
-        'выполнить дома комплекс упражнений',
-        'подготовить сообщение о виде спорта'
-      ],
-      'Труд (технология)': [
-        'закончить практическую работу',
-        'подготовить материалы для следующего занятия'
-      ],
-      'Музыка': [
-        'послушать произведение и написать отзыв',
-        'выучить текст песни'
-      ]
-    };
+  // --- Средний балл по предметам ---
+  const subjectsTableBody = document.getElementById('subjects-table-body');
+  const subjectListDiv = document.getElementById('subject-list');
 
-    function getRandomHomework(subject) {
-      const list = HOMEWORK_TEMPLATES[subject];
-      if (!list || !list.length) return 'Повторить материал урока.';
-      const i = Math.floor(Math.random() * list.length);
-      return list[i];
-    }
-
-    const scheduleDayTabs = document.getElementById('schedule-day-tabs');
-    const scheduleContainer = document.getElementById('schedule-container');
-    const dayKeys = Object.keys(SCHEDULE);
-    let currentScheduleDay = dayKeys[0];
-
-    function renderScheduleTabs() {
-      scheduleDayTabs.innerHTML = '';
-      dayKeys.forEach(dayName => {
-        const btn = document.createElement('button');
-        btn.className = 'day-tab' + (dayName === currentScheduleDay ? ' active' : '');
-        btn.textContent = dayName;
-        btn.addEventListener('click', () => {
-          currentScheduleDay = dayName;
-          renderSchedule();
-        });
-        scheduleDayTabs.appendChild(btn);
-      });
-    }
-
-    function renderSchedule() {
-      renderScheduleTabs();
-      scheduleContainer.innerHTML = '';
-      const block = document.createElement('div');
-      block.className = 'day-block';
-      const title = document.createElement('div');
-      title.className = 'day-title';
-      title.innerHTML = `<span class="day-icon">${currentScheduleDay}</span>${currentScheduleDay} расписание`;
-      block.appendChild(title);
-
-      SCHEDULE[currentScheduleDay].forEach(lesson => {
-        const card = document.createElement('div');
-        card.className = 'lesson-card';
-
-        const avatar = document.createElement('div');
-        avatar.className = 'lesson-teacher';
-        avatar.innerHTML = `<img src="${profile.avatarUrl || 'teacher.jpg'}" alt="teacher">`;
-
-        const main = document.createElement('div');
-        main.className = 'lesson-main';
-        const badgeClass = subjectBadgeClass(lesson.subject);
-        const line1 = document.createElement('div');
-        line1.className = 'lesson-subject';
-        line1.innerHTML = `<span>${lesson.num} урок · ${lesson.subject}</span><span class="badge ${badgeClass}">урок</span>`;
-        const line2 = document.createElement('div');
-        line2.className = 'lesson-type';
-        line2.textContent = `${lesson.time}${lesson.room ? ' · ' + lesson.room : ''}`;
-        main.appendChild(line1);
-        main.appendChild(line2);
-
-        card.appendChild(avatar);
-        card.appendChild(main);
-        block.appendChild(card);
-      });
-
-      scheduleContainer.appendChild(block);
-    }
-
-    const TASKS_DONE_KEY = 'venik-tasks-done';
-    let tasksDone = {};
-
-    async function loadTasksDone() {
-      const raw = localStorage.getItem(TASKS_DONE_KEY);
-      tasksDone = raw ? JSON.parse(raw) : {};
-      if (currentUser) {
-        const data = await loadUserQuarterDoc(currentUser.uid, currentQuarter);
-        tasksDone = data.tasksDone || tasksDone;
-      }
-    }
-    async function saveTasksDone() {
-      localStorage.setItem(TASKS_DONE_KEY, JSON.stringify(tasksDone));
-      if (!currentUser) return;
-      await saveUserQuarterDoc(currentUser.uid, currentQuarter);
-    }
-
-    const tasksDayTabs = document.getElementById('tasks-day-tabs');
-    const tasksContainer = document.getElementById('tasks-container');
-    const tasksFilterSelect = document.getElementById('tasks-filter-select');
-    let currentTasksDay = dayKeys[0];
-    let currentTasksFilter = 'all';
-
-    tasksFilterSelect.addEventListener('change', () => {
-      currentTasksFilter = tasksFilterSelect.value;
-      renderTasksForDay(currentTasksDay);
+  function calcAverage(arr) {
+    if (!arr.length) return 0;
+    const sum = arr.reduce((a, b) => a + b, 0);
+    return sum / arr.length;
+  }
+  function groupBySubject() {
+    const map = {};
+    grades.forEach(g => {
+      if (!map[g.subject]) map[g.subject] = [];
+      map[g.subject].push(g.mark);
     });
-
-    function renderTasksTabs() {
-      tasksDayTabs.innerHTML = '';
-      dayKeys.forEach(dayName => {
-        const btn = document.createElement('button');
-        btn.className = 'day-tab' + (dayName === currentTasksDay ? ' active' : '');
-        btn.textContent = dayName;
-        btn.addEventListener('click', () => {
-          currentTasksDay = dayName;
-          renderTasksForDay(currentTasksDay);
-        });
-        tasksDayTabs.appendChild(btn);
-      });
-    }
-
-    function shouldShowTask(lessonId) {
-      const done = !!tasksDone[lessonId];
-      if (currentTasksFilter === 'done') return done;
-      if (currentTasksFilter === 'todo') return !done;
-      return true;
-    }
-
-    function renderTasksForDay(dayName) {
-      renderTasksTabs();
-      tasksContainer.innerHTML = '';
-      const block = document.createElement('div');
-      block.className = 'day-block';
-      const title = document.createElement('div');
-      title.className = 'day-title';
-      title.innerHTML = `<span class="day-icon">${dayName}</span>${dayName} домашка`;
-      block.appendChild(title);
-
-      SCHEDULE[dayName].forEach(lesson => {
-        if (!shouldShowTask(lesson.id)) return;
-
-        const row = document.createElement('div');
-        row.className = 'task-row';
-        row.dataset.id = lesson.id;
-
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.checked = !!tasksDone[lesson.id];
-
-        const content = document.createElement('div');
-        const line1 = document.createElement('div');
-        line1.textContent = `${lesson.subject} — ДЗ: ${getRandomHomework(lesson.subject)}`;
-        const line2 = document.createElement('div');
-        line2.className = 'task-meta';
-        line2.textContent = `${lesson.num} урок · ${lesson.time}${lesson.room ? ' · ' + lesson.room : ''}`;
-
-        content.appendChild(line1);
-        content.appendChild(line2);
-
-        if (checkbox.checked) row.classList.add('done');
-
-        checkbox.addEventListener('change', async () => {
-          tasksDone[lesson.id] = checkbox.checked;
-          await saveTasksDone();
-          if (checkbox.checked) {
-            row.classList.add('done');
-            addNotification(`Отмечено выполненное ДЗ по предмету ${lesson.subject}`, 'hw-done');
-          } else {
-            row.classList.remove('done');
-            addNotification(`Снят статус выполнения ДЗ по предмету ${lesson.subject}`, 'hw-undo');
-          }
-        });
-
-        row.appendChild(checkbox);
-        row.appendChild(content);
-        block.appendChild(row);
-      });
-
-      tasksContainer.appendChild(block);
-    }
-
-    const ratingTableBody = document.getElementById('rating-table-body');
-    const ratingRefreshBtn = document.getElementById('rating-refresh-btn');
-    const CLASSMATES = [
-      'Матвей Иванов','Денис Чернобай','Матвей Козлов',
-      'Камилла Зайнудинова','Леонид Синанни','Екатерина Новикова(Посмертно)',
-      'Тимофей Морозов','Полина Кекки','Артём Сухов','Алексей Бибиков',
-      'Тихонов Тихон','Кирилл Ефанов','Ксения Тонконогова','Артём Кухарев',
-      'Артём Васильев','Герыч','Ларин Максим','Слугин Гордей','Муханов Глеб',
-      'Арсений Борисов','Рита Баронкина','Анастасия Трохона','Ярослав Сулимов',
-      'Любовь Мхчян','Анастасия Понасуткина','Любовь Данилова','Савелий Ходыкин','Климентий'
-    ];
-    function generateRandomMark() { return (3 + Math.random() * 2).toFixed(2); }
-
-    async function getAllUsersAverages() {
-      const result = [];
-      try {
-        const cg = collectionGroup(db, 'quarters');
-        const qSnap = await getDocs(cg); /* сбор всех четвертей [web:444] */
-
-        qSnap.forEach(docSnap => {
-          const data = docSnap.data();
-          const avgByWeek = data.avgByWeek || {};
-          const avg = Number(avgByWeek[currentWeek] || 0);
-          if (!avg || avg <= 0) return;
-
-          const prof = data.profile || {};
-          const name = prof.name || 'Ученик';
-          const avatarUrl = prof.avatarUrl || 'teacher.jpg';
-
-          const refPath = docSnap.ref.path; // users/{uid}/quarters/qN
-          const uid = refPath.split('/')[1] || null;
-
-          result.push({ uid, name, avatarUrl, avg });
-        });
-      } catch (e) {
-        console.error('getAllUsersAverages error', e);
-      }
-      return result;
-    }
-
-    async function buildRatingData() {
-      const myAvg = getMyAverage();
-      const myName = profile.name || 'Ты';
-
-      const fromCloud = await getAllUsersAverages();
-
-      const classmatesMock = CLASSMATES.map(name => ({
-        uid: null,
-        name,
-        avatarUrl: 'teacher.jpg',
-        avg: Number(generateRandomMark())
-      }));
-
-      const all = [...fromCloud, ...classmatesMock];
-
-      const meIndex = all.findIndex(x =>
-        (currentUser && x.uid === currentUser.uid) || x.name === myName
-      );
-      if (meIndex >= 0) {
-        all[meIndex].name = myName + ' (ты)';
-        all[meIndex].avatarUrl = profile.avatarUrl || all[meIndex].avatarUrl || 'teacher.jpg';
-        all[meIndex].uid = currentUser ? currentUser.uid : all[meIndex].uid;
-        all[meIndex].avg = Number(myAvg.toFixed(2));
-      } else {
-        all.push({
-          uid: currentUser ? currentUser.uid : null,
-          name: myName + ' (ты)',
-          avatarUrl: profile.avatarUrl || 'teacher.jpg',
-          avg: Number(myAvg.toFixed(2))
-        });
-      }
-
-      all.sort((a, b) => b.avg - a.avg);
-      return all;
-    }
-
-    async function renderRating() {
-      const data = await buildRatingData();
-      ratingTableBody.innerHTML = '';
-      data.forEach((item, index) => {
-        const tr = document.createElement('tr');
-        const isMe =
-          (currentUser && item.uid && item.uid === currentUser.uid) ||
-          item.name.includes('(ты)');
-
-        tr.innerHTML = `
-          <td>${index + 1}</td>
-          <td>
-            <div style="display:flex;align-items:center;gap:6px;">
-              <div style="width:24px;height:24px;border-radius:999px;overflow:hidden;border:1px solid rgba(148,163,184,0.7);">
-                <img src="${item.avatarUrl || 'teacher.jpg'}" alt="avatar" style="width:100%;height:100%;object-fit:cover;">
-              </div>
-              <span>${item.name}</span>
-            </div>
-          </td>
-          <td>${item.avg.toFixed(2)}</td>
-        `;
-
-        if (isMe) {
-          tr.style.fontWeight = '600';
-          tr.style.background = 'rgba(30, 64, 175, 0.4)';
-        }
-
-        if (item.uid) {
-          tr.style.cursor = 'pointer';
-          tr.addEventListener('click', () => {
-            openProfileForUser(item.uid);
-          });
-        }
-
-        ratingTableBody.appendChild(tr);
-      });
-      saveRatingHistoryEntry(data);
-    }
-
-    ratingRefreshBtn.addEventListener('click', async () => {
-      await renderRating();
-      addNotification('Рейтинг класса обновлён', 'rating');
+    return map;
+  }
+  function renderSubjectsTable() {
+    const groups = groupBySubject();
+    subjectsTableBody.innerHTML = '';
+    Object.keys(groups).forEach(subj => {
+      const marks = groups[subj];
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${subj}</td>
+        <td>${marks.join(', ')}</td>
+        <td>${calcAverage(marks).toFixed(2)}</td>
+      `;
+      subjectsTableBody.appendChild(tr);
     });
-
-    const RATING_HISTORY_KEY = 'venik-rating-history';
-    const ratingHistoryDiv = document.getElementById('rating-history');
-    function loadRatingHistory() {
-      const raw = localStorage.getItem(RATING_HISTORY_KEY);
-      return raw ? JSON.parse(raw) : [];
+  }
+  function renderSubjectList() {
+    const groups = groupBySubject();
+    subjectListDiv.innerHTML = '';
+    const keys = Object.keys(groups);
+    if (!keys.length) {
+      subjectListDiv.textContent = 'Пока нет оценок для этой четверти и недели.';
+      return;
     }
-    function saveRatingHistory(history) {
-      localStorage.setItem(RATING_HISTORY_KEY, JSON.stringify(history));
-    }
-    function getTodayKey() {
-      const d = new Date();
-      return d.toISOString().slice(0, 10);
-    }
-    function saveRatingHistoryEntry(latestData) {
-      const data = latestData || [];
-      const myName = (profile.name || 'Ты') + ' (ты)';
-      const myPos = data.findIndex(x => x.name === myName) + 1;
-      const myAvg = getMyAverage().toFixed(2);
-      const history = loadRatingHistory();
-      const today = getTodayKey();
-      const key = `${today}-q${currentQuarter}-w${currentWeek}`;
-      const existing = history.find(h => h.key === key);
-      if (existing) {
-        existing.position = myPos;
-        existing.avg = myAvg;
-      } else {
-        history.push({ key, date: today, quarter: currentQuarter, week: currentWeek, position: myPos, avg: myAvg });
-      }
-      saveRatingHistory(history);
-      if (currentUser) {
-        saveUserQuarterDoc(currentUser.uid, currentQuarter);
-      }
-    }
-    function renderRatingHistory() {
-      const history = loadRatingHistory().filter(h => h.quarter === currentQuarter && h.week === currentWeek);
-      ratingHistoryDiv.innerHTML = '<h4 style="margin-bottom:4px;">История рейтинга (эта четверть и неделя)</h4>';
-      if (!history.length) {
-        ratingHistoryDiv.innerHTML += '<p>История пока пустая.</p>';
-        return;
-      }
-      const list = document.createElement('ul');
-      history.sort((a, b) => a.date.localeCompare(b.date)).forEach(h => {
-        const li = document.createElement('li');
-        li.textContent = `${h.date}: место ${h.position}, ср. балл ${h.avg}`;
-        list.appendChild(li);
-      });
-      ratingHistoryDiv.appendChild(list);
-    }
+    keys.forEach(subj => {
+      const marks = groups[subj];
+      const p = document.createElement('p');
+      p.textContent = `${subj}: ${marks.join(', ')} (ср. ${calcAverage(marks).toFixed(2)})`;
+      subjectListDiv.appendChild(p);
+    });
+  }
+  function getMyAverage() {
+    const marks = grades.map(g => g.mark).filter(m => m > 0);
+    return calcAverage(marks) || 0;
+  }
 
-    async function logVisit(user) {
-      try {
-        const today = new Date();
-        const dayKey = today.toISOString().slice(0, 10);
-        const uid = user ? user.uid : 'anon';
-        const docId = `${uid}-${dayKey}`;
-        const ref = doc(collection(db, 'visits'), docId);
+  // --- Расписание + ДЗ ---
+  const SCHEDULE = {
+    'Пн': [
+      { id: 'mon-1', num: 1, time: '08:30 - 09:00', subject: 'Разговоры о важном', room: 'ДБ / корпус 1' },
+      { id: 'mon-2', num: 2, time: '09:10 - 09:55', subject: 'Русский язык', room: 'каб. 28' },
+      { id: 'mon-3', num: 3, time: '10:05 - 10:50', subject: 'Русский язык', room: 'каб. 28' },
+      { id: 'mon-4', num: 4, time: '11:05 - 11:50', subject: 'Геометрия', room: 'каб. 38' },
+      { id: 'mon-5', num: 5, time: '—', subject: 'Геометрия', room: 'каб. 59' },
+      { id: 'mon-6', num: 6, time: '13:00 - 13:45', subject: 'Иностранный (английский) язык', room: 'каб. 27' },
+      { id: 'mon-7', num: 7, time: '14:00 - 14:40', subject: 'Искусственный интеллект', room: 'каб. 48' }
+    ],
+    'Вт': [
+      { id: 'tue-1', num: 1, time: '08:30 - 09:15', subject: 'География', room: 'каб. 38' },
+      { id: 'tue-2', num: 2, time: '09:25 - 10:10', subject: 'Алгебра', room: 'каб. 38' },
+      { id: 'tue-3', num: 3, time: '10:20 - 11:05', subject: 'Вероятность и статистика', room: 'каб. 53' },
+      { id: 'tue-4', num: 4, time: '11:20 - 12:05', subject: 'Химия', room: 'каб. 49' },
+      { id: 'tue-5', num: 5, time: '12:15 - 13:00', subject: 'История', room: 'каб. 32' },
+      { id: 'tue-6', num: 6, time: '13:15 - 13:55', subject: 'Физика', room: 'каб. 49' }
+    ],
+    'Ср': [
+      { id: 'wed-1', num: 1, time: '08:30 - 09:15', subject: 'Биология', room: 'каб. 55' },
+      { id: 'wed-2', num: 2, time: '09:25 - 10:10', subject: 'Биология', room: 'каб. 28' },
+      { id: 'wed-3', num: 3, time: '10:20 - 11:05', subject: 'Русский язык', room: 'каб. 59' },
+      { id: 'wed-4', num: 4, time: '11:20 - 12:05', subject: 'Иностранный (английский) язык', room: 'каб. 38' },
+      { id: 'wed-5', num: 5, time: '12:15 - 13:00', subject: 'Алгебра', room: 'каб. 38' }
+    ],
+    'Чт': [
+      { id: 'thu-1', num: 1, time: '08:30 - 09:00', subject: 'РОССИЯ — МОИ ГОРИЗОНТЫ', room: 'ДБ / внеурочная' },
+      { id: 'thu-2', num: 2, time: '09:10 - 09:55', subject: 'Химия', room: 'каб. 53' },
+      { id: 'thu-3', num: 3, time: '10:05 - 10:50', subject: 'Химия', room: 'каб. 49' },
+      { id: 'thu-4', num: 4, time: '11:20 - 12:05', subject: 'Обществознание', room: 'каб. 59' },
+      { id: 'thu-5', num: 5, time: '12:00 - 12:45', subject: 'Иностранный (английский) язык', room: 'каб. 12' }
+    ],
+    'Пт': [
+      { id: 'fri-1', num: 1, time: '08:30 - 09:15', subject: 'Физическая культура', room: 'спортзал' },
+      { id: 'fri-2', num: 2, time: '09:25 - 10:10', subject: 'Физика', room: 'каб. 12' },
+      { id: 'fri-3', num: 3, time: '10:20 - 11:05', subject: 'Музыка', room: 'каб. 32' },
+      { id: 'fri-4', num: 4, time: '11:20 - 12:05', subject: 'Труд (технология)', room: 'каб. 55' }
+    ]
+  };
 
-        const info = {
-          uid: user ? user.uid : null,
-          email: user ? user.email : null,
-          userAgent: navigator.userAgent || null,
-          language: navigator.language || null,
-          screen: window.screen
-            ? `${window.screen.width}x${window.screen.height}`
-            : null,
-          tzOffset: new Date().getTimezoneOffset(),
-          visitedAt: new Date().toISOString()
-        };
+  const HOMEWORK_TEMPLATES = {
+    'Русский язык': [
+      'выучить правило и сделать упражнения 1–3',
+      'написать мини-сочинение (80–100 слов)'
+    ],
+    'Алгебра': [
+      'решить номера 101–105',
+      'подготовиться к контрольной, решить 5 задач'
+    ],
+    'Геометрия': [
+      'прочитать параграф и решить 3 задачи',
+      'доказать теорему из конспекта'
+    ],
+    'Физика': [
+      'сделать конспект параграфа, решить 4 задачи',
+      'решить задачи повышенной сложности'
+    ],
+    'Химия': [
+      'составить уравнения реакций, выучить формулы',
+      'решить задачи на массовую долю'
+    ],
+    'Биология': [
+      'выучить термины и заполнить таблицу',
+      'подготовить сообщение по теме'
+    ],
+    'История': [
+      'выучить даты и события параграфа',
+      'сделать план параграфа'
+    ],
+    'География': [
+      'заполнить контурную карту',
+      'ответить на вопросы в тетради'
+    ],
+    'Иностранный (английский) язык': [
+      'выучить 15 новых слов и сделать упражнения',
+      'написать письмо (80–100 слов)'
+    ],
+    'Информатика': [
+      'написать программу по образцу',
+      'решить задачи на алгоритмы'
+    ],
+    'Искусственный интеллект': [
+      'посмотреть видео по теме и записать 5 фактов',
+      'придумать идею проекта с ИИ'
+    ],
+    'Обществознание': [
+      'ответить письменно на вопросы параграфа',
+      'подготовить примеры к понятиям'
+    ],
+    'Физическая культура': [
+      'выполнить дома комплекс упражнений',
+      'подготовить сообщение о виде спорта'
+    ],
+    'Труд (технология)': [
+      'закончить практическую работу',
+      'подготовить материалы для следующего занятия'
+    ],
+    'Музыка': [
+      'послушать произведение и написать отзыв',
+      'выучить текст песни'
+    ]
+  };
 
-        await setDoc(ref, info, { merge: true });
-      } catch (e) {
-        console.error('logVisit error', e);
-      }
-    }
+  function getRandomHomework(subject) {
+    const list = HOMEWORK_TEMPLATES[subject];
+    if (!list || !list.length) return 'Повторить материал урока.';
+    const i = Math.floor(Math.random() * list.length);
+    return list[i];
+  }
 
-    const adminVisitsBody = document.getElementById('admin-visits-body');
-    const adminWarning = document.getElementById('admin-warning');
+  const scheduleDayTabs = document.getElementById('schedule-day-tabs');
+  const scheduleContainer = document.getElementById('schedule-container');
+  const dayKeys = Object.keys(SCHEDULE);
+  let currentScheduleDay = dayKeys[0];
 
-    function formatDateTime(iso) {
-      if (!iso) return '-';
-      const d = new Date(iso);
-      return d.toLocaleString('ru-RU');
-    }
-
-    async function loadAdminVisits() {
-      if (!currentUser || currentUser.email !== ADMIN_EMAIL) {
-        adminWarning.textContent = 'Доступ только для администратора.';
-        adminVisitsBody.innerHTML = '';
-        return;
-      }
-      adminWarning.textContent = '';
-
-      const qSnap = await getDocs(
-        query(
-          collection(db, 'visits'),
-          orderBy('visitedAt', 'desc'),
-          limit(200)
-        )
-      );
-
-      adminVisitsBody.innerHTML = '';
-      let i = 1;
-      qSnap.forEach(docSnap => {
-        const v = docSnap.data();
-        const tr = document.createElement('tr');
-
-        const tdIdx = document.createElement('td');
-        tdIdx.textContent = i++;
-
-        const tdTime = document.createElement('td');
-        tdTime.textContent = formatDateTime(v.visitedAt);
-
-        const tdUser = document.createElement('td');
-        tdUser.innerHTML =
-          (v.uid || '-') +
-          '<br><span style="font-size:11px;color:var(--text-muted);">' +
-          (v.email || 'нет почты') +
-          '</span>';
-
-        const tdUA = document.createElement('td');
-        tdUA.textContent = v.userAgent || '-';
-
-        const tdLang = document.createElement('td');
-        tdLang.textContent = v.language || '-';
-
-        const tdScreen = document.createElement('td');
-        tdScreen.textContent = v.screen || '-';
-
-        const tdActions = document.createElement('td');
-        const delBtn = document.createElement('button');
-        delBtn.textContent = 'Удалить';
-        delBtn.className = 'btn secondary';
-        delBtn.style.padding = '2px 8px';
-        delBtn.style.fontSize = '11px';
-
-        delBtn.addEventListener('click', async () => {
-          if (!confirm('Удалить эту запись статистики?')) return;
-          try {
-            await deleteDoc(doc(db, 'visits', docSnap.id));
-            tr.remove();
-            addNotification('Запись статистики удалена', 'visit-delete');
-          } catch (e) {
-            console.error(e);
-            alert('Ошибка при удалении записи');
-          }
-        });
-
-        tdActions.appendChild(delBtn);
-
-        tr.appendChild(tdIdx);
-        tr.appendChild(tdTime);
-        tr.appendChild(tdUser);
-        tr.appendChild(tdUA);
-        tr.appendChild(tdLang);
-        tr.appendChild(tdScreen);
-        tr.appendChild(tdActions);
-
-        adminVisitsBody.appendChild(tr);
-      });
-    }
-
-    onAuthStateChanged(auth, async (user) => {
-      currentUser = user || null;
-
-      if (user) {
-        authPanel.classList.add('hidden');
-        appRoot.classList.remove('hidden');
-
-        if (profileEmailInfo) {
-          profileEmailInfo.textContent = user.email || 'без почты';
-        }
-
-        await logVisit(user);
-
-        await loadProfile();
-        applyProfileToUI();
-        await loadTasksDone();
-        await loadGrades();
-        renderAllByDate();
-        renderSubjectsTable();
-        renderSubjectList();
+  function renderScheduleTabs() {
+    scheduleDayTabs.innerHTML = '';
+    dayKeys.forEach(dayName => {
+      const btn = document.createElement('button');
+      btn.className = 'day-tab' + (dayName === currentScheduleDay ? ' active' : '');
+      btn.textContent = dayName;
+      btn.addEventListener('click', () => {
+        currentScheduleDay = dayName;
         renderSchedule();
-        renderTasksForDay(currentTasksDay);
-        await renderRating();
-        renderRatingHistory();
-        addNotification('Данные подгружены из облака', 'cloud-load');
+      });
+      scheduleDayTabs.appendChild(btn);
+    });
+  }
 
-        if (currentUser.email === ADMIN_EMAIL) {
-          loadAdminVisits();
-        }
-      } else {
-        appRoot.classList.add('hidden');
-        authPanel.classList.remove('hidden');
+  function renderSchedule() {
+    renderScheduleTabs();
+    scheduleContainer.innerHTML = '';
+    const block = document.createElement('div');
+    block.className = 'day-block';
+    const title = document.createElement('div');
+    title.className = 'day-title';
+    title.innerHTML = `<span class="day-icon">${currentScheduleDay}</span>${currentScheduleDay} расписание`;
+    block.appendChild(title);
 
-        if (profileEmailInfo) {
-          profileEmailInfo.textContent = '—';
-        }
-      }
+    SCHEDULE[currentScheduleDay].forEach(lesson => {
+      const card = document.createElement('div');
+      card.className = 'lesson-card';
+
+      const avatar = document.createElement('div');
+      avatar.className = 'lesson-teacher';
+      avatar.innerHTML = `<img src="${profile.avatarUrl || 'teacher.jpg'}" alt="teacher">`;
+
+      const main = document.createElement('div');
+      main.className = 'lesson-main';
+      const badgeClass = subjectBadgeClass(lesson.subject);
+      const line1 = document.createElement('div');
+      line1.className = 'lesson-subject';
+      line1.innerHTML = `<span>${lesson.num} урок · ${lesson.subject}</span><span class="badge ${badgeClass}">урок</span>`;
+      const line2 = document.createElement('div');
+      line2.className = 'lesson-type';
+      line2.textContent = `${lesson.time}${lesson.room ? ' · ' + lesson.room : ''}`;
+      main.appendChild(line1);
+      main.appendChild(line2);
+
+      card.appendChild(avatar);
+      card.appendChild(main);
+      block.appendChild(card);
     });
 
-    loadTheme();
-    loadNotifications();
-    switchQuarter(1);
+    scheduleContainer.appendChild(block);
+  }
+
+  // --- Домашка (tasksDone) ---
+  const TASKS_DONE_KEY = 'venik-tasks-done';
+  let tasksDone = {};
+
+  async function loadTasksDone() {
+    const raw = localStorage.getItem(TASKS_DONE_KEY);
+    tasksDone = raw ? JSON.parse(raw) : {};
+    if (currentUser) {
+      const data = await loadUserQuarterDoc(currentUser.uid, currentQuarter);
+      tasksDone = data.tasksDone || tasksDone;
+    }
+  }
+  async function saveTasksDone() {
+    localStorage.setItem(TASKS_DONE_KEY, JSON.stringify(tasksDone));
+    if (!currentUser) return;
+    await saveUserQuarterDoc(currentUser.uid, currentQuarter);
+  }
+
+  const tasksDayTabs = document.getElementById('tasks-day-tabs');
+  const tasksContainer = document.getElementById('tasks-container');
+  const tasksFilterSelect = document.getElementById('tasks-filter-select');
+  let currentTasksDay = dayKeys[0];
+  let currentTasksFilter = 'all';
+
+  tasksFilterSelect.addEventListener('change', () => {
+    currentTasksFilter = tasksFilterSelect.value;
+    renderTasksForDay(currentTasksDay);
+  });
+
+  function renderTasksTabs() {
+    tasksDayTabs.innerHTML = '';
+    dayKeys.forEach(dayName => {
+      const btn = document.createElement('button');
+      btn.className = 'day-tab' + (dayName === currentTasksDay ? ' active' : '');
+      btn.textContent = dayName;
+      btn.addEventListener('click', () => {
+        currentTasksDay = dayName;
+        renderTasksForDay(currentTasksDay);
+      });
+      tasksDayTabs.appendChild(btn);
+    });
+  }
+
+  function shouldShowTask(lessonId) {
+    const done = !!tasksDone[lessonId];
+    if (currentTasksFilter === 'done') return done;
+    if (currentTasksFilter === 'todo') return !done;
+    return true;
+  }
+
+  function renderTasksForDay(dayName) {
+    renderTasksTabs();
+    tasksContainer.innerHTML = '';
+    const block = document.createElement('div');
+    block.className = 'day-block';
+    const title = document.createElement('div');
+    title.className = 'day-title';
+    title.innerHTML = `<span class="day-icon">${dayName}</span>${dayName} домашка`;
+    block.appendChild(title);
+
+    SCHEDULE[dayName].forEach(lesson => {
+      if (!shouldShowTask(lesson.id)) return;
+
+      const row = document.createElement('div');
+      row.className = 'task-row';
+      row.dataset.id = lesson.id;
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.checked = !!tasksDone[lesson.id];
+
+      const content = document.createElement('div');
+      const line1 = document.createElement('div');
+      line1.textContent = `${lesson.subject} — ДЗ: ${getRandomHomework(lesson.subject)}`;
+      const line2 = document.createElement('div');
+      line2.className = 'task-meta';
+      line2.textContent = `${lesson.num} урок · ${lesson.time}${lesson.room ? ' · ' + lesson.room : ''}`;
+
+      content.appendChild(line1);
+      content.appendChild(line2);
+
+      if (checkbox.checked) row.classList.add('done');
+
+      checkbox.addEventListener('change', async () => {
+        tasksDone[lesson.id] = checkbox.checked;
+        await saveTasksDone();
+        if (checkbox.checked) {
+          row.classList.add('done');
+          addNotification(`Отмечено выполненное ДЗ по предмету ${lesson.subject}`, 'hw-done');
+        } else {
+          row.classList.remove('done');
+          addNotification(`Снят статус выполнения ДЗ по предмету ${lesson.subject}`, 'hw-undo');
+        }
+      });
+
+      row.appendChild(checkbox);
+      row.appendChild(content);
+      block.appendChild(row);
+    });
+
+    tasksContainer.appendChild(block);
+  }
+
+  // --- Рейтинг (пока без realtime-слушателя, он в части 3) ---
+  const ratingTableBody = document.getElementById('rating-table-body');
+  const ratingRefreshBtn = document.getElementById('rating-refresh-btn');
+  const ratingHistoryDiv = document.getElementById('rating-history');
+
+  const CLASSMATES = [
+    'Матвей Иванов','Денис Чернобай','Матвей Козлов',
+    'Камилла Зайнудинова','Леонид Синанни','Екатерина Новикова(Посмертно)',
+    'Тимофей Морозов','Полина Кекки','Артём Сухов','Алексей Бибиков',
+    'Тихонов Тихон','Кирилл Ефанов','Ксения Тонконогова','Артём Кухарев',
+    'Артём Васильев','Герыч','Ларин Максим','Слугин Гордей','Муханов Глеб',
+    'Арсений Борисов','Рита Баронкина','Анастасия Трохона','Ярослав Сулимов',
+    'Любовь Мхчян','Анастасия Понасуткина','Любовь Данилова','Савелий Ходыкин','Климентий'
+  ];
+  function generateRandomMark() { return (3 + Math.random() * 2).toFixed(2); }
+
+  async function getAllUsersAverages() {
+    const result = [];
+    try {
+      const cg = collectionGroup(db, 'quarters');
+      const qSnap = await getDocs(cg);
+      qSnap.forEach(docSnap => {
+        const data = docSnap.data();
+        const avgByWeek = data.avgByWeek || {};
+        const avg = Number(avgByWeek[currentWeek] || 0);
+        if (!avg || avg <= 0) return;
+
+        const prof = data.profile || {};
+        const name = prof.name || 'Ученик';
+        const avatarUrl = prof.avatarUrl || 'teacher.jpg';
+
+        const refPath = docSnap.ref.path; // users/{uid}/quarters/qN
+        const uid = refPath.split('/')[1] || null;
+
+        result.push({ uid, name, avatarUrl, avg });
+      });
+    } catch (e) {
+      console.error('getAllUsersAverages error', e);
+    }
+    return result;
+  }
+
+  function loadRatingHistory() {
+    const raw = localStorage.getItem('venik-rating-history');
+    return raw ? JSON.parse(raw) : [];
+  }
+  function saveRatingHistory(history) {
+    localStorage.setItem('venik-rating-history', JSON.stringify(history));
+  }
+  function saveRatingHistoryEntry() {
+    const history = loadRatingHistory();
+    const avg = getMyAverage();
+    if (!avg) return;
+    history.push({
+      ts: new Date().toISOString(),
+      quarter: currentQuarter,
+      week: currentWeek,
+      avg
+    });
+    saveRatingHistory(history);
+  }
+  function renderRatingHistory() {
+    const history = loadRatingHistory();
+    if (!history.length) {
+      ratingHistoryDiv.textContent = '';
+      return;
+    }
+    const last = history.slice(-5).reverse();
+    ratingHistoryDiv.innerHTML = '<div style="margin-top:8px;font-size:12px;color:var(--text-muted);">Твои последние изменения среднего балла:</div>';
+    last.forEach(h => {
+      const p = document.createElement('div');
+      p.style.fontSize = '12px';
+      const d = new Date(h.ts);
+      p.textContent = `${d.toLocaleString()} · ${h.quarter} четв, ${h.week} неделя: ${h.avg.toFixed(2)}`;
+      ratingHistoryDiv.appendChild(p);
+    });
+  }
+
+  async function buildRatingData() {
+    const myAvg = getMyAverage();
+    const fromCloud = await getAllUsersAverages();
+
+    const classmatesMock = CLASSMATES.map(name => ({
+      uid: null,
+      name,
+      avatarUrl: 'teacher.jpg',
+      avg: Number(generateRandomMark())
+    }));
+
+    const all = [...fromCloud, ...classmatesMock];
+    all.sort((a, b) => b.avg - a.avg);
+
+    const rated = all.map((item, index) => ({
+      place: index + 1,
+      ...item
+    }));
+    return { rated, myAvg };
+  }
+
+  async function renderRating() {
+    const { rated, myAvg } = await buildRatingData();
+    ratingTableBody.innerHTML = '';
+    rated.forEach(row => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${row.place}</td>
+        <td>${row.name}</td>
+        <td>${row.avg.toFixed(2)}</td>
+      `;
+      tr.addEventListener('click', () => {
+        if (row.uid) openProfileForUser(row.uid);
+      });
+      ratingTableBody.appendChild(tr);
+    });
+    if (myAvg) {
+      saveRatingHistoryEntry();
+    }
+  }
+
+  ratingRefreshBtn.addEventListener('click', () => {
+    renderRating();
+  });
+
+  // --- Админ визиты ---
+  const adminVisitsBody = document.getElementById('admin-visits-body');
+  const adminWarning = document.getElementById('admin-warning');
+
+  async function logVisit(user) {
+    try {
+      await addDoc(collection(db, 'visits'), {
+        uid: user ? user.uid : null,
+        email: user ? user.email : null,
+        userAgent: navigator.userAgent,
+        language: navigator.language,
+        screen: `${window.screen.width}x${window.screen.height}`,
+        createdAt: serverTimestamp()
+      });
+    } catch (e) {
+      console.error('logVisit error', e);
+    }
+  }
+
+  async function loadAdminVisits() {
+    if (!currentUser || currentUser.email !== ADMIN_EMAIL) {
+      adminWarning.textContent = 'Админ-панель доступна только для администратора.';
+      adminVisitsBody.innerHTML = '';
+      return;
+    }
+    adminWarning.textContent = '';
+    const qRef = query(collection(db, 'visits'), orderBy('createdAt', 'desc'), limit(50));
+    const snap = await getDocs(qRef);
+    adminVisitsBody.innerHTML = '';
+    let i = 1;
+    snap.forEach(docSnap => {
+      const v = docSnap.data();
+      const tr = document.createElement('tr');
+      const dt = v.createdAt && v.createdAt.toDate ? v.createdAt.toDate() : null;
+      tr.innerHTML = `
+        <td>${i++}</td>
+        <td>${dt ? dt.toLocaleString() : '-'}</td>
+        <td>${v.uid || '-'}<br>${v.email || '-'}</td>
+        <td style="max-width:220px;word-break:break-all;">${v.userAgent || '-'}</td>
+        <td>${v.language || '-'}</td>
+        <td>${v.screen || '-'}</td>
+        <td><button class="btn secondary" data-id="${docSnap.id}">Удалить</button></td>
+      `;
+      tr.querySelector('button').addEventListener('click', async () => {
+        await deleteDoc(doc(db, 'visits', docSnap.id));
+        loadAdminVisits();
+      });
+      adminVisitsBody.appendChild(tr);
+    });
+  }
+
+  // --- Регистрация / логин по официальной схеме [web:496][web:505] ---
+  function showError(msg) { authError.textContent = msg; }
+
+  signupBtn.addEventListener('click', async () => {
+    showError('');
+    try {
+      await createUserWithEmailAndPassword(auth, emailInput.value, passInput.value);
+      addNotification('Создан новый аккаунт', 'auth-signup');
+    } catch (e) {
+      console.error(e);
+      showError(e.code || 'Ошибка регистрации');
+    }
+  });
+
+  loginBtn.addEventListener('click', async () => {
+    showError('');
+    try {
+      await signInWithEmailAndPassword(auth, emailInput.value, passInput.value);
+      addNotification('Успешный вход в аккаунт', 'auth-login');
+    } catch (e) {
+      console.error(e);
+      showError(e.code || 'Ошибка входа');
+    }
+  });
+
+  logoutBtn.addEventListener('click', async () => {
+    try {
+      await signOut(auth);
+      addNotification('Выход из аккаунта', 'auth-logout');
+    } catch (e) {
+      console.error(e);
+    }
+  });
+
+  // --- onAuthStateChanged + инициализация ---
+  let unsubQuarter = null;
+  let unsubRatingCG = null;
+  let unsubChatMessages = null;
+
+  function cleanupListeners() {
+    if (unsubQuarter) { unsubQuarter(); unsubQuarter = null; }
+    if (unsubRatingCG) { unsubRatingCG(); unsubRatingCG = null; }
+    if (unsubChatMessages) { unsubChatMessages(); unsubChatMessages = null; }
+  }
+
+  loadTheme();
+  loadNotifications();
+
+  onAuthStateChanged(auth, async (user) => {
+    cleanupListeners();
+    currentUser = user || null;
+
+    if (!user) {
+      authPanel.classList.remove('hidden');
+      appRoot.classList.add('hidden');
+      return;
+    }
+
+    authPanel.classList.add('hidden');
+    appRoot.classList.remove('hidden');
+
+    await loadProfile();
+    applyProfileToUI();
+    await loadTasksDone();
+    await switchQuarter(1);
     renderSchedule();
     renderTasksForDay(currentTasksDay);
-    showPage('grades');
-  </script>
+    renderRating();
+    renderRatingHistory();
+    await logVisit(user);
+
+    // Подписки realtime на четверть, рейтинг и чат будут подключены в части 3/3
+  });
+</script>
+<script type="module">
+  import {
+    doc,
+    collection,
+    query,
+    orderBy,
+    onSnapshot,
+    setDoc,
+    serverTimestamp,
+    collectionGroup
+  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; /* [web:490][web:501] */
+
+  import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  const auth = getAuth();
+  const db = getFirestore();
+
+  // Доступ к переменным и функциям из первого скрипта
+  // (они в глобальной области: currentUser, currentQuarter, currentWeek, grades, tasksDone, profile и т.д.)
+
+  // --- Realtime: четверть (оценки, профиль, tasksDone, avgByWeek, ratingHistory) ---
+  // Переопределяем switchQuarter / switchWeek, чтобы добавлять onSnapshot на doc quarters/qN
+  const _switchQuarterOriginal = window.switchQuarter || null;
+  const _switchWeekOriginal = window.switchWeek || null;
+
+  let unsubQuarter = null;
+  let unsubRatingCG = null;
+  let unsubChatMessages = null;
+
+  function cleanupListenersLocal() {
+    if (unsubQuarter) { unsubQuarter(); unsubQuarter = null; }
+    if (unsubRatingCG) { unsubRatingCG(); unsubRatingCG = null; }
+    if (unsubChatMessages) { unsubChatMessages(); unsubChatMessages = null; }
+  }
+  window.cleanupListeners = cleanupListenersLocal;
+
+  async function attachQuarterListener(uid, quarter) {
+    if (!uid) return;
+    if (unsubQuarter) { unsubQuarter(); unsubQuarter = null; }
+
+    const ref = doc(db, 'users', uid, 'quarters', 'q' + quarter);
+    unsubQuarter = onSnapshot(ref, (snap) => {
+      if (!snap.exists()) return;
+      const data = snap.data() || {};
+      const fieldGrades = data['grades_w' + window.currentWeek] || [];
+      window.grades = fieldGrades;
+      window.profile = Object.assign(window.profile, data.profile || {});
+      window.tasksDone = data.tasksDone || window.tasksDone;
+      const history = data.ratingHistory || window.loadRatingHistory();
+      window.saveRatingHistory(history);
+
+      window.applyProfileToUI();
+      window.renderAllByDate();
+      window.renderSubjectsTable();
+      window.renderSubjectList();
+      window.renderTasksForDay(window.currentTasksDay);
+      window.renderRatingHistory();
+    }, (err) => {
+      console.error('quarter onSnapshot error', err);
+    });
+  }
+
+  async function switchQuarterPatched(q) {
+    window.currentQuarter = q;
+    await window.loadGrades();
+    window.renderAllByDate();
+    window.renderSubjectsTable();
+    window.renderSubjectList();
+    window.renderTasksForDay(window.currentTasksDay);
+    window.renderRating();
+    window.renderRatingHistory();
+
+    const user = auth.currentUser;
+    if (user) await attachQuarterListener(user.uid, q);
+  }
+
+  async function switchWeekPatched(w) {
+    window.currentWeek = w;
+    await window.loadGrades();
+    window.renderAllByDate();
+    window.renderSubjectsTable();
+    window.renderSubjectList();
+    window.renderTasksForDay(window.currentTasksDay);
+    window.renderRating();
+    window.renderRatingHistory();
+  }
+
+  window.switchQuarter = switchQuarterPatched;
+  window.switchWeek = switchWeekPatched;
+
+  // --- Realtime: рейтинг через collectionGroup(quarters) [web:490][web:504] ---
+  function attachRatingListener() {
+    if (unsubRatingCG) { unsubRatingCG(); unsubRatingCG = null; }
+    const cg = collectionGroup(db, 'quarters');
+    unsubRatingCG = onSnapshot(cg, async () => {
+      await window.renderRating();
+    }, (err) => {
+      console.error('rating collectionGroup onSnapshot error', err);
+    });
+  }
+
+  // --- Мини‑мессенджер ---
+  const chatDialogsList = document.getElementById('chat-dialogs-list');
+  const chatMessagesDiv = document.getElementById('chat-messages');
+  const chatInput = document.getElementById('chat-input');
+  const chatSendBtn = document.getElementById('chat-send-btn');
+  const chatCurrentName = document.getElementById('chat-current-name');
+  const chatCurrentStatus = document.getElementById('chat-current-status');
+
+  const CLASSMATES = [
+    'Матвей Иванов','Денис Чернобай','Матвей Козлов',
+    'Камилла Зайнудинова','Леонид Синанни','Екатерина Новикова(Посмертно)',
+    'Тимофей Морозов','Полина Кекки','Артём Сухов','Алексей Бибиков',
+    'Тихонов Тихон','Кирилл Ефанов','Ксения Тонконогова','Артём Кухарев',
+    'Артём Васильев','Герыч','Ларин Максим','Слугин Гордей','Муханов Глеб',
+    'Арсений Борисов','Рита Баронкина','Анастасия Трохона','Ярослав Сулимов',
+    'Любовь Мхчян','Анастасия Понасуткина','Любовь Данилова','Савелий Ходыкин','Климентий'
+  ];
+
+  function makeChatId(uid1, uid2) {
+    return uid1 < uid2 ? uid1 + '_' + uid2 : uid2 + '_' + uid1;
+  }
+
+  let currentChat = null; // { uid, name, avatarUrl, chatId }
+
+  function renderChatDialogs() {
+    const user = auth.currentUser;
+    if (!user) {
+      chatDialogsList.innerHTML = '<div style="padding:6px;font-size:12px;color:var(--text-muted);">Войди в аккаунт, чтобы писать сообщения.</div>';
+      return;
+    }
+    chatDialogsList.innerHTML = '';
+    const myUid = user.uid;
+
+    const myEntry = {
+      uid: myUid,
+      name: window.profile.name || 'Ты',
+      avatarUrl: window.profile.avatarUrl || 'teacher.jpg'
+    };
+
+    const classmates = CLASSMATES.map((name, idx) => ({
+      uid: 'mock-' + idx,
+      name,
+      avatarUrl: 'teacher.jpg'
+    }));
+
+    const list = [myEntry, ...classmates];
+
+    list.forEach(entry => {
+      if (entry.uid === myUid) return; // себе отдельный диалог не нужен
+
+      const item = document.createElement('div');
+      item.className = 'chat-dialog-item';
+      item.dataset.uid = entry.uid;
+
+      const avatar = document.createElement('div');
+      avatar.className = 'chat-dialog-avatar';
+      avatar.innerHTML = `<img src="${entry.avatarUrl}" alt="">`;
+
+      const nameDiv = document.createElement('div');
+      nameDiv.className = 'chat-dialog-name';
+      nameDiv.textContent = entry.name;
+
+      const lastDiv = document.createElement('div');
+      lastDiv.className = 'chat-dialog-last';
+      lastDiv.textContent = 'Нажми, чтобы открыть';
+
+      item.appendChild(avatar);
+      item.appendChild(nameDiv);
+      item.appendChild(lastDiv);
+
+      item.addEventListener('click', () => openChat(entry));
+
+      chatDialogsList.appendChild(item);
+    });
+  }
+
+  function setActiveDialog(uid) {
+    document.querySelectorAll('.chat-dialog-item').forEach(i => {
+      i.classList.toggle('active', i.dataset.uid === uid);
+    });
+  }
+
+  function openChat(entry) {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const chatId = makeChatId(user.uid, entry.uid);
+    currentChat = {
+      uid: entry.uid,
+      name: entry.name,
+      avatarUrl: entry.avatarUrl,
+      chatId
+    };
+
+    chatCurrentName.textContent = entry.name;
+    chatCurrentStatus.textContent = 'Подключение...';
+    chatInput.disabled = false;
+    chatSendBtn.disabled = false;
+    chatMessagesDiv.innerHTML = '';
+
+    setActiveDialog(entry.uid);
+
+    if (unsubChatMessages) { unsubChatMessages(); unsubChatMessages = null; }
+
+    const messagesRef = collection(db, 'chats', chatId, 'messages');
+    const qRef = query(messagesRef, orderBy('createdAt', 'asc'));
+
+    unsubChatMessages = onSnapshot(qRef, (snap) => {
+      chatMessagesDiv.innerHTML = '';
+      snap.forEach(docSnap => {
+        const m = docSnap.data();
+        const div = document.createElement('div');
+        const isMe = m.fromUid === user.uid;
+        div.className = 'chat-message' + (isMe ? ' me' : '');
+        const text = document.createElement('div');
+        text.textContent = m.text || '';
+        const meta = document.createElement('div');
+        meta.className = 'chat-message-meta';
+        const dt = m.createdAt && m.createdAt.toDate ? m.createdAt.toDate() : null;
+        meta.textContent = dt ? dt.toLocaleTimeString().slice(0,5) : '';
+        div.appendChild(text);
+        div.appendChild(meta);
+        chatMessagesDiv.appendChild(div);
+      });
+      chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight;
+      chatCurrentStatus.textContent = 'Онлайн';
+    }, (err) => {
+      console.error('chat onSnapshot error', err);
+      chatCurrentStatus.textContent = 'Ошибка';
+    });
+  }
+
+  async function sendChatMessage() {
+    const user = auth.currentUser;
+    if (!user || !currentChat) return;
+    const text = chatInput.value.trim();
+    if (!text) return;
+    chatInput.value = '';
+
+    const chatId = currentChat.chatId;
+    const messagesRef = collection(db, 'chats', chatId, 'messages');
+    await setDoc(doc(collection(db, 'chats'), chatId), {
+      members: [user.uid, currentChat.uid],
+      lastMessage: text,
+      lastMessageAt: serverTimestamp()
+    }, { merge: true });
+
+    await setDoc(doc(messagesRef), {
+      fromUid: user.uid,
+      text,
+      attachments: [],
+      createdAt: serverTimestamp()
+    });
+
+    window.addNotification(`Новое сообщение в чате с ${currentChat.name}`, 'chat-send');
+  }
+
+  chatSendBtn.addEventListener('click', sendChatMessage);
+  chatInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      sendChatMessage();
+    }
+  });
+
+  // --- Реакция на смену auth (добавляем сюда подписки) ---
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"; /* [web:496][web:505] */
+
+  onAuthStateChanged(auth, async (user) => {
+    cleanupListenersLocal();
+
+    if (!user) {
+      chatCurrentName.textContent = 'Выбери собеседника слева';
+      chatCurrentStatus.textContent = '';
+      chatInput.disabled = true;
+      chatSendBtn.disabled = true;
+      chatMessagesDiv.innerHTML = '';
+      return;
+    }
+
+    // Четверть realtime
+    await attachQuarterListener(user.uid, window.currentQuarter || 1);
+
+    // Рейтинг realtime
+    attachRatingListener();
+
+    // Чаты
+    renderChatDialogs();
+  });
+</script>
+
 </body>
 </html>
+
