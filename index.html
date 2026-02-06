@@ -782,11 +782,11 @@
       color: #111827;
     }
 
-    /* TGK баннер снизу */
-    .tgk-banner {
+    /* Реклама Discord TGK снизу слева */
+    .tgk-discord-banner {
       position: fixed;
       bottom: 16px;
-      right: 16px;
+      left: 16px;
       max-width: 320px;
       background: radial-gradient(circle at top left, rgba(59,130,246,0.25), rgba(15,23,42,0.98));
       border-radius: 18px;
@@ -799,8 +799,10 @@
       z-index: 50;
       color: #e5e7eb;
       backdrop-filter: blur(18px);
+      cursor: pointer;
     }
-    .tgk-banner-avatar {
+
+    .tgk-discord-avatar {
       width: 40px;
       height: 40px;
       border-radius: 999px;
@@ -808,27 +810,32 @@
       border: 2px solid rgba(34,197,94,0.85);
       flex-shrink: 0;
     }
-    .tgk-banner-avatar img {
+
+    .tgk-discord-avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-    .tgk-banner-body {
+
+    .tgk-discord-body {
       flex: 1;
       font-size: 12px;
     }
-    .tgk-banner-title {
+
+    .tgk-discord-title {
       font-weight: 600;
       margin-bottom: 2px;
       font-size: 13px;
     }
-    .tgk-banner-footer {
+
+    .tgk-discord-footer {
       display: flex;
       align-items: center;
       gap: 6px;
       margin-top: 6px;
     }
-    .tgk-banner-pill {
+
+    .tgk-discord-pill {
       font-size: 11px;
       padding: 2px 7px;
       border-radius: 999px;
@@ -836,7 +843,8 @@
       border: 1px solid rgba(148,163,184,0.7);
       color: #e5e7eb;
     }
-    .tgk-banner-go {
+
+    .tgk-discord-go {
       font-size: 12px;
       padding: 4px 9px;
       border-radius: 999px;
@@ -846,7 +854,8 @@
       font-weight: 600;
       cursor: pointer;
     }
-    .tgk-banner-close {
+
+    .tgk-discord-close {
       width: 22px;
       height: 22px;
       border-radius: 999px;
@@ -857,17 +866,18 @@
       font-size: 14px;
       flex-shrink: 0;
     }
-    :root[data-theme="light"] .tgk-banner {
+
+    :root[data-theme="light"] .tgk-discord-banner {
       background: radial-gradient(circle at top left, #e0f2fe, #eef2ff);
       border-color: #bfdbfe;
       color: #0f172a;
     }
-    :root[data-theme="light"] .tgk-banner-pill {
+    :root[data-theme="light"] .tgk-discord-pill {
       background:#ffffff;
       border-color:#cbd5f5;
       color:#0f172a;
     }
-    :root[data-theme="light"] .tgk-banner-close {
+    :root[data-theme="light"] .tgk-discord-close {
       background:#ffffff;
       border-color:#e5e7eb;
       color:#111827;
@@ -1220,20 +1230,20 @@
     </div>
   </div>
 
-  <!-- TGK баннер снизу -->
-  <div id="tgk-banner" class="tgk-banner">
-    <div class="tgk-banner-avatar">
+  <!-- Реклама Discord TGK снизу слева -->
+  <div id="tgk-discord-banner" class="tgk-discord-banner">
+    <div class="tgk-discord-avatar">
       <img src="teacher.jpg" alt="tgk">
     </div>
-    <div class="tgk-banner-body">
-      <div class="tgk-banner-title">TGK Premium</div>
-      <div>Убери рекламу и получи ещё больше фишек дневника.</div>
-      <div class="tgk-banner-footer">
-        <span class="tgk-banner-pill">Всего 99₽ в месяц</span>
-        <button class="tgk-banner-go" id="tgk-go-btn">Оформить</button>
+    <div class="tgk-discord-body">
+      <div class="tgk-discord-title">TGK Discord</div>
+      <div>Лучший и ламповый сервер для общения, игр и учебы. Залетай, пока есть места!</div>
+      <div class="tgk-discord-footer">
+        <span class="tgk-discord-pill">24/7 актив</span>
+        <button class="tgk-discord-go" id="tgk-discord-go-btn">Зайти в Discord</button>
       </div>
     </div>
-    <button class="tgk-banner-close" id="tgk-close-btn">✕</button>
+    <button class="tgk-discord-close" id="tgk-discord-close-btn">✕</button>
   </div>
 
   <!-- Основной JS + Firebase Auth + Firestore -->
@@ -1469,29 +1479,40 @@
       });
     }
 
-    /* ===== TGK баннер логика (снизу) ===== */
-    const TGK_KEY = 'venik-tgk-closed';
-    const tgkBanner = document.getElementById('tgk-banner');
-    const tgkGoBtn = document.getElementById('tgk-go-btn');
-    const tgkCloseBtn = document.getElementById('tgk-close-btn');
+    /* ===== Реклама TGK Discord снизу слева ===== */
+    const TGK_DISCORD_KEY = 'venik-tgk-discord-closed';
+    const tgkDiscordBanner = document.getElementById('tgk-discord-banner');
+    const tgkDiscordGoBtn = document.getElementById('tgk-discord-go-btn');
+    const tgkDiscordCloseBtn = document.getElementById('tgk-discord-close-btn');
 
-    function loadTgkBannerState() {
-      const closed = localStorage.getItem(TGK_KEY) === '1';
-      if (closed) tgkBanner.classList.add('hidden');
-    }
-    function closeTgkBanner(permanent) {
-      tgkBanner.classList.add('hidden');
-      if (permanent) {
-        localStorage.setItem(TGK_KEY, '1');
+    function loadTgkDiscordState() {
+      const closed = localStorage.getItem(TGK_DISCORD_KEY) === '1';
+      if (closed && tgkDiscordBanner) {
+        tgkDiscordBanner.classList.add('hidden');
       }
     }
-    tgkGoBtn.addEventListener('click', () => {
-      addNotification('TGK Premium пока в разработке, но скоро будет!', 'tgk-go');
-      closeTgkBanner(true);
-    });
-    tgkCloseBtn.addEventListener('click', () => {
-      closeTgkBanner(true);
-    });
+
+    function closeTgkDiscord(permanent) {
+      if (!tgkDiscordBanner) return;
+      tgkDiscordBanner.classList.add('hidden');
+      if (permanent) {
+        localStorage.setItem(TGK_DISCORD_KEY, '1');
+      }
+    }
+
+    if (tgkDiscordGoBtn) {
+      tgkDiscordGoBtn.addEventListener('click', () => {
+        window.open('https://discord.gg/UQ8qFC6s', '_blank');
+        addNotification('Открылся Discord TGK — лучший и ламповый сервер.', 'tgk-discord');
+      });
+    }
+
+    if (tgkDiscordCloseBtn) {
+      tgkDiscordCloseBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeTgkDiscord(true);
+      });
+    }
 
     /* ===== Профиль ===== */
     const PROFILE_KEY = 'venik-profile';
@@ -2033,258 +2054,4 @@
         const line2 = document.createElement('div');
         line2.className = 'lesson-type';
         line2.textContent = `${lesson.time}${lesson.room ? ' · ' + lesson.room : ''}`;
-        main.appendChild(line1);
-        main.appendChild(line2);
-
-        card.appendChild(avatar);
-        card.appendChild(main);
-        block.appendChild(card);
-      });
-
-      scheduleContainer.appendChild(block);
-    }
-
-    /* ===== Домашка: чекбоксы + фильтр + Firestore ===== */
-    const TASKS_DONE_KEY = 'venik-tasks-done';
-    let tasksDone = {};
-
-    async function loadTasksDone() {
-      const raw = localStorage.getItem(TASKS_DONE_KEY);
-      tasksDone = raw ? JSON.parse(raw) : {};
-      if (currentUser) {
-        const data = await loadUserQuarterDoc(currentUser.uid, currentQuarter);
-        tasksDone = data.tasksDone || tasksDone;
-      }
-    }
-    async function saveTasksDone() {
-      localStorage.setItem(TASKS_DONE_KEY, JSON.stringify(tasksDone));
-      if (!currentUser) return;
-      await saveUserQuarterDoc(currentUser.uid, currentQuarter);
-    }
-
-    const tasksDayTabs = document.getElementById('tasks-day-tabs');
-    const tasksContainer = document.getElementById('tasks-container');
-    const tasksFilterSelect = document.getElementById('tasks-filter-select');
-    let currentTasksDay = dayKeys[0];
-    let currentTasksFilter = 'all';
-
-    tasksFilterSelect.addEventListener('change', () => {
-      currentTasksFilter = tasksFilterSelect.value;
-      renderTasksForDay(currentTasksDay);
-    });
-
-    function renderTasksTabs() {
-      tasksDayTabs.innerHTML = '';
-      dayKeys.forEach(dayName => {
-        const btn = document.createElement('button');
-        btn.className = 'day-tab' + (dayName === currentTasksDay ? ' active' : '');
-        btn.textContent = dayName;
-        btn.addEventListener('click', () => {
-          currentTasksDay = dayName;
-          renderTasksForDay(currentTasksDay);
-        });
-        tasksDayTabs.appendChild(btn);
-      });
-    }
-
-    function shouldShowTask(lessonId) {
-      const done = !!tasksDone[lessonId];
-      if (currentTasksFilter === 'done') return done;
-      if (currentTasksFilter === 'todo') return !done;
-      return true;
-    }
-
-    function renderTasksForDay(dayName) {
-      renderTasksTabs();
-      tasksContainer.innerHTML = '';
-      const block = document.createElement('div');
-      block.className = 'day-block';
-      const title = document.createElement('div');
-      title.className = 'day-title';
-      title.innerHTML = `<span class="day-icon">${dayName}</span>${dayName} домашка`;
-      block.appendChild(title);
-
-      SCHEDULE[dayName].forEach(lesson => {
-        if (!shouldShowTask(lesson.id)) return;
-
-        const row = document.createElement('div');
-        row.className = 'task-row';
-        row.dataset.id = lesson.id;
-
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.checked = !!tasksDone[lesson.id];
-
-        const content = document.createElement('div');
-        const line1 = document.createElement('div');
-        line1.textContent = `${lesson.subject} — ДЗ: ${getRandomHomework(lesson.subject)}`;
-        const line2 = document.createElement('div');
-        line2.className = 'task-meta';
-        line2.textContent = `${lesson.num} урок · ${lesson.time}${lesson.room ? ' · ' + lesson.room : ''}`;
-
-        content.appendChild(line1);
-        content.appendChild(line2);
-
-        if (checkbox.checked) row.classList.add('done');
-
-        checkbox.addEventListener('change', async () => {
-          tasksDone[lesson.id] = checkbox.checked;
-          await saveTasksDone();
-          if (checkbox.checked) {
-            row.classList.add('done');
-            addNotification(`Отмечено выполненное ДЗ по предмету ${lesson.subject}`, 'hw-done');
-          } else {
-            row.classList.remove('done');
-            addNotification(`Снят статус выполнения ДЗ по предмету ${lesson.subject}`, 'hw-undo');
-          }
-        });
-
-        row.appendChild(checkbox);
-        row.appendChild(content);
-        block.appendChild(row);
-      });
-
-      tasksContainer.appendChild(block);
-    }
-
-    /* ===== Рейтинг ===== */
-    const ratingTableBody = document.getElementById('rating-table-body');
-    const ratingRefreshBtn = document.getElementById('rating-refresh-btn');
-    const CLASSMATES = [
-      'Матвей Иванов','Денис Чернобай','Матвей Козлов',
-      'Камилла Зайнудинова','Леонид Синанни','Екатерина Новикова(Посмертно)',
-      'Тимофей Морозов','Полина Кекки','Артём Сухов','Алексей Бибиков',
-      'Тихонов Тихон','Кирилл Ефанов','Ксения Тонконогова','Артём Кухарев',
-      'Артём Васильев','Герыч','Ларин Максим','Слугин Гордей','Муханов Глеб',
-      'Арсений Борисов','Рита Баронкина','Анастасия Трохона','Ярослав Сулимов',
-      'Любовь Мхчян','Анастасия Понасуткина','Любовь Данилова','Савелий Ходыкин','Климентий'
-    ];
-    function generateRandomMark() { return (3 + Math.random() * 2).toFixed(2); }
-    function buildRatingData() {
-      const myAvg = getMyAverage();
-      const myName = profile.name || 'Ты';
-      const list = CLASSMATES.map(name => ({ name, avg: Number(generateRandomMark()) }));
-      list.push({ name: myName + ' (ты)', avg: Number(myAvg.toFixed(2)) });
-      list.sort((a, b) => b.avg - a.avg);
-      return list;
-    }
-    function renderRating() {
-      const data = buildRatingData();
-      ratingTableBody.innerHTML = '';
-      data.forEach((item, index) => {
-        const tr = document.createElement('tr');
-        const isMe = item.name.includes('(ты)');
-        tr.innerHTML = `
-          <td>${index + 1}</td>
-          <td>${item.name}</td>
-          <td>${item.avg.toFixed(2)}</td>
-        `;
-        if (isMe) {
-          tr.style.fontWeight = '600';
-          tr.style.background = 'rgba(30, 64, 175, 0.4)';
-        }
-        ratingTableBody.appendChild(tr);
-      });
-      saveRatingHistoryEntry(data);
-    }
-    ratingRefreshBtn.addEventListener('click', () => {
-      renderRating();
-      addNotification('Рейтинг класса обновлён', 'rating');
-    });
-
-    /* ===== История рейтинга ===== */
-    const RATING_HISTORY_KEY = 'venik-rating-history';
-    const ratingHistoryDiv = document.getElementById('rating-history');
-    function loadRatingHistory() {
-      const raw = localStorage.getItem(RATING_HISTORY_KEY);
-      return raw ? JSON.parse(raw) : [];
-    }
-    function saveRatingHistory(history) {
-      localStorage.setItem(RATING_HISTORY_KEY, JSON.stringify(history));
-    }
-    function getTodayKey() {
-      const d = new Date();
-      return d.toISOString().slice(0, 10);
-    }
-    function saveRatingHistoryEntry(latestData) {
-      const data = latestData || buildRatingData();
-      const myName = (profile.name || 'Ты') + ' (ты)';
-      const myPos = data.findIndex(x => x.name === myName) + 1;
-      const myAvg = getMyAverage().toFixed(2);
-      const history = loadRatingHistory();
-      const today = getTodayKey();
-      const key = `${today}-q${currentQuarter}-w${currentWeek}`;
-      const existing = history.find(h => h.key === key);
-      if (existing) {
-        existing.position = myPos;
-        existing.avg = myAvg;
-      } else {
-        history.push({ key, date: today, quarter: currentQuarter, week: currentWeek, position: myPos, avg: myAvg });
-      }
-      saveRatingHistory(history);
-      if (currentUser) {
-        saveUserQuarterDoc(currentUser.uid, currentQuarter);
-      }
-    }
-    function renderRatingHistory() {
-      const history = loadRatingHistory().filter(h => h.quarter === currentQuarter && h.week === currentWeek);
-      ratingHistoryDiv.innerHTML = '<h4 style="margin-bottom:4px;">История рейтинга (эта четверть и неделя)</h4>';
-      if (!history.length) {
-        ratingHistoryDiv.innerHTML += '<p>История пока пустая.</p>';
-        return;
-      }
-      const list = document.createElement('ul');
-      history.sort((a, b) => a.date.localeCompare(b.date)).forEach(h => {
-        const li = document.createElement('li');
-        li.textContent = `${h.date}: место ${h.position}, ср. балл ${h.avg}`;
-        list.appendChild(li);
-      });
-      ratingHistoryDiv.appendChild(list);
-    }
-
-    /* ===== Auth state → Firestore, почта в профиле ===== */
-    onAuthStateChanged(auth, async (user) => {
-      currentUser = user || null;
-
-      if (user) {
-        authPanel.classList.add('hidden');
-        appRoot.classList.remove('hidden');
-
-        if (profileEmailInfo) {
-          profileEmailInfo.textContent = user.email || 'без почты';
-        }
-
-        await loadProfile();
-        applyProfileToUI();
-        await loadTasksDone();
-        await loadGrades();
-        renderAllByDate();
-        renderSubjectsTable();
-        renderSubjectList();
-        renderSchedule();
-        renderTasksForDay(currentTasksDay);
-        renderRating();
-        renderRatingHistory();
-        addNotification('Данные подгружены из облака', 'cloud-load');
-      } else {
-        appRoot.classList.add('hidden');
-        authPanel.classList.remove('hidden');
-
-        if (profileEmailInfo) {
-          profileEmailInfo.textContent = '—';
-        }
-      }
-    });
-
-    /* ===== Инициализация ===== */
-    loadTheme();
-    loadNotifications();
-    loadTgkBannerState();
-    loadTopAdState();
-    switchQuarter(1);
-    renderSchedule();
-    renderTasksForDay(currentTasksDay);
-    showPage('grades');
-  </script>
-</body>
-</html>
+        main
