@@ -1,9 +1,10 @@
-<!docty<!doctype html>
+<!doctype html>
 <html lang="ru">
 <head>
   <meta charset="utf-8">
   <title>Дневник Веника</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- стили те же, что и раньше -->
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1058,9 +1059,8 @@
     </div>
   </div>
 
-  <!-- Основной JS + Firebase Auth -->
+  <!-- Основной JS + Firebase Auth + Firestore -->
   <script type="module">
-    /* ===== Firebase Auth ===== */
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import {
       getAuth,
@@ -1068,7 +1068,13 @@
       createUserWithEmailAndPassword,
       signInWithEmailAndPassword,
       signOut
-    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"; /* [web:305][web:311] */
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      setDoc,
+      getDoc
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; /* [web:360][web:358][web:354] */
 
     const firebaseConfig = {
       apiKey: "AIzaSyAFcX2I6lfzmxwEGEpOej-SqiG6-DFWSDc",
@@ -1082,6 +1088,8 @@
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const db = getFirestore(app);
+    let currentUser = null;
 
     const authPanel = document.getElementById('auth-panel');
     const appRoot = document.getElementById('app-root');
@@ -1261,16 +1269,6 @@
       className: '8Б',
       favSubjects: 'Информатика, математика'
     };
-    function loadProfile() {
-      const raw = localStorage.getItem(PROFILE_KEY);
-      if (raw) {
-        try { profile = Object.assign(profile, JSON.parse(raw)); } catch(e){}
-      }
-    }
-    function saveProfile() {
-      localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
-    }
-    loadProfile();
 
     const avatarSmallImg = document.getElementById('avatar-small-img');
     const sidebarAvatarImg = document.getElementById('sidebar-avatar-img');
@@ -1321,15 +1319,30 @@
       classInput.value = profile.className;
       favInput.value = profile.favSubjects;
     }
-    applyProfileToUI();
 
-    profileSaveBtn.addEventListener('click', () => {
+    async function loadProfile() {
+      const raw = localStorage.getItem(PROFILE_KEY);
+      if (raw) {
+        try { profile = Object.assign(profile, JSON.parse(raw)); } catch(e){}
+      }
+      if (currentUser) {
+        const data = await loadUserQuarterDoc(currentUser.uid, currentQuarter);
+        profile = Object.assign(profile, data.profile || {});
+      }
+    }
+    async function saveProfile() {
+      localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+      if (!currentUser) return;
+      await saveUserQuarterDoc(currentUser.uid, currentQuarter);
+    }
+
+    profileSaveBtn.addEventListener('click', async () => {
       profile.avatarUrl = avatarInput.value.trim();
       profile.name = nameInput.value.trim() || 'Без имени';
       profile.city = cityInput.value.trim() || 'Город';
       profile.className = classInput.value.trim() || 'Класс';
       profile.favSubjects = favInput.value.trim() || 'Нет';
-      saveProfile();
+      await saveProfile();
       applyProfileToUI();
       renderAllByDate();
       addNotification('Профиль обновлён', 'profile');
@@ -1393,25 +1406,75 @@
     function storageKeyFor(quarter, week) {
       return `${GRADES_PREFIX}${quarter}-w${week}`;
     }
-    function loadGrades() {
-      const raw = localStorage.getItem(storageKeyFor(currentQuarter, currentWeek));
-      grades = raw ? JSON.parse(raw) : [];
-    }
-    function saveGrades() {
-      localStorage.setItem(storageKeyFor(currentQuarter, currentWeek), JSON.stringify(grades));
+
+    async function loadUserQuarterDoc(uid, quarter) {
+      const ref = doc(db, 'users', uid, 'quarters', 'q' + quarter);
+      const snap = await getDoc(ref);
+      if (!snap.exists()) {
+        return {
+          grades_w1: [],
+          grades_w2: [],
+          grades_w3: [],
+          grades_w4: [],
+          profile,
+          tasksDone,
+          ratingHistory: loadRatingHistory()
+        };
+      }
+      const data = snap.data();
+      return {
+        grades_w1: data.grades_w1 || [],
+        grades_w2: data.grades_w2 || [],
+        grades_w3: data.grades_w3 || [],
+        grades_w4: data.grades_w4 || [],
+        profile: data.profile || profile,
+        tasksDone: data.tasksDone || tasksDone,
+        ratingHistory: data.ratingHistory || []
+      };
     }
 
-    function switchQuarter(q) {
+    async function saveUserQuarterDoc(uid, quarter) {
+      const ref = doc(db, 'users', uid, 'quarters', 'q' + quarter);
+      const payload = {
+        grades_w1: [],
+        grades_w2: [],
+        grades_w3: [],
+        grades_w4: [],
+        profile,
+        tasksDone,
+        ratingHistory: loadRatingHistory()
+      };
+      payload['grades_w' + currentWeek] = grades;
+      await setDoc(ref, payload, { merge: true }); /* [web:354][web:358] */
+    }
+
+    async function loadGrades() {
+      if (!currentUser) {
+        const raw = localStorage.getItem(storageKeyFor(currentQuarter, currentWeek));
+        grades = raw ? JSON.parse(raw) : [];
+        return;
+      }
+      const data = await loadUserQuarterDoc(currentUser.uid, currentQuarter);
+      grades = data['grades_w' + currentWeek] || [];
+    }
+
+    async function saveGrades() {
+      localStorage.setItem(storageKeyFor(currentQuarter, currentWeek), JSON.stringify(grades));
+      if (!currentUser) return;
+      await saveUserQuarterDoc(currentUser.uid, currentQuarter);
+    }
+
+    async function switchQuarter(q) {
       currentQuarter = q;
       quarterBtns.forEach(b => b.classList.toggle('active', Number(b.dataset.quarter) === q));
       currentQuarterLabel.textContent = q + ' четверть';
-      switchWeek(1);
+      await switchWeek(1);
     }
-    function switchWeek(w) {
+    async function switchWeek(w) {
       currentWeek = w;
       weekBtns.forEach(b => b.classList.toggle('active', Number(b.dataset.week) === w));
       currentWeekLabel.textContent = w + ' неделя';
-      loadGrades();
+      await loadGrades();
       renderAllByDate();
       renderSubjectsTable();
       renderSubjectList();
@@ -1471,9 +1534,9 @@
         </div>
         <div class="lesson-more" title="Удалить">✕</div>
       `;
-      card.querySelector('.lesson-more').addEventListener('click', () => {
+      card.querySelector('.lesson-more').addEventListener('click', async () => {
         grades = grades.filter(g => g.id !== grade.id);
-        saveGrades();
+        await saveGrades();
         card.remove();
         renderSubjectsTable();
         renderSubjectList();
@@ -1498,7 +1561,7 @@
     const markInput = document.getElementById('mark-input');
     const addBtn = document.getElementById('add-grade-btn');
 
-    addBtn.addEventListener('click', () => {
+    addBtn.addEventListener('click', async () => {
       const subject = subjectSelect.value;
       const type = typeInput.value.trim();
       const mark = Number(markInput.value) || 0;
@@ -1517,7 +1580,7 @@
         week: currentWeek
       };
       grades.push(newGrade);
-      saveGrades();
+      await saveGrades();
       blockByDay(day).appendChild(createLessonCard(newGrade));
       markInput.value = '';
       typeInput.value = '';
@@ -1748,17 +1811,23 @@
       scheduleContainer.appendChild(block);
     }
 
-    /* ===== Домашка: чекбоксы + фильтр + localStorage ===== */
+    /* ===== Домашка: чекбоксы + фильтр + Firestore ===== */
     const TASKS_DONE_KEY = 'venik-tasks-done';
     let tasksDone = {};
-    function loadTasksDone() {
+
+    async function loadTasksDone() {
       const raw = localStorage.getItem(TASKS_DONE_KEY);
       tasksDone = raw ? JSON.parse(raw) : {};
+      if (currentUser) {
+        const data = await loadUserQuarterDoc(currentUser.uid, currentQuarter);
+        tasksDone = data.tasksDone || tasksDone;
+      }
     }
-    function saveTasksDone() {
+    async function saveTasksDone() {
       localStorage.setItem(TASKS_DONE_KEY, JSON.stringify(tasksDone));
+      if (!currentUser) return;
+      await saveUserQuarterDoc(currentUser.uid, currentQuarter);
     }
-    loadTasksDone();
 
     const tasksDayTabs = document.getElementById('tasks-day-tabs');
     const tasksContainer = document.getElementById('tasks-container');
@@ -1825,9 +1894,9 @@
 
         if (checkbox.checked) row.classList.add('done');
 
-        checkbox.addEventListener('change', () => {
+        checkbox.addEventListener('change', async () => {
           tasksDone[lesson.id] = checkbox.checked;
-          saveTasksDone();
+          await saveTasksDone();
           if (checkbox.checked) {
             row.classList.add('done');
             addNotification(`Отмечено выполненное ДЗ по предмету ${lesson.subject}`, 'hw-done');
@@ -1920,6 +1989,9 @@
         history.push({ key, date: today, quarter: currentQuarter, week: currentWeek, position: myPos, avg: myAvg });
       }
       saveRatingHistory(history);
+      if (currentUser) {
+        saveUserQuarterDoc(currentUser.uid, currentQuarter);
+      }
     }
     function renderRatingHistory() {
       const history = loadRatingHistory().filter(h => h.quarter === currentQuarter && h.week === currentWeek);
@@ -1937,8 +2009,10 @@
       ratingHistoryDiv.appendChild(list);
     }
 
-    /* ===== Auth state → показать/скрыть сайт + почта в профиле ===== */
-    onAuthStateChanged(auth, (user) => {
+    /* ===== Auth state → Firestore, почта в профиле ===== */
+    onAuthStateChanged(auth, async (user) => {
+      currentUser = user || null;
+
       if (user) {
         authPanel.classList.add('hidden');
         appRoot.classList.remove('hidden');
@@ -1946,6 +2020,19 @@
         if (profileEmailInfo) {
           profileEmailInfo.textContent = user.email || 'без почты';
         }
+
+        await loadProfile();
+        applyProfileToUI();
+        await loadTasksDone();
+        await loadGrades();
+        renderAllByDate();
+        renderSubjectsTable();
+        renderSubjectList();
+        renderSchedule();
+        renderTasksForDay(currentTasksDay);
+        renderRating();
+        renderRatingHistory();
+        addNotification('Данные подгружены из облака', 'cloud-load');
       } else {
         appRoot.classList.add('hidden');
         authPanel.classList.remove('hidden');
@@ -1966,4 +2053,3 @@
   </script>
 </body>
 </html>
-
