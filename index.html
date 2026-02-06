@@ -1085,8 +1085,9 @@
       query,
       orderBy,
       limit,
-      deleteDoc
-    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; /* [web:428][web:432] */
+      deleteDoc,
+      collectionGroup
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; /* [web:444][web:446] */
 
     const firebaseConfig = {
       apiKey: "AIzaSyAFcX2I6lfzmxwEGEpOej-SqiG6-DFWSDc",
@@ -1328,6 +1329,55 @@
       favInput.value = profile.favSubjects;
     }
 
+    async function loadUserQuarterDoc(uid, quarter) {
+      const ref = doc(db, 'users', uid, 'quarters', 'q' + quarter);
+      const snap = await getDoc(ref);
+      if (!snap.exists()) {
+        return {
+          grades_w1: [],
+          grades_w2: [],
+          grades_w3: [],
+          grades_w4: [],
+          profile,
+          tasksDone,
+          ratingHistory: loadRatingHistory(),
+          avgByWeek: {}
+        };
+      }
+      const data = snap.data();
+      return {
+        grades_w1: data.grades_w1 || [],
+        grades_w2: data.grades_w2 || [],
+        grades_w3: data.grades_w3 || [],
+        grades_w4: data.grades_w4 || [],
+        profile: data.profile || profile,
+        tasksDone: data.tasksDone || tasksDone,
+        ratingHistory: data.ratingHistory || [],
+        avgByWeek: data.avgByWeek || {}
+      };
+    }
+
+    async function saveUserQuarterDoc(uid, quarter) {
+      const ref = doc(db, 'users', uid, 'quarters', 'q' + quarter);
+
+      const avgThisWeek = getMyAverage();
+      const payload = {
+        grades_w1: [],
+        grades_w2: [],
+        grades_w3: [],
+        grades_w4: [],
+        profile,
+        tasksDone,
+        ratingHistory: loadRatingHistory(),
+        avgByWeek: {
+          [currentWeek]: avgThisWeek || 0
+        }
+      };
+      payload['grades_w' + currentWeek] = grades;
+
+      await setDoc(ref, payload, { merge: true });
+    }
+
     async function loadProfile() {
       const raw = localStorage.getItem(PROFILE_KEY);
       if (raw) {
@@ -1413,47 +1463,6 @@
       return `${GRADES_PREFIX}${quarter}-w${week}`;
     }
 
-    async function loadUserQuarterDoc(uid, quarter) {
-      const ref = doc(db, 'users', uid, 'quarters', 'q' + quarter);
-      const snap = await getDoc(ref);
-      if (!snap.exists()) {
-        return {
-          grades_w1: [],
-          grades_w2: [],
-          grades_w3: [],
-          grades_w4: [],
-          profile,
-          tasksDone,
-          ratingHistory: loadRatingHistory()
-        };
-      }
-      const data = snap.data();
-      return {
-        grades_w1: data.grades_w1 || [],
-        grades_w2: data.grades_w2 || [],
-        grades_w3: data.grades_w3 || [],
-        grades_w4: data.grades_w4 || [],
-        profile: data.profile || profile,
-        tasksDone: data.tasksDone || tasksDone,
-        ratingHistory: data.ratingHistory || []
-      };
-    }
-
-    async function saveUserQuarterDoc(uid, quarter) {
-      const ref = doc(db, 'users', uid, 'quarters', 'q' + quarter);
-      const payload = {
-        grades_w1: [],
-        grades_w2: [],
-        grades_w3: [],
-        grades_w4: [],
-        profile,
-        tasksDone,
-        ratingHistory: loadRatingHistory()
-      };
-      payload['grades_w' + currentWeek] = grades;
-      await setDoc(ref, payload, { merge: true });
-    }
-
     async function loadGrades() {
       if (!currentUser) {
         const raw = localStorage.getItem(storageKeyFor(currentQuarter, currentWeek));
@@ -1484,7 +1493,7 @@
       renderAllByDate();
       renderSubjectsTable();
       renderSubjectList();
-      renderRating();
+      await renderRating();
       renderRatingHistory();
     }
     quarterBtns.forEach(btn => btn.addEventListener('click', () => switchQuarter(Number(btn.dataset.quarter))));
@@ -1544,7 +1553,7 @@
         card.remove();
         renderSubjectsTable();
         renderSubjectList();
-        renderRating();
+        await renderRating();
         saveRatingHistoryEntry();
         addNotification(`Удалена оценка ${grade.mark} по предмету ${grade.subject}`, 'grade-delete');
       });
@@ -1589,7 +1598,7 @@
       typeInput.value = '';
       renderSubjectsTable();
       renderSubjectList();
-      renderRating();
+      await renderRating();
       saveRatingHistoryEntry();
       addNotification(`Добавлена оценка ${newGrade.mark} по предмету ${newGrade.subject}`, 'grade-add');
     });
@@ -1925,16 +1934,56 @@
       'Любовь Мхчян','Анастасия Понасуткина','Любовь Данилова','Савелий Ходыкин','Климентий'
     ];
     function generateRandomMark() { return (3 + Math.random() * 2).toFixed(2); }
-    function buildRatingData() {
+
+    async function getAllUsersAverages() {
+      const result = [];
+      try {
+        const cg = collectionGroup(db, 'quarters');
+        const qSnap = await getDocs(cg); /* упрощённый запрос ко всем четвертям [web:444][web:446] */
+
+        qSnap.forEach(docSnap => {
+          const data = docSnap.data();
+          const avgByWeek = data.avgByWeek || {};
+          const avg = Number(avgByWeek[currentWeek] || 0);
+          if (!avg || avg <= 0) return;
+
+          const prof = data.profile || {};
+          const name = prof.name || 'Ученик';
+
+          result.push({ name, avg });
+        });
+      } catch (e) {
+        console.error('getAllUsersAverages error', e);
+      }
+      return result;
+    }
+
+    async function buildRatingData() {
       const myAvg = getMyAverage();
       const myName = profile.name || 'Ты';
-      const list = CLASSMATES.map(name => ({ name, avg: Number(generateRandomMark()) }));
-      list.push({ name: myName + ' (ты)', avg: Number(myAvg.toFixed(2)) });
-      list.sort((a, b) => b.avg - a.avg);
-      return list;
+
+      const fromCloud = await getAllUsersAverages();
+      const classmatesMock = CLASSMATES.map(name => ({
+        name,
+        avg: Number(generateRandomMark())
+      }));
+
+      const all = [...fromCloud, ...classmatesMock];
+
+      const meIndex = all.findIndex(x => x.name === myName);
+      if (meIndex >= 0) {
+        all[meIndex].name = myName + ' (ты)';
+        all[meIndex].avg = Number(myAvg.toFixed(2));
+      } else {
+        all.push({ name: myName + ' (ты)', avg: Number(myAvg.toFixed(2)) });
+      }
+
+      all.sort((a, b) => b.avg - a.avg);
+      return all;
     }
-    function renderRating() {
-      const data = buildRatingData();
+
+    async function renderRating() {
+      const data = await buildRatingData();
       ratingTableBody.innerHTML = '';
       data.forEach((item, index) => {
         const tr = document.createElement('tr');
@@ -1952,8 +2001,9 @@
       });
       saveRatingHistoryEntry(data);
     }
-    ratingRefreshBtn.addEventListener('click', () => {
-      renderRating();
+
+    ratingRefreshBtn.addEventListener('click', async () => {
+      await renderRating();
       addNotification('Рейтинг класса обновлён', 'rating');
     });
 
@@ -1971,7 +2021,7 @@
       return d.toISOString().slice(0, 10);
     }
     function saveRatingHistoryEntry(latestData) {
-      const data = latestData || buildRatingData();
+      const data = latestData || [];
       const myName = (profile.name || 'Ты') + ' (ты)';
       const myPos = data.findIndex(x => x.name === myName) + 1;
       const myAvg = getMyAverage().toFixed(2);
@@ -2009,7 +2059,7 @@
     async function logVisit(user) {
       try {
         const today = new Date();
-        const dayKey = today.toISOString().slice(0, 10); // YYYY-MM-DD
+        const dayKey = today.toISOString().slice(0, 10);
         const uid = user ? user.uid : 'anon';
         const docId = `${uid}-${dayKey}`;
         const ref = doc(collection(db, 'visits'), docId);
@@ -2140,7 +2190,7 @@
         renderSubjectList();
         renderSchedule();
         renderTasksForDay(currentTasksDay);
-        renderRating();
+        await renderRating();
         renderRatingHistory();
         addNotification('Данные подгружены из облака', 'cloud-load');
 
