@@ -844,6 +844,19 @@
       background:#ffffff;
       border-color:#4f46e5;
     }
+  .tgk-banner {
+    max-width: 1200px;
+    margin: 10px auto 0;
+    border-radius: 14px;
+    background: radial-gradient(circle at top left,
+      rgba(56, 189, 248, 0.08),
+      rgba(15, 23, 42, 0.96));
+    border: 1px solid rgba(56, 189, 248, 0.6);
+  }
+  :root[data-theme="light"] .tgk-banner {
+    background: #e0f2fe;
+    border-color: #38bdf8;
+  }
 
     @media (max-width: 900px) {
       .layout { flex-direction: column; }
@@ -864,15 +877,30 @@
 </head>
 <body>
 
-  <!-- верхний рекламный баннер -->
-  <div id="top-banner" class="hidden">
-    <div id="top-banner-inner">
-      <div>
-        <strong>Реклама:</strong> подпишись на крутой Telegram/Discord, чтобы не пропускать дз и подсказки.
+  <!-- Один баннер TGK -->
+  <div id="tgk-banner" class="panel tgk-banner hidden">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+      <div style="display:flex;flex-direction:column;gap:4px;">
+        <div style="font-size:13px;font-weight:600;">TGK • Discord сервер</div>
+        <div style="font-size:12px;color:var(--text-muted);">
+          Залетай на сервер: мемы, общение и гейминг. Нормальное комьюнити, без шизы.
+        </div>
       </div>
-      <div id="top-banner-buttons">
-        <button id="top-banner-go-btn" class="top-banner-btn primary">Перейти</button>
-        <button id="top-banner-skip-btn" class="top-banner-btn secondary">Закрыть</button>
+
+      <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+        <a href="https://discord.gg/UQ8qFC6s"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="btn"
+           style="text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
+          <span>Войти в TGK</span>
+        </a>
+
+        <button id="tgk-banner-close"
+                class="btn secondary"
+                style="padding-inline:9px;">
+          ✕
+        </button>
       </div>
     </div>
   </div>
@@ -1227,6 +1255,25 @@
   setDoc,
   getDoc
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    /* ===== TGK баннер (одна реклама) ===== */
+    const TGK_KEY = 'tgk-banner-closed';
+    const tgkBanner = document.getElementById('tgk-banner');
+    const tgkBannerClose = document.getElementById('tgk-banner-close');
+
+    function initTgkBanner() {
+      const closed = localStorage.getItem(TGK_KEY);
+      if (closed === '1') {
+        tgkBanner.classList.add('hidden');
+      } else {
+        tgkBanner.classList.remove('hidden');
+      }
+    }
+
+    tgkBannerClose.addEventListener('click', () => {
+      tgkBanner.classList.add('hidden');
+      localStorage.setItem(TGK_KEY, '1');
+    });
+
 
     const firebaseConfig = {
       apiKey: "AIzaSyAFcX2I6lfzmxwEGEpOej-SqiG6-DFWSDc",
