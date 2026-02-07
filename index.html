@@ -1639,15 +1639,6 @@
     ratingHistoryDiv.textContent = 'История рейтинга пока пуста.';
     return;
   }
-(function fixOldRatingHistory(){
-  const raw = localStorage.getItem('venik-rating-history');
-  if (!raw) return;
-  try {
-    const arr = JSON.parse(raw);
-    const cleaned = arr.filter(h => typeof h.avg === 'number' && !isNaN(h.avg));
-    localStorage.setItem('venik-rating-history', JSON.stringify(cleaned));
-  } catch(e){}
-})();
 
 
   const last = cleaned.slice(-5);
