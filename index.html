@@ -342,518 +342,8 @@
 
     h2 { margin: 0 0 8px; font-size: 18px; }
 
-    /* JOURNAL */
-
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 16px;
-      align-items: center;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .controls button {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.95);
-      color: var(--text-main);
-      padding: 5px 10px;
-      font-size: 12px;
-      cursor: pointer;
-      margin-left: 2px;
-    }
-
-    .controls button.active {
-      background: rgba(56, 189, 248, 0.12);
-      border-color: rgba(56, 189, 248, 0.9);
-      color: #e5faff;
-    }
-
-    .add-grade {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 6px;
-      padding: 7px;
-      border-radius: 18px;
-      border: 1px dashed rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.9);
-    }
-
-    .add-grade select,
-    .add-grade input {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.65);
-      background: rgba(15, 23, 42, 0.96);
-      color: var(--text-main);
-      font-size: 13px;
-      padding: 5px 9px;
-      outline: none;
-    }
-
-    .add-grade select:focus,
-    .add-grade input:focus {
-      border-color: rgba(56, 189, 248, 0.9);
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.3);
-    }
-
-    .week-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
-      gap: 10px;
-      margin-top: 6px;
-    }
-
-    .day-block {
-      border-radius: 16px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.96);
-      padding: 6px;
-      min-height: 70px;
-    }
-
-    .day-block h3 {
-      margin: 0 0 4px;
-      font-size: 13px;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .lesson-card {
-      display: flex;
-      align-items: flex-start;
-      gap: 7px;
-      padding: 6px;
-      margin-bottom: 4px;
-      border-radius: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.98);
-    }
-
-    .lesson-teacher img {
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      border: 1px solid rgba(56, 189, 248, 0.7);
-      object-fit: cover;
-    }
-
-    .lesson-main { flex: 1; }
-
-    .lesson-subject {
-      display: flex;
-      justify-content: space-between;
-      gap: 6px;
-      font-size: 13px;
-    }
-
-    .lesson-type {
-      font-size: 12px;
-      color: var(--text-soft);
-      margin-top: 2px;
-    }
-
-    .lesson-more {
-      font-size: 16px;
-      color: var(--text-soft);
-      cursor: pointer;
-      padding: 0 4px;
-    }
-
-    .badge {
-      border-radius: 999px;
-      padding: 1px 7px;
-      font-size: 10px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      white-space: nowrap;
-    }
-
-    .badge-math { border-color:#eab308; color:#eab308; background:rgba(234,179,8,.12); }
-    .badge-ru   { border-color:#f97316; color:#f97316; background:rgba(249,115,22,.12); }
-    .badge-eng  { border-color:#22c55e; color:#22c55e; background:rgba(34,197,94,.12); }
-    .badge-it   { border-color:#38bdf8; color:#38bdf8; background:rgba(56,189,248,.12); }
-    .badge-sci  { border-color:#a855f7; color:#a855f7; background:rgba(168,85,247,.12); }
-    .badge-geo  { border-color:#22c55e; color:#22c55e; background:rgba(34,197,94,.12); }
-    .badge-hist { border-color:#f97316; color:#f97316; background:rgba(249,115,22,.12); }
-    .badge-pe   { border-color:#facc15; color:#facc15; background:rgba(250,204,21,.12); }
-    .badge-other{ border-color:#6b7280; color:#9ca3af; background:rgba(148,163,184,.14); }
-
-    .subjects-summary table,
-    #page-rating table,
-    #page-admin table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 6px;
-      font-size: 13px;
-    }
-
-    table thead { background: rgba(15, 23, 42, 0.98); }
-
-    table th, table td {
-      border: 1px solid rgba(148, 163, 184, 0.65);
-      padding: 5px 6px;
-      text-align: left;
-    }
-
-    table th {
-      font-weight: 500;
-      color: var(--text-muted);
-      font-size: 12px;
-    }
-
-    #subject-list {
-      margin-top: 6px;
-      font-size: 12px;
-      color: var(--text-soft);
-    }
-
-    /* SCHEDULE / TASKS */
-
-    .tabs-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 6px;
-    }
-
-    .day-tab {
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.96);
-      color: var(--text-main);
-      font-size: 12px;
-      cursor: pointer;
-    }
-
-    .day-tab.active {
-      background: rgba(56, 189, 248, 0.15);
-      border-color: rgba(56, 189, 248, 0.9);
-      color: #e5faff;
-    }
-
-    .day-title {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
-      margin-bottom: 6px;
-      color: var(--text-muted);
-    }
-
-    .day-icon {
-      width: 22px;
-      height: 22px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-    }
-
-    .tasks-controls {
-      font-size: 13px;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-
-    .tasks-controls select {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.95);
-      color: var(--text-main);
-      font-size: 12px;
-      padding: 3px 8px;
-      margin-left: 4px;
-    }
-
-    .task-row {
-      display: flex;
-      gap: 6px;
-      align-items: flex-start;
-      padding: 5px 6px;
-      border-radius: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.98);
-      margin-bottom: 4px;
-      font-size: 12px;
-    }
-
-    .task-row input[type="checkbox"] { margin-top: 3px; }
-
-    .task-row.done {
-      background: var(--success-soft);
-      border-color: var(--success);
-    }
-
-    .task-meta {
-      margin-top: 2px;
-      color: var(--text-soft);
-      font-size: 11px;
-    }
-
-    /* CHAT */
-
-    .chat-layout {
-      display: grid;
-      grid-template-columns: 260px minmax(0, 1fr);
-      gap: 10px;
-      height: 100%;
-      min-height: 320px;
-    }
-
-    .chat-sidebar {
-      border-radius: 18px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.98);
-      padding: 8px 7px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .chat-sidebar h3 {
-      margin: 0 0 4px;
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-
-    #chat-dialogs-list {
-      flex: 1;
-      overflow-y: auto;
-      padding-right: 2px;
-    }
-
-    .chat-dialog-item {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      padding: 5px 6px;
-      border-radius: 999px;
-      cursor: pointer;
-      transition: all 0.14s ease-out;
-    }
-
-    .chat-dialog-item:hover {
-      background: rgba(30, 64, 175, 0.25);
-    }
-
-    .chat-dialog-item.active {
-      background: rgba(56, 189, 248, 0.18);
-      border: 1px solid rgba(56, 189, 248, 0.8);
-    }
-
-    .chat-dialog-avatar img {
-      width: 28px;
-      height: 28px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.8);
-      object-fit: cover;
-    }
-
-    .chat-dialog-name { font-size: 13px; }
-
-    .chat-dialog-last {
-      font-size: 11px;
-      color: var(--text-soft);
-      margin-left: auto;
-    }
-
-    .chat-main {
-      border-radius: 18px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.98);
-      display: flex;
-      flex-direction: column;
-      padding: 6px;
-    }
-
-    .chat-header {
-      padding: 4px 4px 6px;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-    }
-
-    #chat-current-name { font-size: 14px; font-weight: 500; }
-    .chat-status { font-size: 11px; color: var(--text-soft); }
-
-    #chat-messages {
-      flex: 1;
-      padding: 6px 4px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      font-size: 13px;
-    }
-
-    .chat-message {
-      max-width: 70%;
-      border-radius: 14px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      padding: 5px 7px;
-      background: rgba(15, 23, 42, 0.96);
-    }
-
-    .chat-message.me {
-      margin-left: auto;
-      background: rgba(56, 189, 248, 0.15);
-      border-color: rgba(56, 189, 248, 0.9);
-    }
-
-    .chat-message-meta {
-      margin-top: 2px;
-      font-size: 10px;
-      color: var(--text-soft);
-      text-align: right;
-    }
-
-    .chat-input-row {
-      margin-top: 6px;
-      display: flex;
-      gap: 6px;
-      align-items: center;
-    }
-
-    #chat-input {
-      flex: 1;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.96);
-      color: var(--text-main);
-      font-size: 13px;
-      padding: 6px 10px;
-      outline: none;
-    }
-
-    #chat-input:focus {
-      border-color: rgba(56, 189, 248, 0.9);
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.35);
-    }
-
-    /* PROFILE */
-
-    .profile-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 8px 7px;
-      border-radius: 18px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.98);
-    }
-
-    #profile-avatar-img {
-      width: 52px;
-      height: 52px;
-      border-radius: 999px;
-      border: 1.5px solid rgba(56, 189, 248, 0.8);
-      object-fit: cover;
-    }
-
-    #profile-name-display { margin: 0; font-size: 16px; font-weight: 600; }
-
-    #profile-class-display {
-      margin: 2px 0 0;
-      font-size: 12px;
-      color: var(--text-soft);
-    }
-
-    .profile-info {
-      margin-top: 8px;
-      padding: 8px 8px 9px;
-      border-radius: 18px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.98);
-      font-size: 13px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(170px,1fr));
-      gap: 6px;
-    }
-
-    .profile-form {
-      margin-top: 8px;
-      padding: 8px;
-      border-radius: 18px;
-      border: 1px dashed rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.96);
-      font-size: 13px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .profile-form label {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      font-size: 12px;
-      color: var(--text-soft);
-    }
-
-    .profile-form input {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.96);
-      color: var(--text-main);
-      font-size: 13px;
-      padding: 5px 9px;
-      outline: none;
-    }
-
-    /* NOTIFICATIONS */
-
-    #page-notifications .notif-controls {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 6px;
-    }
-
-    #notifications-list {
-      margin-top: 4px;
-      max-height: 260px;
-      overflow-y: auto;
-      border-radius: 14px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.98);
-      padding: 6px;
-      font-size: 12px;
-    }
-
-    .notif-item {
-      padding: 5px;
-      border-radius: 10px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: rgba(15, 23, 42, 0.96);
-      margin-bottom: 4px;
-    }
-
-    .notif-item.new {
-      border-color: rgba(56, 189, 248, 0.9);
-      background: rgba(56, 189, 248, 0.12);
-    }
-
-    .notif-main {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-    }
-
-    .notif-text { font-size: 12px; }
-    .notif-time { font-size: 11px; color: var(--text-soft); white-space: nowrap; }
-
-    /* ADMIN */
-
-    #page-admin table { font-size: 11px; }
-
-    /* RESPONSIVE */
+    /* дальше тут будут стили JOURNAL/SCHEDULE/TASKS/CHAT/PROFILE/NOTIFS/ADMIN,
+       которые я уже тебе скинул в предыдущих частях — их просто оставляешь такими же */
 
     @media (max-width: 960px) {
       #app-root {
@@ -890,7 +380,7 @@
 </head>
 <body>
 
-  <!-- ПАНЕЛЬ АВТОРИЗАЦИИ -->
+  <!-- AUTH -->
   <div id="auth-panel">
     <h2 style="margin:0 0 6px;">Вход / Регистрация</h2>
     <input id="auth-email" type="email" placeholder="Email">
@@ -901,7 +391,9 @@
     <div id="auth-error"></div>
   </div>
 
-  <!-- ОСНОВНОЕ ПРИЛОЖЕНИЕ -->
+  <!-- APP WRAPPER -->
+  <div id="app-root" class="hidden">
+     <!-- APP WRAPPER -->
   <div id="app-root" class="hidden">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -946,6 +438,8 @@
 
       <!-- ЖУРНАЛ -->
       <main id="page-journal">
+        <h2>Дневник</h2>
+
         <section class="controls">
           <div>
             Четверть:
@@ -953,7 +447,7 @@
             <button class="quarter-btn" data-quarter="2">2</button>
             <button class="quarter-btn" data-quarter="3">3</button>
             <button class="quarter-btn" data-quarter="4">4</button>
-            <span id="current-quarter-label">1 четверть</span>
+            <span id="current-quarter-label" style="margin-left:6px;color:var(--text-soft);">1 четверть</span>
           </div>
           <div>
             Неделя:
@@ -961,7 +455,7 @@
             <button class="week-btn" data-week="2">2</button>
             <button class="week-btn" data-week="3">3</button>
             <button class="week-btn" data-week="4">4</button>
-            <span id="current-week-label">1 неделя</span>
+            <span id="current-week-label" style="margin-left:6px;color:var(--text-soft);">1 неделя</span>
           </div>
         </section>
 
@@ -971,17 +465,15 @@
             <option>Геометрия</option>
             <option>Русский язык</option>
             <option>Иностранный (английский) язык</option>
+            <option>Информатика</option>
             <option>Физика</option>
             <option>Химия</option>
             <option>Биология</option>
             <option>История</option>
-            <option>География</option>
-            <option>Информатика</option>
-            <option>Искусственный интеллект</option>
             <option>Обществознание</option>
+            <option>География</option>
             <option>Физическая культура</option>
-            <option>Труд (технология)</option>
-            <option>Музыка</option>
+            <option>Другой предмет</option>
           </select>
           <input id="type-input" type="text" placeholder="Тип работы (контрольная, ДЗ...)">
           <select id="day-select">
@@ -998,23 +490,37 @@
         </section>
 
         <section class="week-grid">
-          <div id="mon-block" class="day-block"><h3>Понедельник</h3></div>
-          <div id="tue-block" class="day-block"><h3>Вторник</h3></div>
-          <div id="wed-block" class="day-block"><h3>Среда</h3></div>
-          <div id="thu-block" class="day-block"><h3>Четверг</h3></div>
-          <div id="fri-block" class="day-block"><h3>Пятница</h3></div>
-          <div id="sat-block" class="day-block"><h3>Суббота</h3></div>
-          <div id="sun-block" class="day-block"><h3>Воскресенье</h3></div>
+          <div class="day-block" id="mon-block">
+            <h3>Понедельник</h3>
+          </div>
+          <div class="day-block" id="tue-block">
+            <h3>Вторник</h3>
+          </div>
+          <div class="day-block" id="wed-block">
+            <h3>Среда</h3>
+          </div>
+          <div class="day-block" id="thu-block">
+            <h3>Четверг</h3>
+          </div>
+          <div class="day-block" id="fri-block">
+            <h3>Пятница</h3>
+          </div>
+          <div class="day-block" id="sat-block">
+            <h3>Суббота</h3>
+          </div>
+          <div class="day-block" id="sun-block">
+            <h3>Воскресенье</h3>
+          </div>
         </section>
 
         <section class="subjects-summary">
-          <h3 style="margin:6px 0 4px;font-size:14px;">Средний балл по предметам</h3>
+          <h3 style="margin:8px 0 4px;font-size:14px;">Средний балл по предметам</h3>
           <table>
             <thead>
             <tr>
               <th>Предмет</th>
               <th>Оценки</th>
-              <th>Средний</th>
+              <th>Средний балл</th>
             </tr>
             </thead>
             <tbody id="subjects-table-body"></tbody>
@@ -1022,67 +528,84 @@
           <div id="subject-list"></div>
         </section>
       </main>
-
       <!-- РАСПИСАНИЕ -->
       <main id="page-schedule" class="hidden">
         <h2>Расписание</h2>
-        <div id="schedule-day-tabs" class="tabs-row"></div>
-        <div id="schedule-container"></div>
+        <section class="schedule-header">
+          <p style="margin:0 0 6px;font-size:13px;color:var(--text-muted);">
+            Здесь фиксированное расписание твоего класса. Можно быстро посмотреть, какие уроки и в каком кабинете.
+          </p>
+          <div id="schedule-day-tabs" class="day-tabs"></div>
+        </section>
+        <section id="schedule-container"></section>
       </main>
 
       <!-- ДЗ -->
       <main id="page-tasks" class="hidden">
         <h2>Домашка</h2>
-        <div class="tasks-controls">
-          <label>Показать:
-            <select id="tasks-filter-select">
-              <option value="all">Все</option>
-              <option value="todo">Только невыполненные</option>
-              <option value="done">Только выполненные</option>
-            </select>
-          </label>
-        </div>
-        <div id="tasks-day-tabs" class="tabs-row"></div>
-        <div id="tasks-container"></div>
+        <section class="tasks-header">
+          <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+            <div id="tasks-day-tabs" class="day-tabs"></div>
+            <div>
+              Фильтр:
+              <select id="tasks-filter-select">
+                <option value="all">Все</option>
+                <option value="todo">Только невыполненные</option>
+                <option value="done">Только выполненные</option>
+              </select>
+            </div>
+          </div>
+          <p style="margin:6px 0 0;font-size:12px;color:var(--text-soft);">
+            Отмечай галочкой, что уже сделал — прогресс сохранится в твоём браузере и в профиле.
+          </p>
+        </section>
+        <section id="tasks-container"></section>
       </main>
 
       <!-- РЕЙТИНГ -->
       <main id="page-rating" class="hidden">
-        <h2>Рейтинг класса</h2>
-        <button id="rating-refresh-btn" class="btn secondary">Обновить</button>
-        <table>
-          <thead>
-          <tr>
-            <th>Место</th>
-            <th>Ученик</th>
-            <th>Средний балл</th>
-          </tr>
-          </thead>
-          <tbody id="rating-table-body"></tbody>
-        </table>
-        <div id="rating-history" style="margin-top:6px;font-size:12px;color:var(--text-muted);"></div>
+        <h2>Рейтинг</h2>
+        <section>
+          <p style="margin:0 0 6px;font-size:13px;color:var(--text-muted);">
+            Здесь показывается твой средний балл по текущей четверти и неделе. Потом сюда можно будет добавить одноклассников.
+          </p>
+          <button id="rating-refresh-btn" class="btn secondary" style="margin-bottom:6px;">Обновить рейтинг</button>
+          <table>
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Ученик</th>
+              <th>Средний балл</th>
+            </tr>
+            </thead>
+            <tbody id="rating-table-body"></tbody>
+          </table>
+          <div id="rating-history" style="margin-top:6px;font-size:12px;color:var(--text-soft);"></div>
+        </section>
       </main>
-
       <!-- ЧАТ -->
       <main id="page-chat" class="hidden">
+        <h2>Чат</h2>
         <section class="chat-layout">
-          <div class="chat-sidebar">
-            <h3>Чаты</h3>
-            <div id="chat-dialogs-list"></div>
-          </div>
-          <div class="chat-main">
-            <div class="chat-header">
+          <aside class="chat-sidebar">
+            <div class="chat-sidebar-header">
+              <div class="chat-sidebar-title">Собеседники</div>
+            </div>
+            <div id="chat-dialogs-list" class="chat-dialogs-list"></div>
+          </aside>
+          <section class="chat-main">
+            <header class="chat-header">
               <div>
                 <div id="chat-current-name">Выбери собеседника слева</div>
-                <div id="chat-current-status" class="chat-status"></div>
+                <div id="chat-current-status"></div>
               </div>
-            </div>
-            <div id="chat-messages"></div>
-            <div class="chat-input-row">
-              <input id="chat-input" type="text" placeholder="Напиши сообщение..." disabled>
+            </header>
+            <div id="chat-messages" class="chat-messages"></div>
+            <footer class="chat-input-area">
+              <textarea id="chat-input" rows="1" placeholder="Напиши сообщение..." disabled></textarea>
               <button id="chat-send-btn" class="btn primary" disabled>Отправить</button>
-            </div>
-          </div>
+            </footer>
+          </section>
         </section>
       </main>
 
@@ -1107,7 +630,7 @@
 
         <section class="profile-form">
           <h3 style="margin:0 0 4px;font-size:14px;">Редактирование профиля</h3>
-          <label>Ссылка на аватар:
+          <label>Ссылка на аватар (поддерживается GIF):
             <input id="profile-avatar-input" type="text">
           </label>
           <label>Имя:
@@ -1129,23 +652,28 @@
       <!-- УВЕДОМЛЕНИЯ -->
       <main id="page-notifications" class="hidden">
         <h2>Уведомления</h2>
-        <div class="notif-controls">
-          <button id="notif-mark-read" class="btn secondary">Отметить как прочитанные</button>
-          <button id="notif-clear" class="btn secondary">Очистить</button>
-        </div>
-        <div id="notifications-list"></div>
+        <section class="notif-header">
+          <p style="margin:0 0 6px;font-size:13px;color:var(--text-muted);">
+            Здесь собираются все изменения: новые оценки, правки профиля и т.п.
+          </p>
+          <div>
+            <button id="notif-mark-read" class="btn secondary" style="margin-right:6px;">Отметить прочитанными</button>
+            <button id="notif-clear" class="btn secondary">Очистить</button>
+          </div>
+        </section>
+        <section id="notifications-list" class="notifications-list"></section>
       </main>
 
       <!-- АДМИН -->
       <main id="page-admin" class="hidden">
         <h2>Админ-панель</h2>
 
-        <div id="admin-stats" style="margin:6px 0 10px; font-size:13px;">
-          <div id="admin-stats-today"></div>
-          <div id="admin-stats-online"></div>
-          <div id="admin-stats-week" style="margin-top:4px;"></div>
-          <div id="admin-stats-top-users" style="margin-top:4px;"></div>
-          <div id="admin-stats-devices" style="margin-top:4px;"></div>
+        <div id="admin-stats" style="margin:6px 0 10px; font-size:13px; display:flex; flex-direction:column; gap:4px;">
+          <div><strong>Сегодня:</strong> <span id="admin-stats-today"></span></div>
+          <div><strong>Онлайн сейчас:</strong> <span id="admin-stats-online"></span></div>
+          <div><strong>Период:</strong> <span id="admin-stats-week"></span></div>
+          <div><strong>Топ активных:</strong> <span id="admin-stats-top-users"></span></div>
+          <div><strong>Устройства и языки:</strong> <span id="admin-stats-devices"></span></div>
           <div id="admin-stats-alerts" style="margin-top:4px; color:#f97316;"></div>
         </div>
 
@@ -1178,7 +706,8 @@
             <th>#</th>
             <th>Когда</th>
             <th>Пользователь</th>
-            <th>User‑Agent</th>
+            <th>Устройство</th>
+            <th>Тип устройства</th>
             <th>Язык</th>
             <th>Экран</th>
             <th>Действие</th>
@@ -1187,10 +716,8 @@
           <tbody id="admin-visits-body"></tbody>
         </table>
       </main>
-    </div>
-  </div>
-
-  <!-- ЧАСТЬ 2 и ЧАСТЬ 3 СКРИПТЫ ПОЙДУТ ЗДЕСЬ -->
+    </div> <!-- /right column -->
+  </div> <!-- /app-root -->
 
   <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -1457,9 +984,9 @@
   // --- Профиль ---
   const PROFILE_KEY = 'venik-profile';
   let profile = {
-    avatarUrl: '',
+    avatarUrl: 'https://media.tenor.com/Bn0kC0Fd03MAAAAd/pixel-cat.gif', // пример gif, поставь свой
     name: 'Веник Веников',
-    city: 'Подольск',
+    city: 'Орехово-Зуево',
     className: '8Б',
     favSubjects: 'Информатика, математика'
   };
@@ -1614,7 +1141,7 @@
     }
     profile.avatarUrl = avatarInput.value.trim();
     profile.name = rawName;
-    profile.city = cityInput.value.trim() || 'Город';
+    profile.city = cityInput.value.trim() || 'Орехово-Зуево';
     profile.className = classInput.value.trim() || 'Класс';
     profile.favSubjects = favInput.value.trim() || 'Нет';
 
@@ -1892,7 +1419,7 @@
   }
   window.getMyAverage = getMyAverage;
 
-  // --- Расписание + ДЗ (упрощённо, как раньше) ---
+  // --- Расписание ---
   const SCHEDULE = {
     'Пн': [
       { id: 'mon-1', num: 1, time: '08:30 - 09:00', subject: 'Разговоры о важном', room: 'ДБ / корпус 1' },
@@ -2111,7 +1638,6 @@
   async function renderRating() {
     if (!ratingTableBody) return;
     ratingTableBody.innerHTML = '';
-    // просто один пользователь — ты сам
     const avg = getMyAverage();
     const tr = document.createElement('tr');
     tr.innerHTML = `
@@ -2126,8 +1652,26 @@
     renderRatingHistory();
   });
 
-  // --- Админ визиты + статистика ---
+  // --- Определение устройства ---
+  function detectDeviceType(ua) {
+    const s = (ua || '').toLowerCase();
+    if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(s)) return 'Планшет';
+    if (/mobile|iphone|ipod|android|blackberry|iemobile/i.test(s)) return 'Мобилка';
+    return 'ПК';
+  }
 
+  function detectDeviceName(ua) {
+    if (!ua) return 'Неизвестно';
+    if (ua.includes('Windows NT 10')) return 'Windows 10 ПК';
+    if (ua.includes('Windows NT 11')) return 'Windows 11 ПК';
+    if (ua.includes('Macintosh')) return 'Mac';
+    if (ua.includes('iPhone')) return 'iPhone';
+    if (ua.includes('iPad')) return 'iPad';
+    if (ua.includes('Android')) return 'Android устройство';
+    return ua.split(')')[0] || 'Неизвестно';
+  }
+
+  // --- Админ визиты + статистика ---
   let adminPeriod = '7d';
   let adminFilterClass = '';
   let adminFilterEmail = '';
@@ -2165,13 +1709,18 @@
 
   async function logVisit(user) {
     try {
+      const ua = navigator.userAgent || '';
+      const deviceType = detectDeviceType(ua);
+      const deviceName = detectDeviceName(ua);
       await addDoc(collection(db, 'visits'), {
         uid: user ? user.uid : null,
         email: user ? user.email : null,
-        userAgent: navigator.userAgent,
+        userAgent: ua,
         language: navigator.language,
         screen: `${window.screen.width}x${window.screen.height}`,
         className: profile.className || '',
+        deviceType,
+        deviceName,
         createdAt: serverTimestamp()
       });
     } catch (e) {
@@ -2272,17 +1821,10 @@
       const d = v.createdAt.toDate ? v.createdAt.toDate() : new Date(v.createdAt);
       if (d < start || d > end) return;
 
-      const ua = (v.userAgent || 'unknown');
+      const type = v.deviceType || 'Другое';
       const lang = (v.language || 'unknown');
       const scr = (v.screen || 'unknown');
 
-      let type = 'Другое';
-      const uaLower = ua.toLowerCase();
-      if (uaLower.includes('android') || uaLower.includes('iphone') || uaLower.includes('mobile')) {
-        type = 'Мобилка';
-      } else if (uaLower.includes('windows') || uaLower.includes('macintosh') || uaLower.includes('linux')) {
-        type = 'ПК';
-      }
       uaCounts[type] = (uaCounts[type] || 0) + 1;
       langCounts[lang] = (langCounts[lang] || 0) + 1;
       screenCounts[scr] = (screenCounts[scr] || 0) + 1;
@@ -2332,36 +1874,36 @@
     const todayStats = await computeTodayStats(allVisits);
     if (adminStatsTodayDiv) {
       adminStatsTodayDiv.textContent =
-        `Сегодня: визитов ${todayStats.totalVisitsToday}, уникальных пользователей ${todayStats.uniqueToday}, максимум за час: ${todayStats.maxPerHour}`;
+        `визитов ${todayStats.totalVisitsToday}, уникальных пользователей ${todayStats.uniqueToday}, максимум за час: ${todayStats.maxPerHour}`;
     }
 
     const onlineNow = await computeOnlineNow();
     if (adminStatsOnlineDiv) {
-      adminStatsOnlineDiv.textContent = `Сейчас онлайн (по lastSeen): ${onlineNow}`;
+      adminStatsOnlineDiv.textContent = `${onlineNow}`;
     }
 
     const periodStats = await computePeriodStats(allVisits, start, end);
     if (adminStatsWeekDiv) {
       if (!periodStats.rows.length) {
-        adminStatsWeekDiv.textContent = 'За выбранный период ещё нет данных.';
+        adminStatsWeekDiv.textContent = 'за выбранный период ещё нет данных.';
       } else {
         const txt = periodStats.rows
           .map(r => `${r.date}: визитов ${r.visits}, уникальных ${r.unique}`)
           .join('; ');
         adminStatsWeekDiv.textContent =
-          `Период (${adminPeriod}): ${txt}. Макс. уникальных в день: ${periodStats.maxUsersDay}`;
+          `${txt}. Макс. уникальных в день: ${periodStats.maxUsersDay}`;
       }
     }
 
     const topUsers = await computeTopUsers(allVisits, start, end);
     if (adminStatsTopUsersDiv) {
       if (!topUsers.length) {
-        adminStatsTopUsersDiv.textContent = 'Топ активных пользователей: нет данных.';
+        adminStatsTopUsersDiv.textContent = 'нет данных.';
       } else {
         const line = topUsers
           .map((u, i) => `${i + 1}) ${u.email || u.uid} — ${u.count} визитов`)
           .join('; ');
-        adminStatsTopUsersDiv.textContent = 'Топ активных за период: ' + line;
+        adminStatsTopUsersDiv.textContent = line;
       }
     }
 
@@ -2369,17 +1911,17 @@
     if (adminStatsDevicesDiv) {
       const uaPart = Object.entries(devStats.uaCounts)
         .map(([k, v]) => `${k}: ${v}`)
-        .join(', ') || 'нет данных';
+        .join(', ');
       const langPart = Object.entries(devStats.langCounts)
         .map(([k, v]) => `${k}: ${v}`)
-        .join(', ') || 'нет данных';
+        .join(', ');
       const scrPart = Object.entries(devStats.screenCounts)
         .slice(0, 5)
         .map(([k, v]) => `${k}: ${v}`)
-        .join(', ') || 'нет данных';
+        .join(', ');
 
       adminStatsDevicesDiv.textContent =
-        `Устройства: ${uaPart}. Языки: ${langPart}. Топ экранов: ${scrPart}`;
+        `${uaPart ? `Типы устройств: ${uaPart}. ` : ''}${langPart ? `Языки: ${langPart}. ` : ''}${scrPart ? `Топ экранов: ${scrPart}` : ''}`;
     }
 
     if (adminStatsAlertsDiv) {
@@ -2426,12 +1968,16 @@
 
       allVisits.push(v);
 
+      const deviceInfo = v.deviceName || '-';
+      const deviceType = v.deviceType || '—';
+
       const tr = document.createElement('tr');
       tr.innerHTML = `
         <td>${i++}</td>
         <td>${d.toLocaleString()}</td>
         <td>${v.uid || '-'}<br>${v.email || '-'}</td>
-        <td style="max-width:220px;word-break:break-all;">${v.userAgent || '-'}</td>
+        <td style="max-width:200px;word-break:break-all;">${deviceInfo}</td>
+        <td>${deviceType}</td>
         <td>${v.language || '-'}</td>
         <td>${v.screen || '-'}</td>
         <td><button class="btn secondary" data-id="${docSnap.id}">Удалить</button></td>
@@ -2521,7 +2067,7 @@
   loadNotifications();
 </script>
 
-  <script type="module">
+<script type="module">
   import {
     collection,
     doc,
@@ -2827,3 +2373,4 @@
 
 </body>
 </html>
+
