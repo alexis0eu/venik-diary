@@ -49,9 +49,7 @@
       --shadow-soft: 0 18px 50px rgba(15, 23, 42, 0.15);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -63,6 +61,10 @@
       align-items: stretch;
       justify-content: center;
     }
+
+    .hidden { display: none !important; }
+
+    /* AUTH */
 
     #auth-panel {
       max-width: 380px;
@@ -126,9 +128,7 @@
       min-height: 16px;
     }
 
-    .hidden {
-      display: none !important;
-    }
+    /* LAYOUT */
 
     #app-root {
       display: flex;
@@ -233,17 +233,8 @@
       backdrop-filter: blur(16px);
     }
 
-    .topbar-left {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    #topbar-title {
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-    }
+    .topbar-left { display: flex; flex-direction: column; gap: 2px; }
+    #topbar-title { font-size: 15px; font-weight: 600; letter-spacing: 0.02em; }
 
     .topbar-right {
       display: flex;
@@ -308,10 +299,7 @@
       flex-shrink: 0;
     }
 
-    #topbar-name {
-      font-size: 13px;
-      color: var(--text-main);
-    }
+    #topbar-name { font-size: 13px; color: var(--text-main); }
 
     .btn {
       border-radius: 999px;
@@ -337,9 +325,7 @@
       border: 1px solid rgba(148, 163, 184, 0.7);
     }
 
-    .btn.secondary:hover {
-      border-color: rgba(56, 189, 248, 0.8);
-    }
+    .btn.secondary:hover { border-color: rgba(56, 189, 248, 0.8); }
 
     main {
       flex: 1;
@@ -354,10 +340,9 @@
       gap: 10px;
     }
 
-    h2 {
-      margin: 0 0 8px;
-      font-size: 18px;
-    }
+    h2 { margin: 0 0 8px; font-size: 18px; }
+
+    /* JOURNAL */
 
     .controls {
       display: flex;
@@ -454,9 +439,7 @@
       object-fit: cover;
     }
 
-    .lesson-main {
-      flex: 1;
-    }
+    .lesson-main { flex: 1; }
 
     .lesson-subject {
       display: flex;
@@ -505,9 +488,7 @@
       font-size: 13px;
     }
 
-    table thead {
-      background: rgba(15, 23, 42, 0.98);
-    }
+    table thead { background: rgba(15, 23, 42, 0.98); }
 
     table th, table td {
       border: 1px solid rgba(148, 163, 184, 0.65);
@@ -526,6 +507,8 @@
       font-size: 12px;
       color: var(--text-soft);
     }
+
+    /* SCHEDULE / TASKS */
 
     .tabs-row {
       display: flex;
@@ -598,9 +581,7 @@
       font-size: 12px;
     }
 
-    .task-row input[type="checkbox"] {
-      margin-top: 3px;
-    }
+    .task-row input[type="checkbox"] { margin-top: 3px; }
 
     .task-row.done {
       background: var(--success-soft);
@@ -612,6 +593,8 @@
       color: var(--text-soft);
       font-size: 11px;
     }
+
+    /* CHAT */
 
     .chat-layout {
       display: grid;
@@ -671,9 +654,7 @@
       object-fit: cover;
     }
 
-    .chat-dialog-name {
-      font-size: 13px;
-    }
+    .chat-dialog-name { font-size: 13px; }
 
     .chat-dialog-last {
       font-size: 11px;
@@ -699,15 +680,8 @@
       gap: 6px;
     }
 
-    #chat-current-name {
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    .chat-status {
-      font-size: 11px;
-      color: var(--text-soft);
-    }
+    #chat-current-name { font-size: 14px; font-weight: 500; }
+    .chat-status { font-size: 11px; color: var(--text-soft); }
 
     #chat-messages {
       flex: 1;
@@ -763,6 +737,8 @@
       box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.35);
     }
 
+    /* PROFILE */
+
     .profile-header {
       display: flex;
       align-items: center;
@@ -781,11 +757,7 @@
       object-fit: cover;
     }
 
-    #profile-name-display {
-      margin: 0;
-      font-size: 16px;
-      font-weight: 600;
-    }
+    #profile-name-display { margin: 0; font-size: 16px; font-weight: 600; }
 
     #profile-class-display {
       margin: 2px 0 0;
@@ -835,6 +807,8 @@
       outline: none;
     }
 
+    /* NOTIFICATIONS */
+
     #page-notifications .notif-controls {
       display: flex;
       gap: 6px;
@@ -872,19 +846,14 @@
       gap: 6px;
     }
 
-    .notif-text {
-      font-size: 12px;
-    }
+    .notif-text { font-size: 12px; }
+    .notif-time { font-size: 11px; color: var(--text-soft); white-space: nowrap; }
 
-    .notif-time {
-      font-size: 11px;
-      color: var(--text-soft);
-      white-space: nowrap;
-    }
+    /* ADMIN */
 
-    #page-admin table {
-      font-size: 11px;
-    }
+    #page-admin table { font-size: 11px; }
+
+    /* RESPONSIVE */
 
     @media (max-width: 960px) {
       #app-root {
@@ -899,35 +868,331 @@
         gap: 10px;
         overflow-x: auto;
       }
-      .sidebar-header {
-        flex-shrink: 0;
-      }
+      .sidebar-header { flex-shrink: 0; }
       .sidebar-nav {
         flex-direction: row;
         flex-wrap: nowrap;
         overflow-x: auto;
       }
-      .chat-layout {
-        grid-template-columns: 1fr;
-      }
+      .chat-layout { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 640px) {
-      main {
-        padding: 10px;
-      }
+      main { padding: 10px; }
       .topbar {
         flex-direction: column;
         align-items: flex-start;
         gap: 6px;
       }
-      .add-grade {
-        flex-direction: column;
-      }
+      .add-grade { flex-direction: column; }
     }
   </style>
 </head>
-<script type="module">
+<body>
+
+  <!-- ПАНЕЛЬ АВТОРИЗАЦИИ -->
+  <div id="auth-panel">
+    <h2 style="margin:0 0 6px;">Вход / Регистрация</h2>
+    <input id="auth-email" type="email" placeholder="Email">
+    <input id="auth-password" type="password" placeholder="Пароль">
+    <button id="auth-login-btn">Войти</button>
+    <button id="auth-signup-btn">Регистрация</button>
+    <button id="auth-logout-btn">Выйти</button>
+    <div id="auth-error"></div>
+  </div>
+
+  <!-- ОСНОВНОЕ ПРИЛОЖЕНИЕ -->
+  <div id="app-root" class="hidden">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img id="sidebar-avatar-img" src="teacher.jpg" alt="">
+        <div>
+          <div id="sidebar-name">Дневник Веника</div>
+          <div id="sidebar-class">8Б класс</div>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="sidebar-item active" data-page="journal">Дневник</div>
+        <div class="sidebar-item" data-page="schedule">Расписание</div>
+        <div class="sidebar-item" data-page="tasks">Домашка</div>
+        <div class="sidebar-item" data-page="rating">Рейтинг</div>
+        <div class="sidebar-item" data-page="chat">Чат</div>
+        <div class="sidebar-item" data-page="profile">Профиль</div>
+        <div class="sidebar-item" id="sidebar-notif-item" data-page="notifications">Уведомления</div>
+        <div class="sidebar-item" data-page="admin">Админ</div>
+      </nav>
+    </aside>
+
+    <div style="flex:1; display:flex; flex-direction:column; gap:10px;">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div id="topbar-title">Дневник Веника</div>
+        </div>
+        <div class="topbar-right">
+          <button id="theme-toggle" class="btn secondary">
+            <span id="theme-toggle-icon">🌙</span>
+            <span id="theme-toggle-text">Тёмная</span>
+          </button>
+          <div class="notif-bell" data-page="notifications">
+            🔔
+            <span id="bell-badge" class="hidden">0</span>
+          </div>
+          <div class="topbar-user" data-page="profile">
+            <img id="avatar-small-img" src="teacher.jpg" alt="">
+            <span id="topbar-name">Профиль ▾</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- ЖУРНАЛ -->
+      <main id="page-journal">
+        <section class="controls">
+          <div>
+            Четверть:
+            <button class="quarter-btn active" data-quarter="1">1</button>
+            <button class="quarter-btn" data-quarter="2">2</button>
+            <button class="quarter-btn" data-quarter="3">3</button>
+            <button class="quarter-btn" data-quarter="4">4</button>
+            <span id="current-quarter-label">1 четверть</span>
+          </div>
+          <div>
+            Неделя:
+            <button class="week-btn active" data-week="1">1</button>
+            <button class="week-btn" data-week="2">2</button>
+            <button class="week-btn" data-week="3">3</button>
+            <button class="week-btn" data-week="4">4</button>
+            <span id="current-week-label">1 неделя</span>
+          </div>
+        </section>
+
+        <section class="add-grade">
+          <select id="subject-input">
+            <option>Алгебра</option>
+            <option>Геометрия</option>
+            <option>Русский язык</option>
+            <option>Иностранный (английский) язык</option>
+            <option>Физика</option>
+            <option>Химия</option>
+            <option>Биология</option>
+            <option>История</option>
+            <option>География</option>
+            <option>Информатика</option>
+            <option>Искусственный интеллект</option>
+            <option>Обществознание</option>
+            <option>Физическая культура</option>
+            <option>Труд (технология)</option>
+            <option>Музыка</option>
+          </select>
+          <input id="type-input" type="text" placeholder="Тип работы (контрольная, ДЗ...)">
+          <select id="day-select">
+            <option value="mon">Пн</option>
+            <option value="tue">Вт</option>
+            <option value="wed">Ср</option>
+            <option value="thu">Чт</option>
+            <option value="fri">Пт</option>
+            <option value="sat">Сб</option>
+            <option value="sun">Вс</option>
+          </select>
+          <input id="mark-input" type="number" min="1" max="5" placeholder="Оценка">
+          <button id="add-grade-btn" class="btn primary">Добавить</button>
+        </section>
+
+        <section class="week-grid">
+          <div id="mon-block" class="day-block"><h3>Понедельник</h3></div>
+          <div id="tue-block" class="day-block"><h3>Вторник</h3></div>
+          <div id="wed-block" class="day-block"><h3>Среда</h3></div>
+          <div id="thu-block" class="day-block"><h3>Четверг</h3></div>
+          <div id="fri-block" class="day-block"><h3>Пятница</h3></div>
+          <div id="sat-block" class="day-block"><h3>Суббота</h3></div>
+          <div id="sun-block" class="day-block"><h3>Воскресенье</h3></div>
+        </section>
+
+        <section class="subjects-summary">
+          <h3 style="margin:6px 0 4px;font-size:14px;">Средний балл по предметам</h3>
+          <table>
+            <thead>
+            <tr>
+              <th>Предмет</th>
+              <th>Оценки</th>
+              <th>Средний</th>
+            </tr>
+            </thead>
+            <tbody id="subjects-table-body"></tbody>
+          </table>
+          <div id="subject-list"></div>
+        </section>
+      </main>
+
+      <!-- РАСПИСАНИЕ -->
+      <main id="page-schedule" class="hidden">
+        <h2>Расписание</h2>
+        <div id="schedule-day-tabs" class="tabs-row"></div>
+        <div id="schedule-container"></div>
+      </main>
+
+      <!-- ДЗ -->
+      <main id="page-tasks" class="hidden">
+        <h2>Домашка</h2>
+        <div class="tasks-controls">
+          <label>Показать:
+            <select id="tasks-filter-select">
+              <option value="all">Все</option>
+              <option value="todo">Только невыполненные</option>
+              <option value="done">Только выполненные</option>
+            </select>
+          </label>
+        </div>
+        <div id="tasks-day-tabs" class="tabs-row"></div>
+        <div id="tasks-container"></div>
+      </main>
+
+      <!-- РЕЙТИНГ -->
+      <main id="page-rating" class="hidden">
+        <h2>Рейтинг класса</h2>
+        <button id="rating-refresh-btn" class="btn secondary">Обновить</button>
+        <table>
+          <thead>
+          <tr>
+            <th>Место</th>
+            <th>Ученик</th>
+            <th>Средний балл</th>
+          </tr>
+          </thead>
+          <tbody id="rating-table-body"></tbody>
+        </table>
+        <div id="rating-history" style="margin-top:6px;font-size:12px;color:var(--text-muted);"></div>
+      </main>
+
+      <!-- ЧАТ -->
+      <main id="page-chat" class="hidden">
+        <section class="chat-layout">
+          <div class="chat-sidebar">
+            <h3>Чаты</h3>
+            <div id="chat-dialogs-list"></div>
+          </div>
+          <div class="chat-main">
+            <div class="chat-header">
+              <div>
+                <div id="chat-current-name">Выбери собеседника слева</div>
+                <div id="chat-current-status" class="chat-status"></div>
+              </div>
+            </div>
+            <div id="chat-messages"></div>
+            <div class="chat-input-row">
+              <input id="chat-input" type="text" placeholder="Напиши сообщение..." disabled>
+              <button id="chat-send-btn" class="btn primary" disabled>Отправить</button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <!-- ПРОФИЛЬ -->
+      <main id="page-profile" class="hidden">
+        <section class="profile-header">
+          <img id="profile-avatar-img" src="teacher.jpg" alt="">
+          <div>
+            <h2 id="profile-name-display">Веник Веников</h2>
+            <p id="profile-class-display">Ученик 8Б класса</p>
+          </div>
+          <button id="profile-message-btn" class="btn primary" style="margin-left:auto;display:none;">Написать</button>
+        </section>
+
+        <section class="profile-info">
+          <div><strong>Имя:</strong> <span id="profile-name-info"></span></div>
+          <div><strong>Email:</strong> <span id="profile-email-info"></span></div>
+          <div><strong>Город:</strong> <span id="profile-city-info"></span></div>
+          <div><strong>Класс:</strong> <span id="profile-class-info"></span></div>
+          <div><strong>Любимые предметы:</strong> <span id="profile-fav-info"></span></div>
+        </section>
+
+        <section class="profile-form">
+          <h3 style="margin:0 0 4px;font-size:14px;">Редактирование профиля</h3>
+          <label>Ссылка на аватар:
+            <input id="profile-avatar-input" type="text">
+          </label>
+          <label>Имя:
+            <input id="profile-name-input" type="text">
+          </label>
+          <label>Город:
+            <input id="profile-city-input" type="text">
+          </label>
+          <label>Класс:
+            <input id="profile-class-input" type="text">
+          </label>
+          <label>Любимые предметы:
+            <input id="profile-fav-input" type="text">
+          </label>
+          <button id="profile-save-btn" class="btn primary">Сохранить</button>
+        </section>
+      </main>
+
+      <!-- УВЕДОМЛЕНИЯ -->
+      <main id="page-notifications" class="hidden">
+        <h2>Уведомления</h2>
+        <div class="notif-controls">
+          <button id="notif-mark-read" class="btn secondary">Отметить как прочитанные</button>
+          <button id="notif-clear" class="btn secondary">Очистить</button>
+        </div>
+        <div id="notifications-list"></div>
+      </main>
+
+      <!-- АДМИН -->
+      <main id="page-admin" class="hidden">
+        <h2>Админ-панель</h2>
+
+        <div id="admin-stats" style="margin:6px 0 10px; font-size:13px;">
+          <div id="admin-stats-today"></div>
+          <div id="admin-stats-online"></div>
+          <div id="admin-stats-week" style="margin-top:4px;"></div>
+          <div id="admin-stats-top-users" style="margin-top:4px;"></div>
+          <div id="admin-stats-devices" style="margin-top:4px;"></div>
+          <div id="admin-stats-alerts" style="margin-top:4px; color:#f97316;"></div>
+        </div>
+
+        <div id="admin-filters" style="margin:6px 0 8px; font-size:12px; display:flex; flex-wrap:wrap; gap:6px;">
+          <div>
+            Период:
+            <select id="admin-period-select">
+              <option value="today">Сегодня</option>
+              <option value="yesterday">Вчера</option>
+              <option value="7d" selected>7 дней</option>
+              <option value="30d">30 дней</option>
+            </select>
+          </div>
+          <div>
+            Класс:
+            <input id="admin-class-filter" type="text" placeholder="например 8Б" style="width:70px;">
+          </div>
+          <div>
+            Email:
+            <input id="admin-email-filter" type="text" placeholder="часть email" style="width:120px;">
+          </div>
+          <button id="admin-apply-filters" class="btn secondary" style="padding:4px 10px;font-size:12px;">Применить</button>
+        </div>
+
+        <div id="admin-warning" style="color:#f97316;font-size:13px;"></div>
+
+        <table>
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Когда</th>
+            <th>Пользователь</th>
+            <th>User‑Agent</th>
+            <th>Язык</th>
+            <th>Экран</th>
+            <th>Действие</th>
+          </tr>
+          </thead>
+          <tbody id="admin-visits-body"></tbody>
+        </table>
+      </main>
+    </div>
+  </div>
+
+  <!-- ЧАСТЬ 2 и ЧАСТЬ 3 СКРИПТЫ ПОЙДУТ ЗДЕСЬ -->
+
+  <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import {
     getAuth,
@@ -946,11 +1211,9 @@
     getDocs,
     query,
     orderBy,
-    limit,
     deleteDoc,
-    collectionGroup,
     serverTimestamp
-  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; /* [web:505][web:570] */
+  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyAFcX2I6lfzmxwEGEpOej-SqiG6-DFWSDc",
@@ -1022,9 +1285,6 @@
   const ratingRefreshBtn = document.getElementById('rating-refresh-btn');
   const ratingHistoryDiv = document.getElementById('rating-history');
 
-  const adminVisitsBody = document.getElementById('admin-visits-body');
-  const adminWarning = document.getElementById('admin-warning');
-
   const subjectSelect = document.getElementById('subject-input');
   const typeInput = document.getElementById('type-input');
   const daySelect = document.getElementById('day-select');
@@ -1037,6 +1297,20 @@
   const tasksDayTabs = document.getElementById('tasks-day-tabs');
   const tasksContainer = document.getElementById('tasks-container');
   const tasksFilterSelect = document.getElementById('tasks-filter-select');
+
+  // admin DOM
+  const adminVisitsBody = document.getElementById('admin-visits-body');
+  const adminWarning = document.getElementById('admin-warning');
+  const adminStatsTodayDiv = document.getElementById('admin-stats-today');
+  const adminStatsOnlineDiv = document.getElementById('admin-stats-online');
+  const adminStatsWeekDiv = document.getElementById('admin-stats-week');
+  const adminStatsTopUsersDiv = document.getElementById('admin-stats-top-users');
+  const adminStatsDevicesDiv = document.getElementById('admin-stats-devices');
+  const adminStatsAlertsDiv = document.getElementById('admin-stats-alerts');
+  const adminPeriodSelect = document.getElementById('admin-period-select');
+  const adminClassFilterInput = document.getElementById('admin-class-filter');
+  const adminEmailFilterInput = document.getElementById('admin-email-filter');
+  const adminApplyFiltersBtn = document.getElementById('admin-apply-filters');
 
   // --- Theme ---
   const THEME_KEY = 'venik-theme';
@@ -1310,10 +1584,12 @@
         name: profile.name,
         avatarUrl: profile.avatarUrl || '',
         className: profile.className || '',
-        city: profile.city || ''
-      }, { merge: true }); /* [web:568] */
+        city: profile.city || '',
+        lastSeen: serverTimestamp()
+      }, { merge: true });
     }
   }
+
   async function saveProfile() {
     localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
     if (!currentUser) return;
@@ -1324,7 +1600,8 @@
       name: profile.name,
       avatarUrl: profile.avatarUrl || '',
       className: profile.className || '',
-      city: profile.city || ''
+      city: profile.city || '',
+      lastSeen: serverTimestamp()
     }, { merge: true });
   }
 
@@ -1615,7 +1892,7 @@
   }
   window.getMyAverage = getMyAverage;
 
-  // --- Расписание + ДЗ ---
+  // --- Расписание + ДЗ (упрощённо, как раньше) ---
   const SCHEDULE = {
     'Пн': [
       { id: 'mon-1', num: 1, time: '08:30 - 09:00', subject: 'Разговоры о важном', room: 'ДБ / корпус 1' },
@@ -1631,369 +1908,261 @@
       { id: 'tue-2', num: 2, time: '09:25 - 10:10', subject: 'Алгебра', room: 'каб. 38' },
       { id: 'tue-3', num: 3, time: '10:20 - 11:05', subject: 'Вероятность и статистика', room: 'каб. 53' },
       { id: 'tue-4', num: 4, time: '11:20 - 12:05', subject: 'Химия', room: 'каб. 49' },
-      { id: 'tue-5', num: 5, time: '12:15 - 13:00', subject: 'История', room: 'каб. 32' },
-      { id: 'tue-6', num: 6, time: '13:15 - 13:55', subject: 'Физика', room: 'каб. 49' }
+      { id: 'tue-5', num: 5, time: '12:25 - 13:10', subject: 'История', room: 'каб. 11' },
+      { id: 'tue-6', num: 6, time: '13:20 - 14:05', subject: 'Физическая культура', room: 'спортзал' }
     ],
     'Ср': [
-      { id: 'wed-1', num: 1, time: '08:30 - 09:15', subject: 'Биология', room: 'каб. 55' },
-      { id: 'wed-2', num: 2, time: '09:25 - 10:10', subject: 'Биология', room: 'каб. 28' },
-      { id: 'wed-3', num: 3, time: '10:20 - 11:05', subject: 'Русский язык', room: 'каб. 59' },
-      { id: 'wed-4', num: 4, time: '11:20 - 12:05', subject: 'Иностранный (английский) язык', room: 'каб. 38' },
-      { id: 'wed-5', num: 5, time: '12:15 - 13:00', subject: 'Алгебра', room: 'каб. 38' }
+      { id: 'wed-1', num: 1, time: '08:30 - 09:15', subject: 'Алгебра', room: 'каб. 38' },
+      { id: 'wed-2', num: 2, time: '09:25 - 10:10', subject: 'Информатика', room: 'каб. 48' },
+      { id: 'wed-3', num: 3, time: '10:20 - 11:05', subject: 'Физика', room: 'каб. 52' },
+      { id: 'wed-4', num: 4, time: '11:20 - 12:05', subject: 'Русский язык', room: 'каб. 28' },
+      { id: 'wed-5', num: 5, time: '12:25 - 13:10', subject: 'Иностранный (английский) язык', room: 'каб. 27' }
     ],
     'Чт': [
-      { id: 'thu-1', num: 1, time: '08:30 - 09:00', subject: 'РОССИЯ — МОИ ГОРИЗОНТЫ', room: 'ДБ / внеурочная' },
-      { id: 'thu-2', num: 2, time: '09:10 - 09:55', subject: 'Химия', room: 'каб. 53' },
-      { id: 'thu-3', num: 3, time: '10:05 - 10:50', subject: 'Химия', room: 'каб. 49' },
-      { id: 'thu-4', num: 4, time: '11:20 - 12:05', subject: 'Обществознание', room: 'каб. 59' },
-      { id: 'thu-5', num: 5, time: '12:00 - 12:45', subject: 'Иностранный (английский) язык', room: 'каб. 12' }
+      { id: 'thu-1', num: 1, time: '08:30 - 09:15', subject: 'Геометрия', room: 'каб. 38' },
+      { id: 'thu-2', num: 2, time: '09:25 - 10:10', subject: 'Биология', room: 'каб. 47' },
+      { id: 'thu-3', num: 3, time: '10:20 - 11:05', subject: 'История', room: 'каб. 11' },
+      { id: 'thu-4', num: 4, time: '11:20 - 12:05', subject: 'Обществознание', room: 'каб. 11' },
+      { id: 'thu-5', num: 5, time: '12:25 - 13:10', subject: 'Физическая культура', room: 'спортзал' }
     ],
     'Пт': [
-      { id: 'fri-1', num: 1, time: '08:30 - 09:15', subject: 'Физическая культура', room: 'спортзал' },
-      { id: 'fri-2', num: 2, time: '09:25 - 10:10', subject: 'Физика', room: 'каб. 12' },
-      { id: 'fri-3', num: 3, time: '10:20 - 11:05', subject: 'Музыка', room: 'каб. 32' },
-      { id: 'fri-4', num: 4, time: '11:20 - 12:05', subject: 'Труд (технология)', room: 'каб. 55' }
-    ]
+      { id: 'fri-1', num: 1, time: '08:30 - 09:15', subject: 'Алгебра', room: 'каб. 38' },
+      { id: 'fri-2', num: 2, time: '09:25 - 10:10', subject: 'Информатика', room: 'каб. 48' },
+      { id: 'fri-3', num: 3, time: '10:20 - 11:05', subject: 'Химия', room: 'каб. 49' },
+      { id: 'fri-4', num: 4, time: '11:20 - 12:05', subject: 'Иностранный (английский) язык', room: 'каб. 27' },
+      { id: 'fri-5', num: 5, time: '12:25 - 13:10', subject: 'Физическая культура', room: 'спортзал' }
+    ],
+    'Сб': [],
+    'Вс': []
   };
-
-  const HOMEWORK_TEMPLATES = {
-    'Русский язык': [
-      'выучить правило и сделать упражнения 1–3',
-      'написать мини-сочинение (80–100 слов)'
-    ],
-    'Алгебра': [
-      'решить номера 101–105',
-      'подготовиться к контрольной, решить 5 задач'
-    ],
-    'Геометрия': [
-      'прочитать параграф и решить 3 задачи',
-      'доказать теорему из конспекта'
-    ],
-    'Физика': [
-      'сделать конспект параграфа, решить 4 задачи',
-      'решить задачи повышенной сложности'
-    ],
-    'Химия': [
-      'составить уравнения реакций, выучить формулы',
-      'решить задачи на массовую долю'
-    ],
-    'Биология': [
-      'выучить термины и заполнить таблицу',
-      'подготовить сообщение по теме'
-    ],
-    'История': [
-      'выучить даты и события параграфа',
-      'сделать план параграфа'
-    ],
-    'География': [
-      'заполнить контурную карту',
-      'ответить на вопросы в тетради'
-    ],
-    'Иностранный (английский) язык': [
-      'выучить 15 новых слов и сделать упражнения',
-      'написать письмо (80–100 слов)'
-    ],
-    'Информатика': [
-      'написать программу по образцу',
-      'решить задачи на алгоритмы'
-    ],
-    'Искусственный интеллект': [
-      'посмотреть видео по теме и записать 5 фактов',
-      'придумать идею проекта с ИИ'
-    ],
-    'Обществознание': [
-      'ответить письменно на вопросы параграфа',
-      'подготовить примеры к понятиям'
-    ],
-    'Физическая культура': [
-      'выполнить дома комплекс упражнений',
-      'подготовить сообщение о виде спорта'
-    ],
-    'Труд (технология)': [
-      'закончить практическую работу',
-      'подготовить материалы для следующего занятия'
-    ],
-    'Музыка': [
-      'послушать произведение и написать отзыв',
-      'выучить текст песни'
-    ]
-  };
-
-  function getRandomHomework(subject) {
-    const list = HOMEWORK_TEMPLATES[subject];
-    if (!list || !list.length) return 'Повторить материал урока.';
-    const i = Math.floor(Math.random() * list.length);
-    return list[i];
-  }
-
-  const dayKeys = Object.keys(SCHEDULE);
-  let currentScheduleDay = dayKeys[0];
 
   function renderScheduleTabs() {
     scheduleDayTabs.innerHTML = '';
-    dayKeys.forEach(dayName => {
+    const days = Object.keys(SCHEDULE);
+    days.forEach((day, idx) => {
       const btn = document.createElement('button');
-      btn.className = 'day-tab' + (dayName === currentScheduleDay ? ' active' : '');
-      btn.textContent = dayName;
+      btn.className = 'day-tab' + (idx === 0 ? ' active' : '');
+      btn.textContent = day;
+      btn.dataset.day = day;
       btn.addEventListener('click', () => {
-        currentScheduleDay = dayName;
-        renderSchedule();
+        document.querySelectorAll('#schedule-day-tabs .day-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderSchedule(day);
       });
       scheduleDayTabs.appendChild(btn);
     });
   }
 
-  function renderSchedule() {
-    renderScheduleTabs();
+  function renderSchedule(dayName) {
+    const day = dayName || (document.querySelector('#schedule-day-tabs .day-tab.active')?.dataset.day || 'Пн');
     scheduleContainer.innerHTML = '';
-    const block = document.createElement('div');
-    block.className = 'day-block';
     const title = document.createElement('div');
     title.className = 'day-title';
-    title.innerHTML = `<span class="day-icon">${currentScheduleDay}</span>${currentScheduleDay} расписание`;
-    block.appendChild(title);
+    title.innerHTML = `<div class="day-icon">📚</div><span>${day}</span>`;
+    scheduleContainer.appendChild(title);
 
-    SCHEDULE[currentScheduleDay].forEach(lesson => {
-      const card = document.createElement('div');
-      card.className = 'lesson-card';
+    const list = SCHEDULE[day] || [];
+    if (!list.length) {
+      const p = document.createElement('p');
+      p.style.fontSize = '13px';
+      p.style.color = 'var(--text-muted)';
+      p.textContent = 'В этот день уроков нет.';
+      scheduleContainer.appendChild(p);
+      return;
+    }
 
-      const avatar = document.createElement('div');
-      avatar.className = 'lesson-teacher';
-      avatar.innerHTML = `<img src="${profile.avatarUrl || 'teacher.jpg'}" alt="teacher">`;
-
-      const main = document.createElement('div');
-      main.className = 'lesson-main';
-      const badgeClass = subjectBadgeClass(lesson.subject);
-      const line1 = document.createElement('div');
-      line1.className = 'lesson-subject';
-      line1.innerHTML = `<span>${lesson.num} урок · ${lesson.subject}</span><span class="badge ${badgeClass}">урок</span>`;
-      const line2 = document.createElement('div');
-      line2.className = 'lesson-type';
-      line2.textContent = `${lesson.time}${lesson.room ? ' · ' + lesson.room : ''}`;
-      main.appendChild(line1);
-      main.appendChild(line2);
-
-      card.appendChild(avatar);
-      card.appendChild(main);
-      block.appendChild(card);
+    list.forEach(lesson => {
+      const row = document.createElement('div');
+      row.className = 'task-row';
+      row.innerHTML = `
+        <div style="font-size:12px;font-weight:500;">${lesson.num} урок</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;">${lesson.subject}</div>
+          <div class="task-meta">${lesson.time} · ${lesson.room}</div>
+        </div>
+      `;
+      scheduleContainer.appendChild(row);
     });
-
-    scheduleContainer.appendChild(block);
   }
-  window.renderSchedule = renderSchedule;
 
   // --- Домашка ---
-  const TASKS_DONE_KEY = 'venik-tasks-done';
+  const tasksByDay = {};
+  const TASKS_KEY = 'venik-tasks';
   let tasksDone = {};
-  let currentTasksDay = dayKeys[0];
-  let currentTasksFilter = 'all';
+  let currentTasksDay = 'Пн';
 
-  async function loadTasksDone() {
-    const raw = localStorage.getItem(TASKS_DONE_KEY);
-    tasksDone = raw ? JSON.parse(raw) : {};
-    if (currentUser) {
-      const data = await loadUserQuarterDoc(currentUser.uid, currentQuarter);
-      tasksDone = data.tasksDone || tasksDone;
+  function initTasksStructure() {
+    Object.keys(SCHEDULE).forEach(day => {
+      tasksByDay[day] = [];
+    });
+  }
+
+  function loadTasks() {
+    const raw = localStorage.getItem(TASKS_KEY);
+    if (raw) {
+      try {
+        const data = JSON.parse(raw);
+        Object.assign(tasksByDay, data.tasksByDay || {});
+        tasksDone = data.tasksDone || {};
+      } catch(e){}
     }
   }
-  async function saveTasksDone() {
-    localStorage.setItem(TASKS_DONE_KEY, JSON.stringify(tasksDone));
-    if (!currentUser) return;
-    await saveUserQuarterDoc(currentUser.uid, currentQuarter);
-  }
-  window.tasksDone = tasksDone;
 
-  tasksFilterSelect.addEventListener('change', () => {
-    currentTasksFilter = tasksFilterSelect.value;
-    renderTasksForDay(currentTasksDay);
-  });
+  function saveTasks() {
+    localStorage.setItem(TASKS_KEY, JSON.stringify({ tasksByDay, tasksDone }));
+    if (currentUser) {
+      saveUserQuarterDoc(currentUser.uid, currentQuarter);
+    }
+  }
 
   function renderTasksTabs() {
     tasksDayTabs.innerHTML = '';
-    dayKeys.forEach(dayName => {
+    Object.keys(SCHEDULE).forEach((day, idx) => {
       const btn = document.createElement('button');
-      btn.className = 'day-tab' + (dayName === currentTasksDay ? ' active' : '');
-      btn.textContent = dayName;
+      btn.className = 'day-tab' + (idx === 0 ? ' active' : '');
+      btn.textContent = day;
+      btn.dataset.day = day;
       btn.addEventListener('click', () => {
-        currentTasksDay = dayName;
-        renderTasksForDay(currentTasksDay);
+        currentTasksDay = day;
+        document.querySelectorAll('#tasks-day-tabs .day-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderTasksForDay(day);
       });
       tasksDayTabs.appendChild(btn);
     });
   }
 
-  function shouldShowTask(lessonId) {
-    const done = !!tasksDone[lessonId];
-    if (currentTasksFilter === 'done') return done;
-    if (currentTasksFilter === 'todo') return !done;
-    return true;
-  }
-
   function renderTasksForDay(dayName) {
-    renderTasksTabs();
+    const day = dayName || currentTasksDay;
     tasksContainer.innerHTML = '';
-    const block = document.createElement('div');
-    block.className = 'day-block';
     const title = document.createElement('div');
     title.className = 'day-title';
-    title.innerHTML = `<span class="day-icon">${dayName}</span>${dayName} домашка`;
-    block.appendChild(title);
+    title.innerHTML = `<div class="day-icon">📘</div><span>${day}</span>`;
+    tasksContainer.appendChild(title);
 
-    SCHEDULE[dayName].forEach(lesson => {
-      if (!shouldShowTask(lesson.id)) return;
+    const list = tasksByDay[day] || [];
+    if (!list.length) {
+      const p = document.createElement('p');
+      p.style.fontSize = '13px';
+      p.style.color = 'var(--text-muted)';
+      p.textContent = 'Домашки пока нет. Можно добавить вручную в коде.';
+      tasksContainer.appendChild(p);
+      return;
+    }
+
+    const filter = tasksFilterSelect.value;
+
+    list.forEach(task => {
+      const key = task.id;
+      const done = !!tasksDone[key];
+      if (filter === 'todo' && done) return;
+      if (filter === 'done' && !done) return;
 
       const row = document.createElement('div');
-      row.className = 'task-row';
-      row.dataset.id = lesson.id;
-
-      const checkbox = document.createElement('input');
-      checkbox.type = 'checkbox';
-      checkbox.checked = !!tasksDone[lesson.id];
-
-      const content = document.createElement('div');
-      const line1 = document.createElement('div');
-      line1.textContent = `${lesson.subject} — ДЗ: ${getRandomHomework(lesson.subject)}`;
-      const line2 = document.createElement('div');
-      line2.className = 'task-meta';
-      line2.textContent = `${lesson.num} урок · ${lesson.time}${lesson.room ? ' · ' + lesson.room : ''}`;
-
-      content.appendChild(line1);
-      content.appendChild(line2);
-
-      if (checkbox.checked) row.classList.add('done');
-
-      checkbox.addEventListener('change', async () => {
-        tasksDone[lesson.id] = checkbox.checked;
-        await saveTasksDone();
-        if (checkbox.checked) {
-          row.classList.add('done');
-          addNotification(`Отмечено выполненное ДЗ по предмету ${lesson.subject}`, 'hw-done');
-        } else {
-          row.classList.remove('done');
-          addNotification(`Снят статус выполнения ДЗ по предмету ${lesson.subject}`, 'hw-undo');
-        }
+      row.className = 'task-row' + (done ? ' done' : '');
+      row.innerHTML = `
+        <input type="checkbox" ${done ? 'checked' : ''}>
+        <div style="flex:1;">
+          <div>${task.subject}: ${task.text}</div>
+          <div class="task-meta">На ${task.due || 'завтра'}</div>
+        </div>
+      `;
+      const checkbox = row.querySelector('input');
+      checkbox.addEventListener('change', () => {
+        tasksDone[key] = checkbox.checked;
+        saveTasks();
+        renderTasksForDay(day);
       });
-
-      row.appendChild(checkbox);
-      row.appendChild(content);
-      block.appendChild(row);
+      tasksContainer.appendChild(row);
     });
-
-    tasksContainer.appendChild(block);
   }
-  window.renderTasksForDay = renderTasksForDay;
 
-  // --- Рейтинг (только реальные пользователи) ---
+  tasksFilterSelect.addEventListener('change', () => renderTasksForDay(currentTasksDay));
+
+  // --- Рейтинг ---
+  const RATING_HISTORY_KEY = 'venik-rating-history';
   function loadRatingHistory() {
-    const raw = localStorage.getItem('venik-rating-history');
-    return raw ? JSON.parse(raw) : [];
+    const raw = localStorage.getItem(RATING_HISTORY_KEY);
+    if (!raw) return [];
+    try { return JSON.parse(raw); } catch(e){ return []; }
   }
   function saveRatingHistory(history) {
-    localStorage.setItem('venik-rating-history', JSON.stringify(history));
+    localStorage.setItem(RATING_HISTORY_KEY, JSON.stringify(history));
   }
-  window.loadRatingHistory = loadRatingHistory;
-  window.saveRatingHistory = saveRatingHistory;
-
   function saveRatingHistoryEntry() {
     const history = loadRatingHistory();
-    const avg = getMyAverage();
-    if (!avg) return;
     history.push({
       ts: new Date().toISOString(),
-      quarter: currentQuarter,
-      week: currentWeek,
-      avg
+      avg: getMyAverage()
     });
     saveRatingHistory(history);
   }
-  window.saveRatingHistoryEntry = saveRatingHistoryEntry;
-
   function renderRatingHistory() {
     const history = loadRatingHistory();
     if (!history.length) {
-      ratingHistoryDiv.textContent = '';
+      ratingHistoryDiv.textContent = 'История рейтинга пока пуста.';
       return;
     }
-    const last = history.slice(-5).reverse();
-    ratingHistoryDiv.innerHTML = '<div style="margin-top:8px;font-size:12px;color:var(--text-muted);">Твои последние изменения среднего балла:</div>';
-    last.forEach(h => {
-      const p = document.createElement('div');
-      p.style.fontSize = '12px';
-      const d = new Date(h.ts);
-      p.textContent = `${d.toLocaleString()} · ${h.quarter} четв, ${h.week} неделя: ${h.avg.toFixed(2)}`;
-      ratingHistoryDiv.appendChild(p);
-    });
-  }
-  window.renderRatingHistory = renderRatingHistory;
-
-  async function getAllUsersAverages() {
-    const result = [];
-    try {
-      const cg = collectionGroup(db, 'quarters');
-      const qSnap = await getDocs(cg);
-      qSnap.forEach(docSnap => {
-        const data = docSnap.data();
-        const avgByWeek = data.avgByWeek || {};
-        const avg = Number(avgByWeek[currentWeek] || 0);
-        if (!avg || avg <= 0) return;
-
-        const prof = data.profile || {};
-        const name = prof.name || 'Ученик';
-        const avatarUrl = prof.avatarUrl || 'teacher.jpg';
-
-        const refPath = docSnap.ref.path; // users/{uid}/quarters/qN
-        const uid = refPath.split('/')[1] || null;
-
-        result.push({ uid, name, avatarUrl, avg });
-      });
-    } catch (e) {
-      console.error('getAllUsersAverages error', e);
-    }
-    return result;
-  }
-
-  async function buildRatingData() {
-    const myAvg = getMyAverage();
-    const fromCloud = await getAllUsersAverages();
-    const all = [...fromCloud];
-    all.sort((a, b) => b.avg - a.avg);
-    const rated = all.map((item, index) => ({
-      place: index + 1,
-      ...item
-    }));
-    return { rated, myAvg };
+    const last = history.slice(-5);
+    ratingHistoryDiv.textContent = 'Последние изменения: ' +
+      last.map(h => `${new Date(h.ts).toLocaleString()} — ср. ${h.avg.toFixed(2)}`).join('; ');
   }
 
   async function renderRating() {
-    const { rated } = await buildRatingData();
+    if (!ratingTableBody) return;
     ratingTableBody.innerHTML = '';
-    rated.forEach(row => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${row.place}</td>
-        <td>
-          <div style="display:flex;align-items:center;gap:6px;">
-            <div style="width:26px;height:26px;border-radius:999px;overflow:hidden;border:1px solid rgba(148,163,184,0.7);flex-shrink:0;">
-              <img src="${row.avatarUrl || 'teacher.jpg'}" alt="" style="width:100%;height:100%;object-fit:cover;">
-            </div>
-            <span>${row.name}</span>
-          </div>
-        </td>
-        <td>${row.avg.toFixed(2)}</td>
-      `;
-      tr.addEventListener('click', () => {
-        if (row.uid) openProfileForUser(row.uid);
-      });
-      ratingTableBody.appendChild(tr);
-    });
+    // просто один пользователь — ты сам
+    const avg = getMyAverage();
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>1</td>
+      <td>${profile.name}</td>
+      <td>${avg.toFixed(2)}</td>
+    `;
+    ratingTableBody.appendChild(tr);
   }
-  window.renderRating = renderRating;
-
-  ratingRefreshBtn.addEventListener('click', () => {
-    renderRating();
+  ratingRefreshBtn.addEventListener('click', async () => {
+    await renderRating();
+    renderRatingHistory();
   });
 
-  // --- Админ визиты ---
+  // --- Админ визиты + статистика ---
+
+  let adminPeriod = '7d';
+  let adminFilterClass = '';
+  let adminFilterEmail = '';
+
+  function getPeriodBounds(period) {
+    const now = new Date();
+    let start = new Date(0);
+    let end = new Date(now);
+
+    if (period === 'today') {
+      start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    } else if (period === 'yesterday') {
+      const y = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      end = new Date(y.getTime() - 1);
+      start = new Date(y.getTime() - 24 * 60 * 60 * 1000);
+    } else if (period === '7d') {
+      start = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    } else if (period === '30d') {
+      start = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+    }
+    return { start, end };
+  }
+
+  function passTextFilters(v) {
+    if (adminFilterEmail) {
+      const email = (v.email || '').toLowerCase();
+      if (!email.includes(adminFilterEmail.toLowerCase())) return false;
+    }
+    if (adminFilterClass) {
+      const cls = (v.className || '').toLowerCase();
+      if (!cls.includes(adminFilterClass.toLowerCase())) return false;
+    }
+    return true;
+  }
+
   async function logVisit(user) {
     try {
       await addDoc(collection(db, 'visits'), {
@@ -2002,6 +2171,7 @@
         userAgent: navigator.userAgent,
         language: navigator.language,
         screen: `${window.screen.width}x${window.screen.height}`,
+        className: profile.className || '',
         createdAt: serverTimestamp()
       });
     } catch (e) {
@@ -2009,24 +2179,257 @@
     }
   }
 
-  async function loadAdminVisits() {
+  async function computeTodayStats(allVisits) {
+    const now = new Date();
+    const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    let totalVisitsToday = 0;
+    const uniqUsersToday = new Set();
+    let maxPerHour = 0;
+    const byHour = {};
+
+    allVisits.forEach(v => {
+      if (!v.createdAt) return;
+      const d = v.createdAt.toDate ? v.createdAt.toDate() : new Date(v.createdAt);
+      if (d < startOfDay) return;
+      totalVisitsToday++;
+      if (v.uid) uniqUsersToday.add(v.uid);
+      const h = d.getHours();
+      byHour[h] = (byHour[h] || 0) + 1;
+    });
+
+    Object.values(byHour).forEach(cnt => {
+      if (cnt > maxPerHour) maxPerHour = cnt;
+    });
+
+    return {
+      totalVisitsToday,
+      uniqueToday: uniqUsersToday.size,
+      maxPerHour,
+      byHour
+    };
+  }
+
+  async function computePeriodStats(allVisits, start, end) {
+    const byDate = {};
+    allVisits.forEach(v => {
+      if (!v.createdAt) return;
+      const d = v.createdAt.toDate ? v.createdAt.toDate() : new Date(v.createdAt);
+      if (d < start || d > end) return;
+      const key = d.toISOString().slice(0, 10);
+      if (!byDate[key]) byDate[key] = { visits: 0, uniq: new Set() };
+      byDate[key].visits++;
+      if (v.uid) byDate[key].uniq.add(v.uid);
+    });
+
+    const rows = Object.keys(byDate).sort().map(date => {
+      const obj = byDate[date];
+      return {
+        date,
+        visits: obj.visits,
+        unique: obj.uniq.size
+      };
+    });
+
+    let maxUsersDay = 0;
+    rows.forEach(r => {
+      if (r.unique > maxUsersDay) maxUsersDay = r.unique;
+    });
+
+    return { rows, maxUsersDay };
+  }
+
+  async function computeTopUsers(allVisits, start, end) {
+    const map = {};
+    allVisits.forEach(v => {
+      if (!v.createdAt) return;
+      const d = v.createdAt.toDate ? v.createdAt.toDate() : new Date(v.createdAt);
+      if (d < start || d > end) return;
+
+      const uid = v.uid || 'anon';
+      if (!map[uid]) {
+        map[uid] = { count: 0, email: v.email || '' };
+      }
+      map[uid].count++;
+    });
+
+    const list = Object.entries(map).map(([uid, obj]) => ({
+      uid,
+      email: obj.email,
+      count: obj.count
+    }));
+
+    list.sort((a, b) => b.count - a.count);
+    return list.slice(0, 10);
+  }
+
+  function computeDevicesStats(allVisits, start, end) {
+    const uaCounts = {};
+    const langCounts = {};
+    const screenCounts = {};
+
+    allVisits.forEach(v => {
+      if (!v.createdAt) return;
+      const d = v.createdAt.toDate ? v.createdAt.toDate() : new Date(v.createdAt);
+      if (d < start || d > end) return;
+
+      const ua = (v.userAgent || 'unknown');
+      const lang = (v.language || 'unknown');
+      const scr = (v.screen || 'unknown');
+
+      let type = 'Другое';
+      const uaLower = ua.toLowerCase();
+      if (uaLower.includes('android') || uaLower.includes('iphone') || uaLower.includes('mobile')) {
+        type = 'Мобилка';
+      } else if (uaLower.includes('windows') || uaLower.includes('macintosh') || uaLower.includes('linux')) {
+        type = 'ПК';
+      }
+      uaCounts[type] = (uaCounts[type] || 0) + 1;
+      langCounts[lang] = (langCounts[lang] || 0) + 1;
+      screenCounts[scr] = (screenCounts[scr] || 0) + 1;
+    });
+
+    return { uaCounts, langCounts, screenCounts };
+  }
+
+  async function computeOnlineNow() {
+    const now = new Date();
+    const ONLINE_WINDOW_MS = 60 * 1000;
+    const usersSnap = await getDocs(collection(db, 'users'));
+    let onlineCount = 0;
+
+    usersSnap.forEach(uDoc => {
+      const u = uDoc.data();
+      if (!u.lastSeen) return;
+      const last = u.lastSeen.toDate ? u.lastSeen.toDate() : new Date(u.lastSeen);
+      if (now - last <= ONLINE_WINDOW_MS) {
+        onlineCount++;
+      }
+    });
+
+    return onlineCount;
+  }
+
+  async function renderAdminStatsFromVisits(allVisits) {
     if (!currentUser || currentUser.email !== ADMIN_EMAIL) {
-      adminWarning.textContent = 'Админ-панель доступна только для администратора.';
-      adminVisitsBody.innerHTML = '';
+      if (adminWarning) {
+        adminWarning.textContent = 'Админ-панель доступна только для администратора.';
+      }
+      if (adminStatsTodayDiv) {
+        adminStatsTodayDiv.textContent = '';
+        adminStatsOnlineDiv.textContent = '';
+        adminStatsWeekDiv.textContent = '';
+        adminStatsTopUsersDiv.textContent = '';
+        adminStatsDevicesDiv.textContent = '';
+        adminStatsAlertsDiv.textContent = '';
+      }
       return;
     }
-    adminWarning.textContent = '';
-    const qRef = query(collection(db, 'visits'), orderBy('createdAt', 'desc'), limit(50));
-    const snap = await getDocs(qRef);
+
+    if (adminWarning) adminWarning.textContent = '';
+
+    const { start, end } = getPeriodBounds(adminPeriod);
+
+    const todayStats = await computeTodayStats(allVisits);
+    if (adminStatsTodayDiv) {
+      adminStatsTodayDiv.textContent =
+        `Сегодня: визитов ${todayStats.totalVisitsToday}, уникальных пользователей ${todayStats.uniqueToday}, максимум за час: ${todayStats.maxPerHour}`;
+    }
+
+    const onlineNow = await computeOnlineNow();
+    if (adminStatsOnlineDiv) {
+      adminStatsOnlineDiv.textContent = `Сейчас онлайн (по lastSeen): ${onlineNow}`;
+    }
+
+    const periodStats = await computePeriodStats(allVisits, start, end);
+    if (adminStatsWeekDiv) {
+      if (!periodStats.rows.length) {
+        adminStatsWeekDiv.textContent = 'За выбранный период ещё нет данных.';
+      } else {
+        const txt = periodStats.rows
+          .map(r => `${r.date}: визитов ${r.visits}, уникальных ${r.unique}`)
+          .join('; ');
+        adminStatsWeekDiv.textContent =
+          `Период (${adminPeriod}): ${txt}. Макс. уникальных в день: ${periodStats.maxUsersDay}`;
+      }
+    }
+
+    const topUsers = await computeTopUsers(allVisits, start, end);
+    if (adminStatsTopUsersDiv) {
+      if (!topUsers.length) {
+        adminStatsTopUsersDiv.textContent = 'Топ активных пользователей: нет данных.';
+      } else {
+        const line = topUsers
+          .map((u, i) => `${i + 1}) ${u.email || u.uid} — ${u.count} визитов`)
+          .join('; ');
+        adminStatsTopUsersDiv.textContent = 'Топ активных за период: ' + line;
+      }
+    }
+
+    const devStats = computeDevicesStats(allVisits, start, end);
+    if (adminStatsDevicesDiv) {
+      const uaPart = Object.entries(devStats.uaCounts)
+        .map(([k, v]) => `${k}: ${v}`)
+        .join(', ') || 'нет данных';
+      const langPart = Object.entries(devStats.langCounts)
+        .map(([k, v]) => `${k}: ${v}`)
+        .join(', ') || 'нет данных';
+      const scrPart = Object.entries(devStats.screenCounts)
+        .slice(0, 5)
+        .map(([k, v]) => `${k}: ${v}`)
+        .join(', ') || 'нет данных';
+
+      adminStatsDevicesDiv.textContent =
+        `Устройства: ${uaPart}. Языки: ${langPart}. Топ экранов: ${scrPart}`;
+    }
+
+    if (adminStatsAlertsDiv) {
+      const alerts = [];
+      if (todayStats.totalVisitsToday === 0) {
+        alerts.push('Сегодня ещё не было визитов.');
+      }
+      if (onlineNow === 0) {
+        alerts.push('Сейчас на сайте никого нет.');
+      }
+      if (periodStats.maxUsersDay > 0 && todayStats.uniqueToday > periodStats.maxUsersDay) {
+        alerts.push('Сегодня рекорд по количеству уникальных пользователей за выбранный период!');
+      }
+      adminStatsAlertsDiv.textContent = alerts.join(' ');
+    }
+  }
+
+  async function loadAdminVisits() {
+    if (!currentUser || currentUser.email !== ADMIN_EMAIL) {
+      if (adminWarning) {
+        adminWarning.textContent = 'Админ-панель доступна только для администратора.';
+      }
+      if (adminVisitsBody) adminVisitsBody.innerHTML = '';
+      return;
+    }
+    if (adminWarning) adminWarning.textContent = '';
+
     adminVisitsBody.innerHTML = '';
+
+    const visitsRef = collection(db, 'visits');
+    const qRef = query(visitsRef, orderBy('createdAt', 'desc'));
+    const snap = await getDocs(qRef);
+
+    const allVisits = [];
     let i = 1;
+
     snap.forEach(docSnap => {
       const v = docSnap.data();
+      if (!v.createdAt) return;
+      const d = v.createdAt.toDate ? v.createdAt.toDate() : new Date(v.createdAt);
+      const { start, end } = getPeriodBounds(adminPeriod);
+      if (d < start || d > end) return;
+      if (!passTextFilters(v)) return;
+
+      allVisits.push(v);
+
       const tr = document.createElement('tr');
-      const dt = v.createdAt && v.createdAt.toDate ? v.createdAt.toDate() : null;
       tr.innerHTML = `
         <td>${i++}</td>
-        <td>${dt ? dt.toLocaleString() : '-'}</td>
+        <td>${d.toLocaleString()}</td>
         <td>${v.uid || '-'}<br>${v.email || '-'}</td>
         <td style="max-width:220px;word-break:break-all;">${v.userAgent || '-'}</td>
         <td>${v.language || '-'}</td>
@@ -2039,76 +2442,86 @@
       });
       adminVisitsBody.appendChild(tr);
     });
+
+    await renderAdminStatsFromVisits(allVisits);
   }
   window.loadAdminVisits = loadAdminVisits;
 
-  // --- Auth (регистрация / вход / выход) ---
-  function showError(msg) { authError.textContent = msg; }
+  if (adminApplyFiltersBtn) {
+    adminApplyFiltersBtn.addEventListener('click', () => {
+      adminPeriod = adminPeriodSelect ? adminPeriodSelect.value : '7d';
+      adminFilterClass = adminClassFilterInput ? adminClassFilterInput.value.trim() : '';
+      adminFilterEmail = adminEmailFilterInput ? adminEmailFilterInput.value.trim() : '';
+      loadAdminVisits();
+    });
+  }
 
-  signupBtn.addEventListener('click', async () => {
-    showError('');
+  // --- Auth ---
+  async function doLogin() {
+    authError.textContent = '';
     try {
-      await createUserWithEmailAndPassword(auth, emailInput.value, passInput.value);
-      addNotification('Создан новый аккаунт', 'auth-signup');
+      const userCred = await signInWithEmailAndPassword(auth, emailInput.value, passInput.value);
+      currentUser = userCred.user;
     } catch (e) {
-      console.error(e);
-      showError(e.code || 'Ошибка регистрации');
+      authError.textContent = e.message;
     }
-  });
-
-  loginBtn.addEventListener('click', async () => {
-    showError('');
+  }
+  async function doSignup() {
+    authError.textContent = '';
     try {
-      await signInWithEmailAndPassword(auth, emailInput.value, passInput.value);
-      addNotification('Успешный вход в аккаунт', 'auth-login');
+      const userCred = await createUserWithEmailAndPassword(auth, emailInput.value, passInput.value);
+      currentUser = userCred.user;
     } catch (e) {
-      console.error(e);
-      showError(e.code || 'Ошибка входа');
+      authError.textContent = e.message;
     }
-  });
+  }
+  async function doLogout() {
+    await signOut(auth);
+  }
 
-  logoutBtn.addEventListener('click', async () => {
-    try {
-      await signOut(auth);
-      addNotification('Выход из аккаунта', 'auth-logout');
-    } catch (e) {
-      console.error(e);
-    }
-  });
+  loginBtn.addEventListener('click', doLogin);
+  signupBtn.addEventListener('click', doSignup);
+  logoutBtn.addEventListener('click', doLogout);
 
-  // --- onAuthStateChanged + init ---
-  loadTheme();
-  loadNotifications();
-
+  // --- onAuthStateChanged ---
   onAuthStateChanged(auth, async (user) => {
-    currentUser = user || null;
-
+    currentUser = user;
     if (!user) {
       authPanel.classList.remove('hidden');
       appRoot.classList.add('hidden');
       return;
     }
+    await setDoc(doc(db, 'users', user.uid), {
+      lastSeen: serverTimestamp()
+    }, { merge: true });
 
     authPanel.classList.add('hidden');
     appRoot.classList.remove('hidden');
 
     await loadProfile();
-    applyProfileToUI();
-    await loadTasksDone();
-    await switchQuarter(1);
-    renderSchedule();
-    renderTasksForDay(currentTasksDay);
-    renderRating();
+    loadTheme();
+    loadNotifications();
+    initTasksStructure();
+    loadTasks();
+    renderScheduleTabs();
+    renderTasksTabs();
+    await loadGrades();
+    renderAllByDate();
+    renderSubjectsTable();
+    renderSubjectList();
+    await renderRating();
     renderRatingHistory();
+    showPage('journal');
+
     await logVisit(user);
   });
 
-  window.profile = profile;
-  window.currentQuarter = currentQuarter;
-  window.currentWeek = currentWeek;
-  window.currentTasksDay = currentTasksDay;
+  // инициализация при загрузке (на случай, если юзер уже авторизован)
+  loadTheme();
+  loadNotifications();
 </script>
-<script type="module">
+
+  <script type="module">
   import {
     collection,
     doc,
@@ -2117,18 +2530,16 @@
     getDoc,
     getDocs,
     query,
-    where,
     orderBy,
     onSnapshot,
     serverTimestamp
   } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-  import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-  import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"; /* [web:579] */
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
   const auth = getAuth();
   const db = getFirestore();
 
-  // DOM для чата
   const chatDialogsList = document.getElementById('chat-dialogs-list');
   const chatMessagesDiv = document.getElementById('chat-messages');
   const chatInput = document.getElementById('chat-input');
@@ -2139,8 +2550,6 @@
   let chatUnsubMessages = null;
   let currentChatId = null;
   let currentChatPartner = null;
-
-  // ========== ВСПОМОГАЮЩИЕ ФУНКЦИИ ==========
 
   function getCurrentUser() {
     return auth.currentUser || null;
@@ -2181,7 +2590,7 @@
     chatSendBtn.disabled = !enabled;
   }
 
-  // ========== ЗАГРУЗКА СПИСКА ПОЛЬЗОВАТЕЛЕЙ ДЛЯ ЧАТА ==========
+  // ===== СПИСОК ПОЛЬЗОВАТЕЛЕЙ ДЛЯ ЧАТА =====
 
   async function loadChatUsersList() {
     const me = getCurrentUser();
@@ -2197,7 +2606,6 @@
       return;
     }
 
-    // тянем всех пользователей из коллекции users, кроме себя
     const usersSnap = await getDocs(collection(db, 'users'));
     const items = [];
     usersSnap.forEach(uDoc => {
@@ -2257,7 +2665,7 @@
   }
   window.loadChatUsersList = loadChatUsersList;
 
-  // ========== ОТКРЫТИЕ/СОЗДАНИЕ ЧАТА ==========
+  // ===== СОЗДАНИЕ / ОТКРЫТИЕ ЧАТА =====
 
   async function ensureChatDocument(uid1, uid2) {
     const chatId = normalizeChatId(uid1, uid2);
@@ -2277,7 +2685,6 @@
     const me = getCurrentUser();
     if (!me) return;
 
-    // отписываемся от предыдущего чата
     if (chatUnsubMessages) {
       chatUnsubMessages();
       chatUnsubMessages = null;
@@ -2292,7 +2699,6 @@
     setChatEnabled(true);
     clearMessages();
 
-    // подписка на сообщения
     const messagesRef = collection(ref, 'messages');
     const qRef = query(messagesRef, orderBy('createdAt', 'asc'));
     chatUnsubMessages = onSnapshot(qRef, (snapshot) => {
@@ -2303,7 +2709,6 @@
       });
     });
 
-    // подзагрузим последний текст в списке диалогов (lastMessage)
     updateLastMessageForDialog(user.uid);
   }
   window.openChatWith = openChatWith;
@@ -2333,7 +2738,7 @@
     }
   }
 
-  // ========== ОТПРАВКА СООБЩЕНИЯ ==========
+  // ===== ОТПРАВКА СООБЩЕНИЙ =====
 
   async function sendMessage() {
     const me = getCurrentUser();
@@ -2369,7 +2774,7 @@
     }
   });
 
-  // ========== АВТО-ОТКРЫТИЕ ЧАТА ИЗ ПРОФИЛЯ ==========
+  // ===== ОТКРЫТИЕ ЧАТА ИЗ ПРОФИЛЯ =====
 
   window.openChatForUid = async function (uid) {
     const me = getCurrentUser();
@@ -2398,13 +2803,10 @@
     await openChatWith(user);
   };
 
-  // ========== РЕАКЦИЯ НА ВХОД/ВЫХОД ПОЛЬЗОВАТЕЛЯ ==========
-
-  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js"; /* [web:522] */
+  // ===== РЕАКЦИЯ НА ВХОД / ВЫХОД =====
 
   onAuthStateChanged(auth, async (user) => {
     if (!user) {
-      // разлогинились
       if (chatUnsubMessages) {
         chatUnsubMessages();
         chatUnsubMessages = null;
@@ -2419,270 +2821,9 @@
       return;
     }
 
-    // вошли — подгружаем список реальных пользователей для чата
     await loadChatUsersList();
   });
 </script>
 
-<body>
-
-  <!-- ПАНЕЛЬ АВТОРИЗАЦИИ -->
-  <div id="auth-panel">
-    <h2 style="margin:0 0 6px;">Вход / Регистрация</h2>
-    <input id="auth-email" type="email" placeholder="Email">
-    <input id="auth-password" type="password" placeholder="Пароль">
-    <button id="auth-login-btn">Войти</button>
-    <button id="auth-signup-btn">Регистрация</button>
-    <button id="auth-logout-btn">Выйти</button>
-    <div id="auth-error"></div>
-  </div>
-
-  <!-- ОСНОВНОЕ ПРИЛОЖЕНИЕ -->
-  <div id="app-root" class="hidden">
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <img id="sidebar-avatar-img" src="teacher.jpg" alt="">
-        <div>
-          <div id="sidebar-name">Дневник Веника</div>
-          <div id="sidebar-class">8Б класс</div>
-        </div>
-      </div>
-      <nav class="sidebar-nav">
-        <div class="sidebar-item active" data-page="journal">Дневник</div>
-        <div class="sidebar-item" data-page="schedule">Расписание</div>
-        <div class="sidebar-item" data-page="tasks">Домашка</div>
-        <div class="sidebar-item" data-page="rating">Рейтинг</div>
-        <div class="sidebar-item" data-page="chat">Чат</div>
-        <div class="sidebar-item" data-page="profile">Профиль</div>
-        <div class="sidebar-item" id="sidebar-notif-item" data-page="notifications">Уведомления</div>
-        <div class="sidebar-item" data-page="admin">Админ</div>
-      </nav>
-    </aside>
-
-    <div style="flex:1; display:flex; flex-direction:column; gap:10px;">
-      <header class="topbar">
-        <div class="topbar-left">
-          <div id="topbar-title">Дневник Веника</div>
-        </div>
-        <div class="topbar-right">
-          <button id="theme-toggle" class="btn secondary">
-            <span id="theme-toggle-icon">🌙</span>
-            <span id="theme-toggle-text">Тёмная</span>
-          </button>
-          <div class="notif-bell" data-page="notifications">
-            🔔
-            <span id="bell-badge" class="hidden">0</span>
-          </div>
-          <div class="topbar-user" data-page="profile">
-            <img id="avatar-small-img" src="teacher.jpg" alt="">
-            <span id="topbar-name">Профиль ▾</span>
-          </div>
-        </div>
-      </header>
-
-      <!-- СТРАНИЦЫ -->
-      <main id="page-journal">
-        <section class="controls">
-          <div>
-            Четверть:
-            <button class="quarter-btn active" data-quarter="1">1</button>
-            <button class="quarter-btn" data-quarter="2">2</button>
-            <button class="quarter-btn" data-quarter="3">3</button>
-            <button class="quarter-btn" data-quarter="4">4</button>
-            <span id="current-quarter-label">1 четверть</span>
-          </div>
-          <div>
-            Неделя:
-            <button class="week-btn active" data-week="1">1</button>
-            <button class="week-btn" data-week="2">2</button>
-            <button class="week-btn" data-week="3">3</button>
-            <button class="week-btn" data-week="4">4</button>
-            <span id="current-week-label">1 неделя</span>
-          </div>
-        </section>
-
-        <section class="add-grade">
-          <select id="subject-input">
-            <option>Алгебра</option>
-            <option>Геометрия</option>
-            <option>Русский язык</option>
-            <option>Иностранный (английский) язык</option>
-            <option>Физика</option>
-            <option>Химия</option>
-            <option>Биология</option>
-            <option>История</option>
-            <option>География</option>
-            <option>Информатика</option>
-            <option>Искусственный интеллект</option>
-            <option>Обществознание</option>
-            <option>Физическая культура</option>
-            <option>Труд (технология)</option>
-            <option>Музыка</option>
-          </select>
-          <input id="type-input" type="text" placeholder="Тип работы (контрольная, ДЗ...)">
-          <select id="day-select">
-            <option value="mon">Пн</option>
-            <option value="tue">Вт</option>
-            <option value="wed">Ср</option>
-            <option value="thu">Чт</option>
-            <option value="fri">Пт</option>
-            <option value="sat">Сб</option>
-            <option value="sun">Вс</option>
-          </select>
-          <input id="mark-input" type="number" min="1" max="5" placeholder="Оценка">
-          <button id="add-grade-btn" class="btn primary">Добавить</button>
-        </section>
-
-        <section class="week-grid">
-          <div id="mon-block" class="day-block"><h3>Понедельник</h3></div>
-          <div id="tue-block" class="day-block"><h3>Вторник</h3></div>
-          <div id="wed-block" class="day-block"><h3>Среда</h3></div>
-          <div id="thu-block" class="day-block"><h3>Четверг</h3></div>
-          <div id="fri-block" class="day-block"><h3>Пятница</h3></div>
-          <div id="sat-block" class="day-block"><h3>Суббота</h3></div>
-          <div id="sun-block" class="day-block"><h3>Воскресенье</h3></div>
-        </section>
-
-        <section class="subjects-summary">
-          <h3 style="margin:6px 0 4px;font-size:14px;">Средний балл по предметам</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Предмет</th>
-                <th>Оценки</th>
-                <th>Средний</th>
-              </tr>
-            </thead>
-            <tbody id="subjects-table-body"></tbody>
-          </table>
-          <div id="subject-list"></div>
-        </section>
-      </main>
-
-      <main id="page-schedule" class="hidden">
-        <h2>Расписание</h2>
-        <div id="schedule-day-tabs" class="tabs-row"></div>
-        <div id="schedule-container"></div>
-      </main>
-
-      <main id="page-tasks" class="hidden">
-        <h2>Домашка</h2>
-        <div class="tasks-controls">
-          <label>Показать:
-            <select id="tasks-filter-select">
-              <option value="all">Все</option>
-              <option value="todo">Только невыполненные</option>
-              <option value="done">Только выполненные</option>
-            </select>
-          </label>
-        </div>
-        <div id="tasks-day-tabs" class="tabs-row"></div>
-        <div id="tasks-container"></div>
-      </main>
-
-      <main id="page-rating" class="hidden">
-        <h2>Рейтинг класса</h2>
-        <button id="rating-refresh-btn" class="btn secondary">Обновить</button>
-        <table>
-          <thead>
-          <tr>
-            <th>Место</th>
-            <th>Ученик</th>
-            <th>Средний балл</th>
-          </tr>
-          </thead>
-          <tbody id="rating-table-body"></tbody>
-        </table>
-        <div id="rating-history" style="margin-top:6px;font-size:12px;color:var(--text-muted);"></div>
-      </main>
-
-      <main id="page-chat" class="hidden">
-        <section class="chat-layout">
-          <div class="chat-sidebar">
-            <h3>Чаты</h3>
-            <div id="chat-dialogs-list"></div>
-          </div>
-          <div class="chat-main">
-            <div class="chat-header">
-              <div>
-                <div id="chat-current-name">Выбери собеседника слева</div>
-                <div id="chat-current-status" class="chat-status"></div>
-              </div>
-            </div>
-            <div id="chat-messages"></div>
-            <div class="chat-input-row">
-              <input id="chat-input" type="text" placeholder="Напиши сообщение..." disabled>
-              <button id="chat-send-btn" class="btn primary" disabled>Отправить</button>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <main id="page-profile" class="hidden">
-        <section class="profile-header">
-          <img id="profile-avatar-img" src="teacher.jpg" alt="">
-          <div>
-            <h2 id="profile-name-display">Веник Веников</h2>
-            <p id="profile-class-display">Ученик 8Б класса</p>
-          </div>
-          <button id="profile-message-btn" class="btn primary" style="margin-left:auto;display:none;">Написать</button>
-        </section>
-
-        <section class="profile-info">
-          <div><strong>Имя:</strong> <span id="profile-name-info"></span></div>
-          <div><strong>Email:</strong> <span id="profile-email-info"></span></div>
-          <div><strong>Город:</strong> <span id="profile-city-info"></span></div>
-          <div><strong>Класс:</strong> <span id="profile-class-info"></span></div>
-          <div><strong>Любимые предметы:</strong> <span id="profile-fav-info"></span></div>
-        </section>
-
-        <section class="profile-form">
-          <h3 style="margin:0 0 4px;font-size:14px;">Редактирование профиля</h3>
-          <label>Ссылка на аватар:
-            <input id="profile-avatar-input" type="text">
-          </label>
-          <label>Имя:
-            <input id="profile-name-input" type="text">
-          </label>
-          <label>Город:
-            <input id="profile-city-input" type="text">
-          </label>
-          <label>Класс:
-            <input id="profile-class-input" type="text">
-          </label>
-          <label>Любимые предметы:
-            <input id="profile-fav-input" type="text">
-          </label>
-          <button id="profile-save-btn" class="btn primary">Сохранить</button>
-        </section>
-      </main>
-
-      <main id="page-notifications" class="hidden">
-        <h2>Уведомления</h2>
-        <div class="notif-controls">
-          <button id="notif-mark-read" class="btn secondary">Отметить как прочитанные</button>
-          <button id="notif-clear" class="btn secondary">Очистить</button>
-        </div>
-        <div id="notifications-list"></div>
-      </main>
-
-      <main id="page-admin" class="hidden">
-        <h2>Админ-панель</h2>
-        <div id="admin-warning" style="color:#f97316;font-size:13px;"></div>
-        <table>
-          <thead>
-          <tr>
-            <th>#</th>
-            <th>Когда</th>
-            <th>Пользователь</th>
-            <th>User‑Agent</th>
-            <th>Язык</th>
-            <th>Экран</th>
-            <th>Действие</th>
-          </tr>
-          </thead>
-          <tbody id="admin-visits-body"></tbody>
-        </table>
-      </main>
-    </div>
-  </div>
+</body>
+</html>
