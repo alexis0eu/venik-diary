@@ -1625,15 +1625,42 @@
     saveRatingHistory(history);
   }
   function renderRatingHistory() {
-    const history = loadRatingHistory();
-    if (!history.length) {
-      ratingHistoryDiv.textContent = 'История рейтинга пока пуста.';
-      return;
-    }
-    const last = history.slice(-5);
-    ratingHistoryDiv.textContent = 'Последние изменения: ' +
-      last.map(h => `${new Date(h.ts).toLocaleString()} — ср. ${h.avg.toFixed(2)}`).join('; ');
+  const history = loadRatingHistory();
+  if (!history.length) {
+    ratingHistoryDiv.textContent = 'История рейтинга пока пуста.';
+    return;
   }
+
+  // фильтруем только записи, где avg — число
+  const cleaned = history
+    .filter(h => typeof h.avg === 'number' && !isNaN(h.avg));
+
+  if (!cleaned.length) {
+    ratingHistoryDiv.textContent = 'История рейтинга пока пуста.';
+    return;
+  }
+(function fixOldRatingHistory(){
+  const raw = localStorage.getItem('venik-rating-history');
+  if (!raw) return;
+  try {
+    const arr = JSON.parse(raw);
+    const cleaned = arr.filter(h => typeof h.avg === 'number' && !isNaN(h.avg));
+    localStorage.setItem('venik-rating-history', JSON.stringify(cleaned));
+  } catch(e){}
+})();
+
+
+  const last = cleaned.slice(-5);
+  ratingHistoryDiv.textContent =
+    'Последние изменения: ' +
+    last
+      .map(h => {
+        const avg = (typeof h.avg === 'number' && !isNaN(h.avg)) ? h.avg : 0;
+        return `${new Date(h.ts).toLocaleString()} — ср. ${avg.toFixed(2)}`;
+      })
+      .join('; ');
+}
+
 
   async function renderRating() {
     if (!ratingTableBody) return;
@@ -2067,7 +2094,7 @@
   loadNotifications();
 </script>
 
-<script type="module">
+       <script type="module">
   import {
     collection,
     doc,
@@ -2370,6 +2397,7 @@
     await loadChatUsersList();
   });
 </script>
+
 
 </body>
 </html>
